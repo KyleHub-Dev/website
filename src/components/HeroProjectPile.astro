@@ -1,0 +1,77 @@
+---
+interface Props {
+  lang?: 'de' | 'en';
+}
+
+const { lang = 'de' } = Astro.props;
+
+const t = lang === 'de'
+  ? {
+      liveName: 'Nashordaq',
+      liveDesc: 'Fantasie-Stock-Markt für LeagueOfLegends',
+      liveState: 'live',
+      liveAriaLabel: 'Nashordaq live demo, opens in new tab',
+      previewLabel: 'live demo',
+      lockedFirst: 'private',
+      lockedFirstDesc: 'Homelab Gateway',
+      lockedSecond: 'invite-only',
+      lockedSecondDesc: 'wird gerade gebaut',
+    }
+  : {
+      liveName: 'Nashordaq',
+      liveDesc: 'Fantasy-Stock-Market for LeagueOfLegends',
+      liveState: 'live',
+      liveAriaLabel: 'Nashordaq live demo, opens in new tab',
+      previewLabel: 'live demo',
+      lockedFirst: 'private',
+      lockedFirstDesc: 'homelab gateway',
+      lockedSecond: 'invite-only',
+      lockedSecondDesc: 'in development',
+    };
+---
+
+<div class="pile" aria-label={lang === 'de' ? 'Aktuelle Projekte' : 'Current projects'}>
+  <a
+    class="tile tile--live"
+    href="https://demo-nashordaq.kylehub.dev/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={t.liveAriaLabel}
+  >
+    <div class="tile__media" aria-hidden="true">
+      <span class="tile__placeholder-text">{t.previewLabel}</span>
+    </div>
+    <div class="tile__caption">
+      <span class="tile__caption-label">
+        <span class="tile__caption-name">{t.liveName}</span>
+        <span class="tile__caption-desc">{t.liveDesc}</span>
+      </span>
+      <span class="tile__caption-state">
+        {t.liveState}
+        <span class="tile__caption-arrow" aria-hidden="true">↗</span>
+      </span>
+    </div>
+  </a>
+
+  <div class="tile tile--locked tile--first" aria-hidden="true">
+    <div class="tile__media">
+      <span class="tile__placeholder-text">{t.lockedFirst}</span>
+    </div>
+    <div class="tile__caption">
+      <span class="tile__caption-label">
+        <span class="tile__caption-desc">{t.lockedFirstDesc}</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="tile tile--locked tile--second" aria-hidden="true">
+    <div class="tile__media">
+      <span class="tile__placeholder-text">{t.lockedSecond}</span>
+    </div>
+    <div class="tile__caption">
+      <span class="tile__caption-label">
+        <span class="tile__caption-desc">{t.lockedSecondDesc}</span>
+      </span>
+    </div>
+  </div>
+</div>

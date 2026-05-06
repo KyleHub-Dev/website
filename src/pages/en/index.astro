@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { homeContent, nav, projects } from '../../data/site';
+import HeroProjectPile from '../../components/HeroProjectPile.astro';
+import { homeContent, nav } from '../../data/site';
 
 const content = homeContent.en;
 ---
@@ -13,31 +14,31 @@ const content = homeContent.en;
   alternatePath="/"
   nav={nav.en}
 >
-  <section class="page-intro">
-    <p class="eyebrow">{content.heroEyebrow}</p>
-    <h1>{content.heroTitle}</h1>
-    <p>{content.heroBody}</p>
-    <div class="actions">
-      <a href={content.primaryCta.href} class="button">{content.primaryCta.label}</a>
-      <a href={content.secondaryCta.href} class="button button--secondary">{content.secondaryCta.label}</a>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__grid">
+      <div class="hero__lede">
+        <p class="eyebrow">
+          <span>01</span><span class="eyebrow__sep">/</span><span>Operator</span>
+        </p>
+        <h1 id="hero-title" class="hero__title">
+          {content.titleLead}<br />
+          <em>{content.titleAccent}</em><br />
+          {content.titleTail}
+        </h1>
+        <p class="hero__body">
+          KyleHub is the central surface for my public services on <code>kylehub.dev</code> and <code>porvi.de</code>. The legal pages live here, a small set of running projects sits to the right, and there is an open door for odd ideas at the bottom of the page.
+        </p>
+      </div>
+
+      <div class="hero__pile-wrap">
+        <HeroProjectPile lang="en" />
+      </div>
     </div>
   </section>
 
-  <section class="section-block">
-    <div class="section-heading">
-      <p class="eyebrow">{content.sections.projects}</p>
-      <h2>GitHub</h2>
-    </div>
-    <div class="project-list">
-      {projects.en.map((project) => (
-        <a href={project.href} class="project-row">
-          <span>
-            <strong>{project.name}</strong>
-            <small>{project.text}</small>
-          </span>
-          <span aria-hidden="true">Open</span>
-        </a>
-      ))}
-    </div>
-  </section>
+  <a class="handoff" href="/en/projects" aria-label="Jump to projects">
+    <span class="handoff__label">
+      projects <span class="handoff__label-arrow" aria-hidden="true">↓</span>
+    </span>
+  </a>
 </Layout>

@@ -76,6 +76,7 @@ Fill in:
 - `PANGOLIN_ENDPOINT`
 - `NEWT_ID`
 - `NEWT_SECRET`
+- `GITHUB_TOKEN` (optional, recommended): fine-grained personal access token with read-only access to public repositories. Used by the build to populate the `/projects` page with stars, forks, open issues and last-push timestamps. Without a token the build still succeeds, but the unauthenticated 60 req/hour limit exhausts quickly and the page falls back to "metadata not currently available". The token is passed to the build step as a Buildah/BuildKit secret, mounted ephemerally for `pnpm run build` only and never written into any image layer or runtime environment.
 
 ### Start
 

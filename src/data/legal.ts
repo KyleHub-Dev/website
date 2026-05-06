@@ -25,13 +25,13 @@ const deDate = 'Stand: 6. Mai 2026';
 const enDate = 'Last updated: May 6, 2026';
 const imprintAddress = `${siteConfig.operator.name}, ${siteConfig.operator.street}, ${siteConfig.operator.city}`;
 const hetznerAddress = 'Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen';
-const authorityDe = 'Landesbeauftragte fuer Datenschutz und Informationsfreiheit Nordrhein-Westfalen (LDI NRW)';
+const authorityDe = 'Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen (LDI NRW)';
 const authorityEn = 'State Commissioner for Data Protection and Freedom of Information of North Rhine-Westphalia (LDI NRW)';
-const coveredDomainsDe = `Dieses Impressum gilt fuer alle oeffentlich erreichbaren digitalen Dienste, die von ${siteConfig.operator.name} unter den Domains ${legalDomainFamilyListDe} sowie deren Subdomains betrieben werden, soweit dort kein abweichendes Impressum angegeben ist.`;
+const coveredDomainsDe = `Dieses Impressum gilt für alle öffentlich erreichbaren digitalen Dienste, die von ${siteConfig.operator.name} unter den Domains ${legalDomainFamilyListDe} sowie deren Subdomains betrieben werden, soweit dort kein abweichendes Impressum angegeben ist.`;
 const coveredDomainsEn = `This impressum applies to all publicly accessible digital services operated by ${siteConfig.operator.name} under the domains ${legalDomainFamilyListEn} and their subdomains, unless a specific service publishes a different legal notice.`;
-const privacyScopeDe = `Diese Datenschutzerklaerung gilt fuer die oeffentlich erreichbaren Dienste unter ${legalDomainFamilyListDe} sowie deren Subdomains, soweit dort keine speziellere Datenschutzerklaerung bereitgestellt wird.`;
+const privacyScopeDe = `Diese Datenschutzerklärung gilt für die öffentlich erreichbaren Dienste unter ${legalDomainFamilyListDe} sowie deren Subdomains, soweit dort keine speziellere Datenschutzerklärung bereitgestellt wird.`;
 const privacyScopeEn = `This privacy policy applies to the publicly accessible services under ${legalDomainFamilyListEn} and their subdomains unless a more specific privacy policy is provided for an individual service.`;
-const termsScopeDe = `Diese Nutzungsbedingungen gelten fuer die oeffentlich erreichbaren Dienste unter ${legalDomainFamilyListDe} sowie deren Subdomains, soweit fuer einzelne Dienste keine spezielleren Bedingungen gelten.`;
+const termsScopeDe = `Diese Nutzungsbedingungen gelten für die öffentlich erreichbaren Dienste unter ${legalDomainFamilyListDe} sowie deren Subdomains, soweit für einzelne Dienste keine spezielleren Bedingungen gelten.`;
 const termsScopeEn = `These terms apply to the publicly accessible services under ${legalDomainFamilyListEn} and their subdomains unless more specific terms apply to an individual service.`;
 
 export const legalDocs: Record<string, Doc> = {
@@ -41,7 +41,7 @@ export const legalDocs: Record<string, Doc> = {
     intro: coveredDomainsDe,
     sections: [
       {
-        title: 'Angaben gemaess DDG',
+        title: 'Angaben gemäß DDG',
         blocks: [
           { type: 'p', text: imprintAddress },
           { type: 'p', text: `Telefon: ${siteConfig.operator.phone}` },
@@ -57,16 +57,16 @@ export const legalDocs: Record<string, Doc> = {
           },
           {
             type: 'list',
-            items: legalDomainFamilyNames.map((domain) => `${domain} und oeffentliche Subdomains`),
+            items: legalDomainFamilyNames.map((domain) => `${domain} und öffentliche Subdomains`),
           },
           {
             type: 'p',
-            text: 'Dienste mit einem abweichenden Betreiber oder eigenen Anbieterangaben veroeffentlichen ein eigenes Impressum, das dann fuer den jeweiligen Dienst vorrangig gilt.',
+            text: 'Dienste mit einem abweichenden Betreiber oder eigenen Anbieterangaben veröffentlichen ein eigenes Impressum, das dann für den jeweiligen Dienst vorrangig gilt.',
           },
         ],
       },
       {
-        title: 'Verantwortlich fuer redaktionelle Inhalte',
+        title: 'Verantwortlich für redaktionelle Inhalte',
         blocks: [{ type: 'p', text: `${siteConfig.operator.name}, ${siteConfig.operator.street}, ${siteConfig.operator.city}` }],
       },
       {
@@ -74,7 +74,7 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: 'Diese Website enthaelt Verweise auf externe Angebote wie GitHub oder Dokumentationsseiten. Fuer die Inhalte verlinkter Seiten sind ausschliesslich deren jeweilige Betreiber verantwortlich.',
+            text: 'Diese Website enthält Verweise auf externe Angebote wie GitHub oder Dokumentationsseiten. Für die Inhalte verlinkter Seiten sind ausschließlich deren jeweilige Betreiber verantwortlich.',
           },
         ],
       },
@@ -126,7 +126,7 @@ export const legalDocs: Record<string, Doc> = {
     ],
   },
   'de-privacy': {
-    title: 'Datenschutzerklaerung',
+    title: 'Datenschutzerklärung',
     updated: deDate,
     intro: privacyScopeDe,
     sections: [
@@ -147,7 +147,7 @@ export const legalDocs: Record<string, Doc> = {
           },
           {
             type: 'p',
-            text: 'Die folgenden Abschnitte beschreiben die Verarbeitung nach Kategorien von Diensten statt nach einzelnen Subdomains. Dadurch bleibt die Datenschutzerklaerung zentral, deckt aber unterschiedliche Arten von Diensten ab.',
+            text: 'Die folgenden Abschnitte beschreiben die Verarbeitung nach Kategorien von Diensten statt nach einzelnen Subdomains. Dadurch bleibt die Datenschutzerklärung zentral, deckt aber unterschiedliche Arten von Diensten ab.',
           },
         ],
       },
@@ -157,7 +157,7 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: 'Allgemeine Websites und Landing Pages stellen Informationen ueber KyleHub, Porvi, Projekte, Dokumentation oder Kontaktmoeglichkeiten bereit.',
+            text: 'Allgemeine Websites und Landing Pages stellen Informationen über KyleHub, Porvi, Projekte, Dokumentation oder Kontaktmöglichkeiten bereit.',
           },
           {
             type: 'p',
@@ -171,11 +171,11 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: 'Dokumentations- und Wissensseiten koennen Inhalte, Suchfunktionen und Links zu Repositories oder externen Quellen bereitstellen.',
+            text: 'Dokumentations- und Wissensseiten können Inhalte, Suchfunktionen und Links zu Repositories oder externen Quellen bereitstellen.',
           },
           {
             type: 'p',
-            text: 'Wenn keine Anmeldung, kein Kommentarbereich und keine freiwillige Eingabe genutzt wird, beschraenkt sich die Verarbeitung auf technische Zugriffsdaten und die vom Browser uebermittelten Informationen.',
+            text: 'Wenn keine Anmeldung, kein Kommentarbereich und keine freiwillige Eingabe genutzt wird, beschränkt sich die Verarbeitung auf technische Zugriffsdaten und die vom Browser übermittelten Informationen.',
           },
         ],
       },
@@ -185,11 +185,11 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: 'Einzelne Dienste koennen Benutzerkonten, Login-Funktionen, Session-Cookies oder nutzerbezogene Inhalte verwenden. Dazu koennen insbesondere E-Mail-Adresse, Benutzername, Authentifizierungsdaten, Session-IDs, Einstellungen und vom Nutzer eingegebene Inhalte gehoeren.',
+            text: 'Einzelne Dienste können Benutzerkonten, Login-Funktionen, Session-Cookies oder nutzerbezogene Inhalte verwenden. Dazu können insbesondere E-Mail-Adresse, Benutzername, Authentifizierungsdaten, Session-IDs, Einstellungen und vom Nutzer eingegebene Inhalte gehören.',
           },
           {
             type: 'p',
-            text: 'Die Verarbeitung erfolgt je nach Funktion auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO zur Bereitstellung des Dienstes oder Art. 6 Abs. 1 lit. f DSGVO fuer Sicherheit, Missbrauchsschutz und stabilen Betrieb.',
+            text: 'Die Verarbeitung erfolgt je nach Funktion auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO zur Bereitstellung des Dienstes oder Art. 6 Abs. 1 lit. f DSGVO für Sicherheit, Missbrauchsschutz und stabilen Betrieb.',
           },
         ],
       },
@@ -209,11 +209,11 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: `Wir hosten zentrale KyleHub-Webinhalte bei ${hetznerAddress}. Bei jedem Aufruf koennen technisch erforderliche Verbindungsdaten verarbeitet werden, insbesondere IP-Adresse, Zeitpunkt, angeforderte Ressource, Statuscode, Referrer und User-Agent.`,
+            text: `Wir hosten zentrale KyleHub-Webinhalte bei ${hetznerAddress}. Bei jedem Aufruf können technisch erforderliche Verbindungsdaten verarbeitet werden, insbesondere IP-Adresse, Zeitpunkt, angeforderte Ressource, Statuscode, Referrer und User-Agent.`,
           },
           {
             type: 'p',
-            text: 'Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO, da sie fuer Betriebssicherheit, Fehleranalyse, Missbrauchserkennung und stabile Bereitstellung erforderlich ist.',
+            text: 'Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO, da sie für Betriebssicherheit, Fehleranalyse, Missbrauchserkennung und stabile Bereitstellung erforderlich ist.',
           },
         ],
       },
@@ -223,11 +223,11 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: 'Die zentrale Baseline setzt keine nicht erforderlichen Analyse-, Marketing- oder Werbe-Cookies voraus. Technisch notwendige Cookies oder vergleichbare Speicherungen koennen eingesetzt werden, wenn sie fuer Login, Session-Sicherheit, Spracheinstellungen, Schutzfunktionen oder die ausdruecklich angeforderte Dienstfunktion erforderlich sind.',
+            text: 'Die zentrale Baseline setzt keine nicht erforderlichen Analyse-, Marketing- oder Werbe-Cookies voraus. Technisch notwendige Cookies oder vergleichbare Speicherungen können eingesetzt werden, wenn sie für Login, Session-Sicherheit, Spracheinstellungen, Schutzfunktionen oder die ausdrücklich angeforderte Dienstfunktion erforderlich sind.',
           },
           {
             type: 'p',
-            text: 'Nicht erforderliche Cookies, Tracking, Analytics, Remote Fonts, Drittanbieter-Embeds oder vergleichbare Technologien duerfen nur eingesetzt werden, wenn sie im jeweiligen Dienst tatsaechlich verwendet, hier beschrieben und soweit erforderlich erst nach Einwilligung aktiviert werden.',
+            text: 'Nicht erforderliche Cookies, Tracking, Analytics, Remote Fonts, Drittanbieter-Embeds oder vergleichbare Technologien dürfen nur eingesetzt werden, wenn sie im jeweiligen Dienst tatsächlich verwendet, hier beschrieben und soweit erforderlich erst nach Einwilligung aktiviert werden.',
           },
         ],
       },
@@ -237,18 +237,18 @@ export const legalDocs: Record<string, Doc> = {
           {
             type: 'list',
             items: [
-              'Auskunft gemaess Art. 15 DSGVO',
-              'Berichtigung gemaess Art. 16 DSGVO',
-              'Loeschung gemaess Art. 17 DSGVO',
-              'Einschraenkung der Verarbeitung gemaess Art. 18 DSGVO',
-              'Datenuebertragbarkeit gemaess Art. 20 DSGVO',
-              'Widerspruch gemaess Art. 21 DSGVO',
-              'Beschwerde bei einer Aufsichtsbehoerde gemaess Art. 77 DSGVO',
+              'Auskunft gemäß Art. 15 DSGVO',
+              'Berichtigung gemäß Art. 16 DSGVO',
+              'Löschung gemäß Art. 17 DSGVO',
+              'Einschränkung der Verarbeitung gemäß Art. 18 DSGVO',
+              'Datenübertragbarkeit gemäß Art. 20 DSGVO',
+              'Widerspruch gemäß Art. 21 DSGVO',
+              'Beschwerde bei einer Aufsichtsbehörde gemäß Art. 77 DSGVO',
             ],
           },
           {
             type: 'p',
-            text: `Zur Ausuebung Ihrer Rechte schreiben Sie an ${siteConfig.operator.privacyEmail}.`,
+            text: `Zur Ausübung Ihrer Rechte schreiben Sie an ${siteConfig.operator.privacyEmail}.`,
           },
         ],
       },
@@ -257,7 +257,7 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: `Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehoerde zu beschweren. Zustaendig ist insbesondere ${authorityDe}.`,
+            text: `Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Zuständig ist insbesondere ${authorityDe}.`,
           },
         ],
       },
@@ -266,7 +266,7 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: 'Personenbezogene Daten werden nur so lange gespeichert, wie dies fuer den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen.',
+            text: 'Personenbezogene Daten werden nur so lange gespeichert, wie dies für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen.',
           },
         ],
       },
@@ -430,7 +430,7 @@ export const legalDocs: Record<string, Doc> = {
           },
           {
             type: 'p',
-            text: 'Fuer rein informative Seiten gelten diese Bedingungen nur ergaenzend. Dienste mit Benutzerkonto, produktnahen Funktionen oder gesonderten Regeln koennen spezielle Bedingungen veroeffentlichen.',
+            text: 'Für rein informative Seiten gelten diese Bedingungen nur ergänzend. Dienste mit Benutzerkonto, produktnahen Funktionen oder gesonderten Regeln können spezielle Bedingungen veröffentlichen.',
           },
         ],
       },
@@ -439,16 +439,16 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: 'Die Inhalte dieser Website dienen in erster Linie der Information ueber KyleHub, seine Infrastrukturarbeit, oeffentliche Projekte und zentrale Rechtstexte.',
+            text: 'Die Inhalte dieser Website dienen in erster Linie der Information über KyleHub, seine Infrastrukturarbeit, öffentliche Projekte und zentrale Rechtstexte.',
           },
         ],
       },
       {
-        title: 'Zulaessige Nutzung',
+        title: 'Zulässige Nutzung',
         blocks: [
           {
             type: 'p',
-            text: 'Die Dienste duerfen nicht fuer rechtswidrige Inhalte, Angriffe auf Systeme, Missbrauch von Accounts, Umgehung von Schutzmechanismen oder Handlungen genutzt werden, die Rechte Dritter verletzen.',
+            text: 'Die Dienste dürfen nicht für rechtswidrige Inhalte, Angriffe auf Systeme, Missbrauch von Accounts, Umgehung von Schutzmechanismen oder Handlungen genutzt werden, die Rechte Dritter verletzen.',
           },
         ],
       },
@@ -466,7 +466,7 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: 'Wir bemuehen uns um korrekte und aktuelle Informationen, uebernehmen jedoch keine Gewaehr fuer Vollstaendigkeit, Verfuegbarkeit oder dauerhafte Fehlerfreiheit dieser Website.',
+            text: 'Wir bemühen uns um korrekte und aktuelle Informationen, übernehmen jedoch keine Gewähr für Vollständigkeit, Verfügbarkeit oder dauerhafte Fehlerfreiheit dieser Website.',
           },
         ],
       },

@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
+import Wordmark from '../components/Wordmark.astro';
 
 interface NavLink {
   href: string;
@@ -29,15 +30,17 @@ const {
 const siteUrl = 'https://kylehub.dev';
 const canonical = new URL(path, siteUrl).toString();
 const alternate = alternatePath ? new URL(alternatePath, siteUrl).toString() : null;
+const homeHref = lang === 'de' ? '/' : '/en/';
 ---
 
 <!doctype html>
-<html lang={lang} class="h-full">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#181f1d" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="canonical" href={canonical} />
@@ -51,20 +54,17 @@ const alternate = alternatePath ? new URL(alternatePath, siteUrl).toString() : n
     <meta property="og:url" content={canonical} />
     <title>{title}</title>
   </head>
-  <body class="min-h-full bg-canvas text-ink antialiased">
+  <body>
     <div class="page-shell">
       <header class="site-header">
         <div class="site-header__inner">
-          <a href={lang === 'de' ? '/' : '/en/'} class="brand-mark" aria-label="KyleHub home">
-            <span class="brand-mark__glyph">KH</span>
-            <span>
-              <span class="eyebrow">Umbrella</span>
-              <span class="brand-mark__name">KyleHub</span>
-            </span>
-          </a>
+          <Wordmark href={homeHref} ariaLabel="KyleHub home" />
           <nav class="site-nav" aria-label={lang === 'de' ? 'Hauptnavigation' : 'Primary navigation'}>
             {nav.map((item) => (
-              <a href={item.href} class:list={{ 'site-nav__link': true, 'site-nav__link--active': item.href === path }}>
+              <a
+                href={item.href}
+                class:list={{ 'site-nav__link': true, 'site-nav__link--active': item.href === path }}
+              >
                 {item.label}
               </a>
             ))}

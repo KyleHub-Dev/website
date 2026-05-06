@@ -1,0 +1,24 @@
+# kylehub.dev - robots.txt
+#
+# Public, polite, and machine-friendly. AI assistants and crawlers are welcome.
+# Plain-text mirrors of legal pages and brand guidelines are listed below.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://kylehub.dev/sitemap.xml
+
+# Machine-readable resources
+#
+# Legal (German):
+#   /impressum.txt
+#   /datenschutz.txt
+#   /agb.txt
+#
+# Legal (English):
+#   /en/impressum.txt
+#   /en/privacy-policy.txt
+#   /en/terms.txt
+#
+# Brand & design guidelines (for AI assistants and human collaborators):
+#   /branding.txt

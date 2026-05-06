@@ -1,61 +1,182 @@
 ---
+import { execSync } from 'node:child_process';
+import { siteConfig } from '../data/site';
+import Icon from './Icon.astro';
+
 interface Props {
   lang?: 'de' | 'en';
 }
 
 const { lang = 'de' } = Astro.props;
+
 const t = lang === 'de'
   ? {
-      brand: 'KyleHub sammelt Projektlinks und zentrale Rechtstexte.',
-      explore: 'Explore',
+      tagline: 'Ein Operator, ein paar laufende Dienste, langsam gepflegt.',
+      explore: 'Erkunden',
+      code: 'Code',
       legal: 'Rechtliches',
+      contact: 'Kontakt',
       projects: 'Projekte',
-      github: 'GitHub Orga',
-      personal: 'Persoenliche Projekte',
+      porvi: 'porvi.de',
+      githubOrg: 'GitHub Organisation',
+      githubPersonal: 'GitHub persönlich',
+      codebergOrg: 'Codeberg Organisation',
+      codebergPersonal: 'Codeberg persönlich',
       impressum: 'Impressum',
       privacy: 'Datenschutz',
-      terms: 'Nutzungsbedingungen',
-      rights: 'KyleHub. Central legal coverage for kylehub.dev, porvi.de, and public subdomains.',
+      terms: 'AGB',
+      mailLabel: 'E-Mail',
+      discordLabel: 'Discord',
+      matrixLabel: 'Matrix',
+      mastodonLabel: 'Mastodon',
+      comingSoon: 'folgt',
+      lastEdited: 'zuletzt bearbeitet',
+      build: 'build',
     }
   : {
-      brand: 'KyleHub collects project links and central legal texts.',
+      tagline: 'One operator, a handful of running services, kept slowly.',
       explore: 'Explore',
+      code: 'Code',
       legal: 'Legal',
+      contact: 'Contact',
       projects: 'Projects',
-      github: 'GitHub org',
-      personal: 'Personal projects',
+      porvi: 'porvi.de',
+      githubOrg: 'GitHub organization',
+      githubPersonal: 'GitHub personal',
+      codebergOrg: 'Codeberg organization',
+      codebergPersonal: 'Codeberg personal',
       impressum: 'Impressum',
-      privacy: 'Privacy Policy',
+      privacy: 'Privacy policy',
       terms: 'Terms',
-      rights: 'KyleHub. Central legal coverage for kylehub.dev, porvi.de, and public subdomains.',
+      mailLabel: 'Email',
+      discordLabel: 'Discord',
+      matrixLabel: 'Matrix',
+      mastodonLabel: 'Mastodon',
+      comingSoon: 'soon',
+      lastEdited: 'last edited',
+      build: 'build',
     };
+
+let lastEdited = new Date().toISOString().slice(0, 10);
+let buildSha = 'dev';
+try {
+  buildSha = execSync('git rev-parse --short HEAD', { stdio: ['ignore', 'pipe', 'ignore'] })
+    .toString()
+    .trim() || 'dev';
+  const lastCommitDate = execSync('git log -1 --format=%cs', { stdio: ['ignore', 'pipe', 'ignore'] })
+    .toString()
+    .trim();
+  if (lastCommitDate) lastEdited = lastCommitDate;
+} catch {
+  // Ship-time fallbacks already set above.
+}
+
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="site-footer__lead">
-      <p class="eyebrow">KyleHub.dev</p>
-      <p>{t.brand}</p>
+      <span class="site-footer__shield">
+        <img src="/logo.svg" alt="" width="28" height="28" />
+        <span class="site-footer__shield-name">KyleHub</span>
+      </span>
+      <p>{t.tagline}</p>
     </div>
+
     <div>
       <p class="site-footer__heading">{t.explore}</p>
       <ul class="site-footer__list">
-        <li><a href={lang === 'de' ? '/projects' : '/en/projects'}>{t.projects}</a></li>
-        <li><a href="https://github.com/KyleHub-Dev">{t.github}</a></li>
-        <li><a href="https://github.com/KyleDerZweite">{t.personal}</a></li>
+        <li>
+          <a href={lang === 'de' ? '/projects' : '/en/projects'}>
+            <span>{t.projects}</span>
+          </a>
+        </li>
+        <li>
+          <a href={siteConfig.porviUrl} target="_blank" rel="noopener noreferrer">
+            <Icon name="globe" size={14} />
+            <span>{t.porvi}</span>
+          </a>
+        </li>
       </ul>
     </div>
+
+    <div>
+      <p class="site-footer__heading">{t.contact}</p>
+      <ul class="site-footer__list">
+        <li>
+          <a href={siteConfig.contact.discord} target="_blank" rel="noopener noreferrer">
+            <Icon name="discord" size={14} />
+            <span>{t.discordLabel}</span>
+          </a>
+        </li>
+        <li>
+          <a href={`mailto:${siteConfig.contact.email}`}>
+            <Icon name="mail" size={14} />
+            <span>{siteConfig.contact.email}</span>
+          </a>
+        </li>
+        <li>
+          <span class="site-footer__placeholder">
+            <Icon name="matrix" size={14} />
+            <span>{t.matrixLabel}</span>
+            <span class="site-footer__placeholder-tag">{t.comingSoon}</span>
+          </span>
+        </li>
+        <li>
+          <span class="site-footer__placeholder">
+            <Icon name="mastodon" size={14} />
+            <span>{t.mastodonLabel}</span>
+            <span class="site-footer__placeholder-tag">{t.comingSoon}</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="site-footer__heading">{t.code}</p>
+      <ul class="site-footer__list">
+        <li>
+          <a href={siteConfig.codeHosts.githubOrg} target="_blank" rel="noopener noreferrer">
+            <Icon name="github" size={14} />
+            <span>{t.githubOrg}</span>
+          </a>
+        </li>
+        <li>
+          <a href={siteConfig.codeHosts.githubPersonal} target="_blank" rel="noopener noreferrer">
+            <Icon name="github" size={14} />
+            <span>{t.githubPersonal}</span>
+          </a>
+        </li>
+        <li>
+          <a href={siteConfig.codeHosts.codebergOrg} target="_blank" rel="noopener noreferrer">
+            <Icon name="codeberg" size={14} />
+            <span>{t.codebergOrg}</span>
+          </a>
+        </li>
+        <li>
+          <a href={siteConfig.codeHosts.codebergPersonal} target="_blank" rel="noopener noreferrer">
+            <Icon name="codeberg" size={14} />
+            <span>{t.codebergPersonal}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
     <div>
       <p class="site-footer__heading">{t.legal}</p>
       <ul class="site-footer__list">
-        <li><a href={lang === 'de' ? '/impressum' : '/en/impressum'}>{t.impressum}</a></li>
-        <li><a href={lang === 'de' ? '/datenschutz' : '/en/privacy-policy'}>{t.privacy}</a></li>
-        <li><a href={lang === 'de' ? '/agb' : '/en/terms'}>{t.terms}</a></li>
+        <li><a href={lang === 'de' ? '/impressum' : '/en/impressum'}><span>{t.impressum}</span></a></li>
+        <li><a href={lang === 'de' ? '/datenschutz' : '/en/privacy-policy'}><span>{t.privacy}</span></a></li>
+        <li><a href={lang === 'de' ? '/agb' : '/en/terms'}><span>{t.terms}</span></a></li>
       </ul>
     </div>
   </div>
+
   <div class="site-footer__meta">
-    <span>&copy; {year} {t.rights}</span>
+    <span>© {year} KyleHub</span>
+    <span class="site-footer__meta-build">
+      {t.lastEdited} {lastEdited} · {t.build} <code>{buildSha}</code>
+    </span>
   </div>
 </footer>

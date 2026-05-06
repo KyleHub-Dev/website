@@ -42,7 +42,10 @@ if (!legalSource.includes('soweit dort kein abweichendes Impressum angegeben ist
   failures.push('Missing Impressum override clause for services with separate provider details.');
 }
 
-if (!legalSource.includes('soweit dort keine speziellere Datenschutzerklaerung bereitgestellt wird')) {
+if (
+  !legalSource.includes('soweit dort keine speziellere Datenschutzerklaerung bereitgestellt wird') &&
+  !legalSource.includes('soweit dort keine speziellere Datenschutzerklärung bereitgestellt wird')
+) {
   failures.push('Missing privacy override clause for services with a more specific privacy policy.');
 }
 
