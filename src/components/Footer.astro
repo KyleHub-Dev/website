@@ -6,11 +6,10 @@ interface Props {
 const { lang = 'de' } = Astro.props;
 const t = lang === 'de'
   ? {
-      brand: 'KyleHub ist die oeffentliche Umbrella-Ebene fuer Infrastruktur, Dokumentation und produktnahe Subdomains.',
+      brand: 'KyleHub sammelt Projektlinks und zentrale Rechtstexte.',
       explore: 'Explore',
       legal: 'Rechtliches',
       projects: 'Projekte',
-      docs: 'Dokumentation',
       github: 'GitHub Orga',
       personal: 'Persoenliche Projekte',
       impressum: 'Impressum',
@@ -19,11 +18,10 @@ const t = lang === 'de'
       rights: 'KyleHub. Central legal coverage for kylehub.dev, porvi.de, and public subdomains.',
     }
   : {
-      brand: 'KyleHub is the public umbrella for infrastructure, documentation, and product-facing subdomains.',
+      brand: 'KyleHub collects project links and central legal texts.',
       explore: 'Explore',
       legal: 'Legal',
       projects: 'Projects',
-      docs: 'Documentation',
       github: 'GitHub org',
       personal: 'Personal projects',
       impressum: 'Impressum',
@@ -44,7 +42,6 @@ const year = new Date().getFullYear();
       <p class="site-footer__heading">{t.explore}</p>
       <ul class="site-footer__list">
         <li><a href={lang === 'de' ? '/projects' : '/en/projects'}>{t.projects}</a></li>
-        <li><a href="https://docs.kylehub.dev">{t.docs}</a></li>
         <li><a href="https://github.com/KyleHub-Dev">{t.github}</a></li>
         <li><a href="https://github.com/KyleDerZweite">{t.personal}</a></li>
       </ul>

@@ -3,7 +3,6 @@ export const siteConfig = {
   url: 'https://kylehub.dev',
   domainFamilies: ['kylehub.dev', 'porvi.de'],
   githubOrg: 'https://github.com/KyleHub-Dev',
-  docsUrl: 'https://docs.kylehub.dev',
   personalGithub: 'https://github.com/KyleDerZweite',
   operator: {
     name: 'Leander Grau',
@@ -35,152 +34,66 @@ export const nav = {
 
 export const homeContent = {
   de: {
-    title: 'KyleHub | Umbrella fuer Infrastruktur, Projekte und zentrale Rechtstexte',
-    description: 'KyleHub ist die oeffentliche Umbrella-Ebene fuer Infrastruktur, Dokumentation, Subdomains und zentrale Rechtstexte fuer kylehub.dev und porvi.de.',
-    heroEyebrow: 'Umbrella for infra, docs, products',
-    heroTitle: 'Eine Basis fuer Infrastruktur, Subdomains und saubere Projektgrenzen.',
+    title: 'KyleHub | Projekte und Rechtliches',
+    description: 'KyleHub sammelt oeffentliche Projektlinks und zentrale Rechtstexte fuer kylehub.dev, porvi.de und deren Subdomains.',
+    heroEyebrow: 'KyleHub',
+    heroTitle: 'Projekte, Quellen und zentrale Rechtstexte.',
     heroBody:
-      'KyleHub verbindet die Org-Ebene, aktive Infrastrukturarbeit, oeffentliche Dokumentation und zentrale Rechtstexte fuer oeffentliche Dienste unter kylehub.dev und porvi.de.',
-    primaryCta: { href: '/projects', label: 'Projekte ansehen' },
-    secondaryCta: { href: '/datenschutz', label: 'Datenschutz lesen' },
-    lanes: [
-      {
-        title: 'Umbrella',
-        text: 'kylehub.dev wird zur kanonischen Oeffentlichkeits- und Rechts-Ebene fuer sichtbare Dienste unter kylehub.dev und porvi.de.',
-      },
-      {
-        title: 'Central legal',
-        text: 'Impressum, Datenschutz und AGB bleiben zentrale Seiten statt je Subdomain eigene Rechtstexte zu erzeugen.',
-      },
-      {
-        title: 'Category coverage',
-        text: 'Die Datenschutzerklaerung beschreibt Verarbeitung nach Dienstkategorien wie Websites, Doku, Login-Diensten, Kontakt und Server-Logs.',
-      },
-    ],
-    spotlightTitle: 'Flagship: Infrastructure',
-    spotlightBody:
-      'Das Infrastructure-Repo bleibt das technische Flaggschiff: Zero-open-port Homelab, Gateway-VPS, Zitadel-SSO und Doku als Produkt.',
-    spotlightCtas: [
-      { href: 'https://github.com/KyleHub-Dev/infrastructure', label: 'Infrastructure Repo' },
-      { href: 'https://docs.kylehub.dev', label: 'Docs' },
-    ],
+      'Eine reduzierte Uebersichtsseite fuer oeffentliche Repositories und die zentralen rechtlichen Seiten der Domain-Familien kylehub.dev und porvi.de.',
+    primaryCta: { href: '/projects', label: 'Projekte' },
+    secondaryCta: { href: '/datenschutz', label: 'Datenschutz' },
     sections: {
-      org: 'Organisationsebene',
-      selected: 'Ausgewaehlte Builds',
-      legal: 'Legal System',
+      projects: 'Projekte',
     },
   },
   en: {
-    title: 'KyleHub | Umbrella for infrastructure, projects, and central legal texts',
-    description: 'KyleHub is the public umbrella for infrastructure, documentation, subdomains, and central legal texts for kylehub.dev and porvi.de.',
-    heroEyebrow: 'Umbrella for infra, docs, products',
-    heroTitle: 'One public surface for infrastructure, subdomains, and clean project boundaries.',
+    title: 'KyleHub | Projects and legal',
+    description: 'KyleHub collects public project links and central legal texts for kylehub.dev, porvi.de, and their subdomains.',
+    heroEyebrow: 'KyleHub',
+    heroTitle: 'Projects, sources, and central legal texts.',
     heroBody:
-      'KyleHub ties together the org layer, active infrastructure work, public documentation, and central legal texts for public services under kylehub.dev and porvi.de.',
-    primaryCta: { href: '/en/projects', label: 'Explore projects' },
-    secondaryCta: { href: '/en/privacy-policy', label: 'Read privacy' },
-    lanes: [
-      {
-        title: 'Umbrella',
-        text: 'kylehub.dev becomes the canonical public and legal layer for visible services under kylehub.dev and porvi.de.',
-      },
-      {
-        title: 'Central legal',
-        text: 'Impressum, privacy, and terms remain central pages instead of generating separate legal text per subdomain.',
-      },
-      {
-        title: 'Category coverage',
-        text: 'The privacy policy describes processing by service category, such as websites, docs, login services, contact, and server logs.',
-      },
-    ],
-    spotlightTitle: 'Flagship: Infrastructure',
-    spotlightBody:
-      'The infrastructure repository remains the flagship technical project: zero-open-port homelab, gateway VPS, Zitadel SSO, and documentation as product.',
-    spotlightCtas: [
-      { href: 'https://github.com/KyleHub-Dev/infrastructure', label: 'Infrastructure repo' },
-      { href: 'https://docs.kylehub.dev', label: 'Docs' },
-    ],
+      'A trimmed overview page for public repositories and the central legal pages of the kylehub.dev and porvi.de domain families.',
+    primaryCta: { href: '/en/projects', label: 'Projects' },
+    secondaryCta: { href: '/en/privacy-policy', label: 'Privacy' },
     sections: {
-      org: 'Org layer',
-      selected: 'Selected builds',
-      legal: 'Legal system',
+      projects: 'Projects',
     },
   },
 };
 
-export const projectGroups = {
+export const projects = {
   de: [
     {
-      title: 'KyleHub Orga',
-      items: [
-        {
-          name: 'Infrastructure',
-          href: 'https://github.com/KyleHub-Dev/infrastructure',
-          text: 'Aktives IaC-Flaggschiff fuer Gateway-VPS, Homelab und Zitadel-getriebene Authentifizierung.',
-        },
-        {
-          name: 'Website',
-          href: 'https://github.com/KyleHub-Dev/website',
-          text: 'Oeffentliche Umbrella-Site fuer Brand, Projekte und zentrale Rechtstexte.',
-        },
-        {
-          name: 'Prompts',
-          href: 'https://github.com/KyleHub-Dev/prompts',
-          text: 'Neuer Playbook- und Prompt-Ansatz fuer wiederholbare Implementierungen wie Zitadel OIDC oder Legal Pages.',
-        },
-      ],
+      name: 'Infrastructure',
+      href: 'https://github.com/KyleHub-Dev/infrastructure',
+      text: 'Gateway, Homelab, Authentifizierung und Infrastruktur-Dokumentation.',
     },
     {
-      title: 'Ausgewaehlte Builds',
-      items: [
-        {
-          name: 'Spellbook',
-          href: 'https://spellbook.kylehub.dev',
-          text: 'Produktnahe Subdomain, die von der zentralen Datenschutzerklaerung ueber die Kategorie Login- und Account-Dienste abgedeckt wird.',
-        },
-        {
-          name: 'Docs',
-          href: 'https://docs.kylehub.dev',
-          text: 'Oeffentliche Dokumentation fuer Infrastruktur und kuenftige Produktbausteine.',
-        },
-      ],
+      name: 'Website',
+      href: 'https://github.com/KyleHub-Dev/website',
+      text: 'Diese Website mit Projektlinks und zentralen Rechtstexten.',
+    },
+    {
+      name: 'Prompts',
+      href: 'https://github.com/KyleHub-Dev/prompts',
+      text: 'Wiederverwendbare Prompts und Arbeitsvorlagen.',
     },
   ],
   en: [
     {
-      title: 'KyleHub org',
-      items: [
-        {
-          name: 'Infrastructure',
-          href: 'https://github.com/KyleHub-Dev/infrastructure',
-          text: 'Active IaC flagship for the gateway VPS, homelab, and Zitadel-driven authentication.',
-        },
-        {
-          name: 'Website',
-          href: 'https://github.com/KyleHub-Dev/website',
-          text: 'Public umbrella site for brand, projects, and central legal texts.',
-        },
-        {
-          name: 'Prompts',
-          href: 'https://github.com/KyleHub-Dev/prompts',
-          text: 'New playbook and prompt approach for repeatable work such as Zitadel OIDC and legal page implementation.',
-        },
-      ],
+      name: 'Infrastructure',
+      href: 'https://github.com/KyleHub-Dev/infrastructure',
+      text: 'Gateway, homelab, authentication, and infrastructure documentation.',
     },
     {
-      title: 'Selected builds',
-      items: [
-        {
-          name: 'Spellbook',
-          href: 'https://spellbook.kylehub.dev',
-          text: 'Product-facing subdomain covered by the central privacy policy category for login and account services.',
-        },
-        {
-          name: 'Docs',
-          href: 'https://docs.kylehub.dev',
-          text: 'Public documentation for infrastructure and future product building blocks.',
-        },
-      ],
+      name: 'Website',
+      href: 'https://github.com/KyleHub-Dev/website',
+      text: 'This website with project links and central legal texts.',
+    },
+    {
+      name: 'Prompts',
+      href: 'https://github.com/KyleHub-Dev/prompts',
+      text: 'Reusable prompts and working templates.',
     },
   ],
 };

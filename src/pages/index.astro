@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { homeContent, nav, projectGroups } from '../data/site';
+import { homeContent, nav, projects } from '../data/site';
 
 const content = homeContent.de;
 ---
@@ -12,86 +12,31 @@ const content = homeContent.de;
   alternatePath="/en/"
   nav={nav.de}
 >
-  <section class="hero-panel">
-    <div class="hero-panel__copy">
-      <p class="eyebrow">{content.heroEyebrow}</p>
-      <h1>{content.heroTitle}</h1>
-      <p class="hero-panel__lede">{content.heroBody}</p>
-      <div class="hero-panel__actions">
-        <a href={content.primaryCta.href} class="button button--primary">{content.primaryCta.label}</a>
-        <a href={content.secondaryCta.href} class="button button--ghost">{content.secondaryCta.label}</a>
-      </div>
-    </div>
-    <div class="hero-panel__frame">
-      <div class="signal-grid">
-        <div>
-          <p class="signal-grid__label">Umbrella</p>
-          <p class="signal-grid__value">kylehub.dev</p>
-        </div>
-        <div>
-          <p class="signal-grid__label">Domains</p>
-          <p class="signal-grid__value">kylehub.dev + porvi.de</p>
-        </div>
-        <div>
-          <p class="signal-grid__label">Legal pages</p>
-          <p class="signal-grid__value">/impressum + /datenschutz</p>
-        </div>
-        <div>
-          <p class="signal-grid__label">Coverage</p>
-          <p class="signal-grid__value">central category model</p>
-        </div>
-      </div>
+  <section class="page-intro">
+    <p class="eyebrow">{content.heroEyebrow}</p>
+    <h1>{content.heroTitle}</h1>
+    <p>{content.heroBody}</p>
+    <div class="actions">
+      <a href={content.primaryCta.href} class="button">{content.primaryCta.label}</a>
+      <a href={content.secondaryCta.href} class="button button--secondary">{content.secondaryCta.label}</a>
     </div>
   </section>
 
-  <section class="lane-grid">
-    {content.lanes.map((lane) => (
-      <article class="lane-card">
-        <p class="eyebrow">{lane.title}</p>
-        <p>{lane.text}</p>
-      </article>
-    ))}
-  </section>
-
-  <section class="feature-band">
-    <div class="feature-band__copy">
-      <p class="eyebrow">{content.spotlightTitle}</p>
-      <h2>Infrastructure bleibt das technische Rueckgrat.</h2>
-      <p>{content.spotlightBody}</p>
+  <section class="section-block">
+    <div class="section-heading">
+      <p class="eyebrow">{content.sections.projects}</p>
+      <h2>GitHub</h2>
     </div>
-    <div class="feature-band__actions">
-      {content.spotlightCtas.map((cta) => (
-        <a href={cta.href} class="button button--primary">{cta.label}</a>
+    <div class="project-list">
+      {projects.de.map((project) => (
+        <a href={project.href} class="project-row">
+          <span>
+            <strong>{project.name}</strong>
+            <small>{project.text}</small>
+          </span>
+          <span aria-hidden="true">Open</span>
+        </a>
       ))}
     </div>
-  </section>
-
-  <section class="project-shelves">
-    {projectGroups.de.map((group) => (
-      <div class="project-shelf">
-        <div class="project-shelf__intro">
-          <p class="eyebrow">{content.sections.org}</p>
-          <h2>{group.title}</h2>
-        </div>
-        <div class="project-card-grid">
-          {group.items.map((item) => (
-            <a href={item.href} class="project-card">
-              <h3>{item.name}</h3>
-              <p>{item.text}</p>
-            </a>
-          ))}
-        </div>
-      </div>
-    ))}
-  </section>
-
-  <section class="closing-note">
-    <p class="eyebrow">{content.sections.legal}</p>
-    <h2>Ein zentrales Legal-System fuer die oeffentlichen Domain-Familien.</h2>
-    <p>
-      Oeffentliche Dienste unter <code>kylehub.dev</code>, <code>porvi.de</code> und deren
-      Subdomains verlinken auf die zentralen Seiten fuer Impressum, Datenschutz und bei Bedarf AGB.
-      Speziellere Rechtstexte sind nur noetig, wenn ein Dienst abweichende Angaben veroeffentlicht.
-    </p>
   </section>
 </Layout>

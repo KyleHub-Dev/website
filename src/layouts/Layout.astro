@@ -29,11 +29,10 @@ const {
 const siteUrl = 'https://kylehub.dev';
 const canonical = new URL(path, siteUrl).toString();
 const alternate = alternatePath ? new URL(alternatePath, siteUrl).toString() : null;
-const htmlClass = lang === 'de' ? 'theme-signal' : 'theme-paper';
 ---
 
 <!doctype html>
-<html lang={lang} class={`h-full ${htmlClass}`}>
+<html lang={lang} class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
