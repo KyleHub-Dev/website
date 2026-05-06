@@ -1,0 +1,52 @@
+---
+interface Block {
+  type: 'p' | 'list' | 'note';
+  text?: string;
+  items?: string[];
+}
+
+interface Section {
+  id?: string;
+  title: string;
+  blocks: Block[];
+}
+
+interface Props {
+  title: string;
+  updated: string;
+  intro: string;
+  sections: Section[];
+  badge?: string;
+}
+
+const { title, updated, intro, sections, badge } = Astro.props;
+---
+
+<article class="legal-sheet">
+  <header class="legal-sheet__header">
+    {badge && <p class="legal-sheet__badge">{badge}</p>}
+    <h1>{title}</h1>
+    <p class="legal-sheet__updated">{updated}</p>
+    <p class="legal-sheet__intro">{intro}</p>
+  </header>
+  <div class="legal-sheet__content">
+    {sections.map((section) => (
+      <section class="legal-section" id={section.id}>
+        <h2>{section.title}</h2>
+        {section.blocks.map((block) => (
+          block.type === 'p' ? (
+            <p>{block.text}</p>
+          ) : block.type === 'note' ? (
+            <div class="legal-note">
+              <p>{block.text}</p>
+            </div>
+          ) : (
+            <ul>
+              {block.items?.map((item) => <li>{item}</li>)}
+            </ul>
+          )
+        ))}
+      </section>
+    ))}
+  </div>
+</article>

@@ -1,46 +1,96 @@
-# Astro Starter Kit: Basics
+# KyleHub Website
 
-```sh
-npm create astro@latest -- --template basics
+Public umbrella site for `kylehub.dev` and the central legal surface for public services under `kylehub.dev`, `porvi.de`, and their subdomains.
+
+## Local development
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Production build
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```bash
+npm run build
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Minimal wildcard legal model
 
-## 🧞 Commands
+The website intentionally uses one central legal set:
 
-All commands are run from the root of the project, from a terminal:
+- `/impressum`
+- `/datenschutz`
+- `/agb`
+- `/en/impressum`
+- `/en/privacy-policy`
+- `/en/terms`
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+There are no `/base/...` template routes, no legal JSON API, and no per-service legal routes. Public services under `kylehub.dev`, `porvi.de`, or their subdomains should link to the central pages:
 
-## 👀 Want to learn more?
+```txt
+Impressum -> https://kylehub.dev/impressum
+Datenschutz -> https://kylehub.dev/datenschutz
+AGB -> https://kylehub.dev/agb
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+`AGB` only needs to be linked where terms are relevant, for example account-based or product-facing services.
+
+The scope wording is maintained in `src/data/legal.ts`. The domain-family registry is kept in `src/data/legalRegistry.ts` and is used for lightweight validation, not for public route generation.
+
+### Legal assumptions
+
+- `kylehub.dev` and `porvi.de` are controlled by the same operator.
+- Public subdomains under both domains are part of the same ecosystem.
+- Services with a separate operator or materially different legal setup publish their own legal pages.
+- The privacy page describes processing by category, not by individual subdomain.
+- Non-essential cookies, analytics, tracking, remote fonts, and third-party embeds are not used unless explicitly disclosed.
+
+### Legal validation
+
+```bash
+npm run legal:validate
+```
+
+The validation checks that the central wildcard domain families, central routes, required privacy categories, and override clauses remain present.
+
+## Podman Compose deployment
+
+This repository includes a production container stack:
+
+- `website` builds the Astro site and serves the generated output with nginx
+- `website-newt` creates the Pangolin NEWT tunnel and acts as the only ingress path
+
+### Setup
+
+```bash
+cp .env.example .env
+```
+
+Fill in:
+
+- `PANGOLIN_ENDPOINT`
+- `NEWT_ID`
+- `NEWT_SECRET`
+
+### Start
+
+```bash
+podman-compose up -d
+```
+
+### Logs
+
+```bash
+podman-compose logs -f website
+podman-compose logs -f website-newt
+```
+
+### Pangolin routing
+
+In Pangolin, create a resource that targets:
+
+- host: `website`
+- port: `8080`
+
+The `website` and `website-newt` containers share the internal `website-net` bridge, so NEWT can route traffic directly to the nginx container without exposing any host ports.

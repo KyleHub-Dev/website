@@ -1,0 +1,15 @@
+---
+interface Props {
+  lang?: 'de' | 'en';
+  alternatePath?: string;
+}
+
+const { lang = 'de', alternatePath } = Astro.props;
+const fallback = lang === 'de' ? '/en/' : '/';
+const target = alternatePath ?? fallback;
+---
+
+<a href={target} class="lang-switch" hreflang={lang === 'de' ? 'en' : 'de'}>
+  <span class:list={{ 'lang-switch__tag': true, 'lang-switch__tag--active': lang === 'de' }}>DE</span>
+  <span class:list={{ 'lang-switch__tag': true, 'lang-switch__tag--active': lang === 'en' }}>EN</span>
+</a>

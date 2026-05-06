@@ -1,16 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { homeContent, nav, projectGroups } from '../data/site';
+import Layout from '../../layouts/Layout.astro';
+import { homeContent, nav, projectGroups } from '../../data/site';
 
-const content = homeContent.de;
+const content = homeContent.en;
 ---
 
 <Layout
   title={content.title}
   description={content.description}
-  path="/"
-  alternatePath="/en/"
-  nav={nav.de}
+  lang="en"
+  path="/en/"
+  alternatePath="/"
+  nav={nav.en}
 >
   <section class="hero-panel">
     <div class="hero-panel__copy">
@@ -56,7 +57,7 @@ const content = homeContent.de;
   <section class="feature-band">
     <div class="feature-band__copy">
       <p class="eyebrow">{content.spotlightTitle}</p>
-      <h2>Infrastructure bleibt das technische Rueckgrat.</h2>
+      <h2>Infrastructure remains the technical backbone.</h2>
       <p>{content.spotlightBody}</p>
     </div>
     <div class="feature-band__actions">
@@ -67,10 +68,10 @@ const content = homeContent.de;
   </section>
 
   <section class="project-shelves">
-    {projectGroups.de.map((group) => (
+    {projectGroups.en.map((group) => (
       <div class="project-shelf">
         <div class="project-shelf__intro">
-          <p class="eyebrow">{content.sections.org}</p>
+          <p class="eyebrow">{group.title}</p>
           <h2>{group.title}</h2>
         </div>
         <div class="project-card-grid">
@@ -87,11 +88,11 @@ const content = homeContent.de;
 
   <section class="closing-note">
     <p class="eyebrow">{content.sections.legal}</p>
-    <h2>Ein zentrales Legal-System fuer die oeffentlichen Domain-Familien.</h2>
+    <h2>One central legal system for the public domain families.</h2>
     <p>
-      Oeffentliche Dienste unter <code>kylehub.dev</code>, <code>porvi.de</code> und deren
-      Subdomains verlinken auf die zentralen Seiten fuer Impressum, Datenschutz und bei Bedarf AGB.
-      Speziellere Rechtstexte sind nur noetig, wenn ein Dienst abweichende Angaben veroeffentlicht.
+      Public services under <code>kylehub.dev</code>, <code>porvi.de</code>, and their subdomains
+      link to the central impressum, privacy policy, and terms where relevant. More specific legal
+      text is only needed when a service publishes different details.
     </p>
   </section>
 </Layout>

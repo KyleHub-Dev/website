@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { nav, projectGroups } from '../../data/site';
+---
+
+<Layout
+  title="KyleHub Projects"
+  description="Selected KyleHub repositories, documentation, and product-facing subdomains."
+  lang="en"
+  path="/en/projects"
+  alternatePath="/projects"
+  nav={nav.en}
+>
+  <section class="simple-hero">
+    <p class="eyebrow">KyleHub projects</p>
+    <h1>Repositories, docs, and product-facing subdomains in one place.</h1>
+    <p>
+      This page collects the public building blocks of the KyleHub umbrella. Org repositories lead
+      the story, while selected builds are added deliberately.
+    </p>
+  </section>
+  {projectGroups.en.map((group) => (
+    <section class="project-shelf">
+      <div class="project-shelf__intro">
+        <h2>{group.title}</h2>
+      </div>
+      <div class="project-card-grid">
+        {group.items.map((item) => (
+          <a href={item.href} class="project-card">
+            <h3>{item.name}</h3>
+            <p>{item.text}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</Layout>

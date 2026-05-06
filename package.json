@@ -5,10 +5,13 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "legal:validate": "node scripts/validate-legal.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.15"
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.15",
+    "tailwindcss": "^4.1.18"
   }
 }

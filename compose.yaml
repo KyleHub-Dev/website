@@ -1,0 +1,38 @@
+services:
+  website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: localhost/kylehub-website:latest
+    container_name: kylehub-website
+    restart: unless-stopped
+    networks:
+      - website-net
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  website-newt:
+    image: docker.io/fosrl/newt:latest
+    container_name: kylehub-website-newt
+    restart: unless-stopped
+    environment:
+      - PANGOLIN_ENDPOINT=${PANGOLIN_ENDPOINT}
+      - NEWT_ID=${NEWT_ID}
+      - NEWT_SECRET=${NEWT_SECRET}
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=1
+    depends_on:
+      website:
+        condition: service_healthy
+    networks:
+      - website-net
+
+networks:
+  website-net:
+    driver: bridge

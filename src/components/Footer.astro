@@ -1,0 +1,64 @@
+---
+interface Props {
+  lang?: 'de' | 'en';
+}
+
+const { lang = 'de' } = Astro.props;
+const t = lang === 'de'
+  ? {
+      brand: 'KyleHub ist die oeffentliche Umbrella-Ebene fuer Infrastruktur, Dokumentation und produktnahe Subdomains.',
+      explore: 'Explore',
+      legal: 'Rechtliches',
+      projects: 'Projekte',
+      docs: 'Dokumentation',
+      github: 'GitHub Orga',
+      personal: 'Persoenliche Projekte',
+      impressum: 'Impressum',
+      privacy: 'Datenschutz',
+      terms: 'Nutzungsbedingungen',
+      rights: 'KyleHub. Central legal coverage for kylehub.dev, porvi.de, and public subdomains.',
+    }
+  : {
+      brand: 'KyleHub is the public umbrella for infrastructure, documentation, and product-facing subdomains.',
+      explore: 'Explore',
+      legal: 'Legal',
+      projects: 'Projects',
+      docs: 'Documentation',
+      github: 'GitHub org',
+      personal: 'Personal projects',
+      impressum: 'Impressum',
+      privacy: 'Privacy Policy',
+      terms: 'Terms',
+      rights: 'KyleHub. Central legal coverage for kylehub.dev, porvi.de, and public subdomains.',
+    };
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__lead">
+      <p class="eyebrow">KyleHub.dev</p>
+      <p>{t.brand}</p>
+    </div>
+    <div>
+      <p class="site-footer__heading">{t.explore}</p>
+      <ul class="site-footer__list">
+        <li><a href={lang === 'de' ? '/projects' : '/en/projects'}>{t.projects}</a></li>
+        <li><a href="https://docs.kylehub.dev">{t.docs}</a></li>
+        <li><a href="https://github.com/KyleHub-Dev">{t.github}</a></li>
+        <li><a href="https://github.com/KyleDerZweite">{t.personal}</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="site-footer__heading">{t.legal}</p>
+      <ul class="site-footer__list">
+        <li><a href={lang === 'de' ? '/impressum' : '/en/impressum'}>{t.impressum}</a></li>
+        <li><a href={lang === 'de' ? '/datenschutz' : '/en/privacy-policy'}>{t.privacy}</a></li>
+        <li><a href={lang === 'de' ? '/agb' : '/en/terms'}>{t.terms}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__meta">
+    <span>&copy; {year} {t.rights}</span>
+  </div>
+</footer>

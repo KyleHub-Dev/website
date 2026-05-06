@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { nav, projectGroups } from '../data/site';
+---
+
+<Layout
+  title="KyleHub Projekte"
+  description="Ausgewaehlte KyleHub-Repositories, Dokumentation und produktnahe Subdomains."
+  path="/projects"
+  alternatePath="/en/projects"
+  nav={nav.de}
+>
+  <section class="simple-hero">
+    <p class="eyebrow">KyleHub projects</p>
+    <h1>Repos, Docs und produktnahe Subdomains auf einen Blick.</h1>
+    <p>
+      Diese Seite sammelt die oeffentlichen Bausteine der KyleHub-Umbrella. Orga-Repos stehen im
+      Vordergrund, produktnahe Builds werden kuratiert ergaenzt.
+    </p>
+  </section>
+  {projectGroups.de.map((group) => (
+    <section class="project-shelf">
+      <div class="project-shelf__intro">
+        <h2>{group.title}</h2>
+      </div>
+      <div class="project-card-grid">
+        {group.items.map((item) => (
+          <a href={item.href} class="project-card">
+            <h3>{item.name}</h3>
+            <p>{item.text}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+</Layout>

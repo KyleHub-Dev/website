@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LegalDocument from '../../components/LegalDocument.astro';
+import { legalDocs } from '../../data/legal';
+import { nav } from '../../data/site';
+
+const doc = legalDocs['en-impressum'];
+---
+
+<Layout
+  title="Impressum | KyleHub"
+  description="Central impressum for public services under kylehub.dev, porvi.de, and their subdomains."
+  lang="en"
+  path="/en/impressum"
+  alternatePath="/impressum"
+  nav={nav.en}
+>
+  <LegalDocument {...doc} />
+</Layout>

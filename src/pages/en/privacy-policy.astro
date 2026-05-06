@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LegalDocument from '../../components/LegalDocument.astro';
+import { legalDocs } from '../../data/legal';
+import { nav } from '../../data/site';
+
+const doc = legalDocs['en-privacy'];
+---
+
+<Layout
+  title="Privacy Policy | KyleHub"
+  description="Central privacy policy for public services under kylehub.dev, porvi.de, and their subdomains."
+  lang="en"
+  path="/en/privacy-policy"
+  alternatePath="/datenschutz"
+  nav={nav.en}
+>
+  <LegalDocument {...doc} />
+</Layout>
