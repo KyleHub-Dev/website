@@ -58,8 +58,12 @@ The validation checks that the central wildcard domain families, central routes,
 
 This repository includes a production container stack:
 
-- `website` builds the Astro site and serves the generated output with nginx
+- `website` builds the Astro site and serves the generated output with nginx on container port `80`
 - `website-newt` creates the Pangolin NEWT tunnel and acts as the only ingress path
+- `website-internal` is an internal-only bridge network shared by nginx and NEWT
+- `newt-egress` gives only the NEWT container outbound access to Pangolin
+
+The nginx container does not publish any host ports. It only exposes port `80` inside the Compose network. Public access must go through Pangolin/NEWT.
 
 ### Setup
 
@@ -91,6 +95,6 @@ podman-compose logs -f website-newt
 In Pangolin, create a resource that targets:
 
 - host: `website`
-- port: `8080`
+- port: `80`
 
-The `website` and `website-newt` containers share the internal `website-net` bridge, so NEWT can route traffic directly to the nginx container without exposing any host ports.
+The `website` and `website-newt` containers share the internal `website-internal` bridge, so NEWT can route traffic directly to the nginx container without exposing any host ports. `website-newt` is also attached to `newt-egress` so it can make the outbound control connection to Pangolin.

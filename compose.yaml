@@ -6,10 +6,12 @@ services:
     image: localhost/kylehub-website:latest
     container_name: kylehub-website
     restart: unless-stopped
+    expose:
+      - "80"
     networks:
-      - website-net
+      - website-internal
     healthcheck:
-      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/"]
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -23,16 +25,16 @@ services:
       - PANGOLIN_ENDPOINT=${PANGOLIN_ENDPOINT}
       - NEWT_ID=${NEWT_ID}
       - NEWT_SECRET=${NEWT_SECRET}
-    cap_add:
-      - NET_ADMIN
-    sysctls:
-      - net.ipv4.ip_forward=1
     depends_on:
       website:
         condition: service_healthy
     networks:
-      - website-net
+      - website-internal
+      - newt-egress
 
 networks:
-  website-net:
+  website-internal:
+    driver: bridge
+    internal: true
+  newt-egress:
     driver: bridge
