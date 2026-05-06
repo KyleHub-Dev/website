@@ -5,14 +5,14 @@ Public umbrella site for `kylehub.dev` and the central legal surface for public 
 ## Local development
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 ## Production build
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ## Minimal wildcard legal model
@@ -49,7 +49,7 @@ The scope wording is maintained in `src/data/legal.ts`. The domain-family regist
 ### Legal validation
 
 ```bash
-npm run legal:validate
+pnpm run legal:validate
 ```
 
 The validation checks that the central wildcard domain families, central routes, required privacy categories, and override clauses remain present.

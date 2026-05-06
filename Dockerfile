@@ -2,11 +2,15 @@ FROM docker.io/node:22-alpine AS build
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+ENV ASTRO_TELEMETRY_DISABLED=1
+
+RUN corepack enable
+
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 COPY . .
-RUN npm run build
+RUN pnpm run build
 
 FROM docker.io/nginx:1.27-alpine
 
