@@ -151,8 +151,8 @@ The Mode Inversion Rule:
     --accent-warm = Bloom
 
   All chrome that participates in identity follows --accent: primary buttons,
-  focus rings, active link underlines, italic Fraunces emphasis, the wordmark
-  mark, live pips, and text selection.
+  focus rings, active link underlines, italic Fraunces emphasis, the "Hub"
+  wordmark box, live pips, and text selection.
 
   All chrome that carries warmth follows --accent-warm: eyebrow color,
   plan-list bars, footer column headings, the hairline tick before a feature
@@ -236,7 +236,7 @@ Italic Accent Rule:
   Italic emphasis inside hero titles is the signature flourish. It stays in
   the serif, uses WONK 1 when Fraunces is available, and appears exactly once
   per hero. Its color is --accent, not literal Bloom. In dark mode it is mint;
-  in light mode it is bark.
+  in light mode it is bark. Anywhere else, italic stays neutral.
 
 Type rules:
 - One Display per page. One or two Headlines per long page. Let rarity create
@@ -285,7 +285,8 @@ SECTION 6: PORTABLE SURFACE PATTERNS
 Wordmark:
   "Kyle" in the display serif followed by "Hub" in a 1px --accent box. The
   block may sit 1px low at rest and settle on hover. This small honest seam is
-  a signature example of "unperfect."
+  a signature example of "unperfect." Default cadence is 220ms ease-out-quart
+  with translateY(1px) at rest snapping to translateY(0) on hover.
 
 Buttons:
   Primary actions use --accent. Secondary or ghost actions use hairline borders
@@ -355,6 +356,7 @@ structure.
 - Identical 3-up icon-heading-text feature grids.
 - Terminal cosplay: fake prompts, ASCII art headers, neon-on-black developer
   portfolio styling.
+- Em dashes in copy.
 - A fourth typeface.
 - A third chromatic brand accent outside a scoped data-color exception.
 - Pure #000 or #fff in authored brand surfaces.
