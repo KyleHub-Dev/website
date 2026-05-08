@@ -9,14 +9,17 @@ Read both before doing visual or product work. They are the source of truth.
 
 ## Note on branding.txt
 
-The site also serves `/branding.txt` (`src/pages/branding.txt.ts`), a curated
-public summary aimed at AI assistants and external collaborators. It is
-hand-written, not generated from `DESIGN.md`, so the two intentionally drift.
+The site also serves `/branding.txt` (`src/pages/branding.txt.ts`), a portable
+public brand brief for AI assistants and human collaborators working outside
+this repo. It shares identity, tokens, and major rules with the internal design
+system, but it is not a generated mirror and should not be copied blindly from
+`DESIGN.md`.
 
-If you make major changes to `DESIGN.md` (palette, typography stack, named
-rules, bans, surface direction), update `src/pages/branding.txt.ts` in the
-same commit so the public spec stays in sync. Minor wording or internal-only
-notes can stay in `DESIGN.md` alone.
+`DESIGN.md` is the implementation spec for this website. `/branding.txt` is the
+external default direction when another project has no stronger local design
+context. Keep the two coherent at the level of identity, palette, typography
+roles, named rules, bans, and surface direction, while allowing `branding.txt`
+to stay softer and more general.
 
 ## Footer build stamp
 

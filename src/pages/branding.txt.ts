@@ -2,332 +2,402 @@ import type { APIRoute } from 'astro';
 
 export const prerender = true;
 
-const body = `KyleHub - Brand & Design Guidelines
-====================================
+const body = `KyleHub - Portable Brand Brief
+=================================
 
-Audience: AI assistants and human collaborators building anything that lives on
-or links into the kylehub.dev / porvi.de family. Follow this verbatim for the
-default look. If a project deliberately departs, document why.
+Audience: AI assistants and human collaborators building surfaces that live
+on, link into, or borrow from the kylehub.dev / porvi.de family.
 
-This is the public, machine-readable mirror. The internal design system lives
-in the repository as DESIGN.md.
+Status: public brand guidance. This file is standalone. Use it when a project
+does not have stronger local product, design, or implementation context.
 
 
-1. Identity & Voice
--------------------
+SECTION 1: INSTRUCTIONS FOR USE
+-------------------------------
+
+This is a guidance document, not a fixed style sheet. Every named rule is the
+default a project should reach for. Concrete tokens, type choices, hairlines,
+and surface patterns are the defaults a project can ship with unless the local
+brief argues otherwise.
+
+Local context wins when it is specific and intentional. This file wins over
+generic taste, library defaults, trend-following, and "make it prettier"
+requests that do not name a real product need.
+
+If you depart from a default, document the departure as close to the decision
+as the medium allows: source comment, design note, prompt note, issue, or
+component README. Use this form:
+
+  departs from branding.txt section <number>: <reason>
+
+A good departure is:
+  (a) intentional, with a concrete reason,
+  (b) scoped to the surface that needs it,
+  (c) removed when the reason no longer holds.
+
+If you find yourself fighting a rule across multiple surfaces, the rule itself
+is probably wrong for that project. Bring the rule back for revision rather
+than papering over it everywhere.
+
+For code, prefer role tokens over literal color names. Component rules should
+reference --accent, --accent-warm, --surface, --text, and --hairline where
+possible. Primitive tokens such as --bloom and --bark define the palette; role
+tokens define behavior.
+
+
+SECTION 2: IDENTITY AND VOICE
+-----------------------------
 
 Name:     KyleHub
-Register: brand (umbrella + legal hub for one operator's services)
+Register: brand, umbrella, legal hub, one-operator infrastructure
 Persona:  clean, technical, unperfect
-North star metaphor: "Mossy Granite" - a dark stone surface in low light, cool
-and slightly damp, warmed where wood meets it, with moss colonising a crack.
 
-Tone rules:
-- Quiet. The site does not announce itself.
-- Honest over polished. Small wonky details (off-grid pixels, a hover aside,
-  a real "last edited" date) are load-bearing, not decoration.
-- No marketing voice. No "trusted by", no value-prop hero, no SaaS abstraction.
-- Em dashes are forbidden in copy. Use commas, colons, semicolons, periods,
-  parentheses. Also no "--".
+North star: Mossy Granite.
 
-Anti-references (do NOT look like these):
-- Apple product pages (machine-perfect pixel optimization, full-bleed product
-  photography, every surface art-directed for conversion).
-- Stripe homepage (animated gradient hero, "global infrastructure" abstraction,
-  polished SaaS marketing voice).
-- Developer-portfolio cliché (terminal-on-black, fake "$ whoami" prompt,
-  ASCII art header). Technical is not terminal cosplay.
-- Healthcare / wellness app (saturated mint + rounded sans + blob shapes).
-- Off-white + black Inter + one underlined link as a stand-in for "minimal".
+A dark stone surface in low light: cool, slightly damp, warmed where wood
+meets it, with moss colonising a crack. The system should feel like a careful
+operator's workspace, not a company campaign. It is quiet, precise, and a
+little hand-set.
 
+Voice rules:
+- Quiet. The surface does not announce itself.
+- Honest over polished. A real timestamp, a 1px misalignment, or a small
+  hover aside can carry more trust than a perfect marketing block.
+- Direct, not sales-led. No "trusted by", no value-prop hero, no SaaS fog.
+- One operator, not a fake company. Prefer singular human language when the
+  product context allows it.
+- Avoid em dashes in copy. Use commas, colons, semicolons, periods, or
+  parentheses.
 
-2. Color - The Mossy Granite Palette
-------------------------------------
-
-Color space: OKLCH is canonical and the only format used in source. No hex.
-
-Primary (identity):
-  Bloom Mint        oklch(0.738 0.131 170)
-                    Sampled directly from the KyleHub shield logo.
-                    Used: wordmark "Hub" block, focus rings, active nav-link
-                    underline, in-text emphasis (italic Fraunces with WONK 1
-                    inside hero titles), text selection, hover accents on
-                    project tile borders, repo-row name, handoff arrow.
-  Bloom Deep        oklch(0.66 0.135 170)
-                    Pressed / active variant. Reserve for primary-button
-                    active state when one ships.
-
-Secondary (warmth):
-  Bark              oklch(0.62 0.07 70)
-                    Muted tan-brown, never orange, never gold. Used for the
-                    eyebrow rule, repo-row chip icons, language-tag active
-                    fill, legal-sheet badge, footer column headings,
-                    project-row "open" label, tile arrow at rest. Bark
-                    carries craft, never identity.
-  Bark Soft         oklch(0.55 0.065 70)
-                    Defined for future Bark hover treatments.
-
-Neutrals (all tinted toward Bloom's hue ~170, never pure):
-  Stone             oklch(0.15 0.010 170)   page background
-  Stone Raised      oklch(0.20 0.011 170)   tile bodies, legal sheets, inline
-                                            <code> background
-  Stone Deep        oklch(0.12 0.009 170)   footer band
-  Lichen            oklch(0.93 0.006 170)   body text
-  Lichen Muted      oklch(0.74 0.008 170)   secondary copy, captions, mono
-                                            metadata at rest
-  Lichen Faint      oklch(0.55 0.008 170)   tertiary copy, "last updated"
-                                            stamps, footer placeholders
-  Hairline          oklch(0.28 0.009 170)   all 1px borders and dividers
-  Hairline Strong   oklch(0.36 0.010 170)   tiny separators (hero stamp dot
-                                            pips, footer placeholder icons)
-
-Color rules:
-- The Bloom Rule: Bloom is used on 15-25% of any single screen. Below that the
-  system goes inert; above that it starts to sell.
-- The No Pure Black, No Pure White Rule: #000 and #fff are forbidden. Every
-  neutral carries a small (chroma 0.006-0.012) tint toward Bloom's hue.
-- The One Warmth Rule: Bark is the only warm color in the system.
-- The Two Color Maximum: Bloom and Bark are the only chromatic colors that
-  participate in the system's voice. No third accent. No semantic
-  green/red/yellow. State is communicated through Bloom, Bark, and copy.
-- The Language-Dot Exception: one scoped exception to Two Color Maximum. The
-  repo-row language indicator on the projects page uses GitHub-style hues
-  (TS yellow, Rust orange, Go cyan, Python blue, etc.) sized at 0.55em.
-  This is data identity, not chrome - the dot IS the language. Restrictions:
-  only inside repo rows, only as a circle <=0.6em, never adjacent to body
-  copy at full chroma, fallback for unknown languages is Bloom. No other
-  surface introduces a third hue.
-- The Mint-Is-Not-Healthcare Rule: Bloom appears as a flat fill on a hard
-  rectangle, or as a single solid weight on type. Never as decoration. Never
-  paired with rounded sans at small sizes. Never gradients to teal/cyan.
-  Never illustrative blob shapes.
+Anti-references:
+- Generic SaaS landing pages: gradient hero, three-card feature row,
+  "trusted by" logo strip, soft purple-blue buttons.
+- Developer portfolio reflex: terminal-on-black, fake "$ whoami" prompt,
+  ASCII art header, neon monospace everywhere.
+- Corporate consulting: navy and gold, stock-photo handshakes, "we deliver
+  excellence", centered serif headlines over dark photos.
+- Healthcare / wellness app: saturated mint on white, rounded sans, blob
+  decoration, teal gradients.
+- Generic minimalism: off-white background, black Inter, one underlined link,
+  no point of view.
 
 
-3. Typography - Three Faces, Three Jobs
----------------------------------------
-
-The system holds at three faces. No fourth.
-
-Display / Numbered:
-  Fraunces  variable, opsz 9-144, wght 100-900, SOFT and WONK axes
-            Fallback: Georgia, "Iowan Old Style", serif
-            Usage: hero display, section headlines, footer shield name.
-            Allowed to be expressive *because* it is rare. One Display per
-            page maximum.
-
-Body:
-  Atkinson Hyperlegible
-            Fallback: system-ui, "Segoe UI", sans-serif
-            Usage: all paragraph text. Drawn for human legibility before
-            machine elegance - the system's accessibility statement made
-            literally visible. Never set below 1rem. ss01 stylistic set is
-            always live.
-
-Mono / Label:
-  JetBrains Mono  variable, weights 400-600, NO programming ligatures
-            Fallback: ui-monospace, "SF Mono", monospace
-            Usage: section markers, tile captions, repo-row names and
-            metadata, eyebrow rules, footer build stamp, "last updated"
-            stamps. The structural voice.
-
-Hierarchy:
-  Display    Fraunces 380, opsz 144 SOFT 40, clamp(2.5rem, 6.5vw, 4.25rem),
-             line-height 1.05, letter-spacing -0.015em
-  Headline   Fraunces 500, opsz 24 SOFT 30, clamp(1.5rem, 3vw, 2rem),
-             line-height 1.15
-  Title      Atkinson 600, 1.125rem, line-height 1.3
-  Body       Atkinson 400, 1rem, line-height 1.65, max-width 68ch
-  Mono       450-500, 0.74-0.92rem, line-height 1.45, letter-spacing 0-0.04em
-  Eyebrow    mono 500, 0.78rem, letter-spacing 0.12em, UPPERCASE, color Bark
-
-Type rules:
-- The Three-Faces-Only Rule: Fraunces, Atkinson Hyperlegible, JetBrains Mono.
-  No fourth face. No icon font masquerading as a body face. Inline SVG icons
-  only; icons inherit currentColor.
-- The No-Sans-Eyebrow Rule: uppercase tracked labels are mono, never sans.
-  Sans uppercase at small sizes feels like a presentation slide.
-- The Fraunces Restraint Rule: one Display per page, one or two Headlines per
-  long page. Never set body in Fraunces. Never run a Fraunces hero with a
-  Fraunces sub-headline.
-- The Italic-Bloom Rule: italic emphasis inside hero titles is the system's
-  signature flourish. Same Fraunces, but WONK 1 and color Bloom. Allowed
-  exactly once per hero. Anywhere else, italic stays neutral.
-- The 65-72ch Rule: body line length is bounded at 68ch. Wide measure breaks
-  the legal pages, which must read fast at 200% zoom on a phone.
-
-
-4. Elevation
-------------
-
-Flat by default. No shadows. Ever.
-
-Depth comes from hue (Stone vs. Stone Raised vs. Stone Deep), 1px hairlines,
-and scale. No box-shadow tokens are defined. No "lifted" hover treatments.
-No glassmorphism (no backdrop-filter: blur, no translucent panes, no glass
-cards). The stone is opaque.
-
-State is communicated through color shift (border to Bloom on hover), small
-translation (a 2px diagonal nudge on directional arrows, a 1px Y-translate
-on the wordmark block snapping to grid on hover), and the focus outline.
-
-Elevation rules:
-- The Flat-By-Default Rule: surfaces are flat at rest. No shadow tokens are
-  defined. If a future surface seems to require lift, it is the wrong
-  surface; rework the layout.
-- The No Glassmorphism Rule: no backdrop-filter: blur, no translucent
-  overlays, no glass cards.
-- The Hairline-Only Rule: borders are always 1px, color Hairline. The strong
-  variant exists for tiny separators only; never as a card border.
-
-Focus ring: 2px Bloom outline, 2px offset, 1px corner radius. The 1px radius
-on the focus ring is the only non-zero radius in the entire system, and
-exists purely so its corners read as crisp on subpixel rendering.
-
-
-5. Motion
----------
-
-Restrained. State changes only.
-
-- Easing: cubic-bezier(0.22, 1, 0.36, 1) (ease-out-quart) at 200-280ms.
-- No entrance animation, no scroll choreography, no hover lift, no parallax.
-- Don't animate CSS layout properties.
-- No bounce, no elastic.
-- Respect prefers-reduced-motion at the rule level: every animated rule has
-  a media-query partner that zeroes its duration.
-
-
-6. Layout
----------
-
-- One column, narrow, centered. Generous, varied spacing through clamp().
-- Body capped at 68ch (--measure-body). Hero at 1180px (--hero-max). Narrow
-  legal column at 720px (--column-narrow).
-- No identical card grids. No 3-up icon-heading-text feature row. No "What I
-  do" tile set.
-- Cards are the lazy answer. Use them only when truly the best affordance.
-- Don't wrap everything in a container. Most things don't need one.
-- Vary spacing for rhythm. Same padding everywhere is monotony.
-
-
-7. Absolute Bans
+SECTION 3: COLOR
 ----------------
 
-Match-and-refuse. If you are about to write any of these, rewrite the element
-with different structure.
+Color space: OKLCH is the canonical source format when the platform supports
+it. Avoid hex for authored brand colors. Never use pure #000 or #fff.
 
-- Side-stripe borders (border-left/right > 1px as a colored stripe on cards,
-  callouts, list items, alerts). Replace with full hairline borders, Stone
-  Raised tints, leading mono numerals, or nothing.
-- Gradient text (background-clip: text + gradient background). Use a single
-  solid color. Emphasis through weight, italic-Bloom, or face change.
-- Glassmorphism as default. Rare and purposeful, or nothing.
-- Rounded corners. The system is border-radius: 0 everywhere except the 1px
-  focus-ring corner. No 4px, no 6px, no 8px, no pills.
-- The hero-metric template (big number, small label, supporting stats,
-  gradient accent). SaaS cliché.
-- Identical card grids.
-- Modals as a first thought. Inline / page transition is almost always right.
-- Em dashes in copy.
-- A fourth typeface.
-- A third chromatic color outside the Language-Dot Exception.
-- #000 or #fff anywhere.
+Primitive palette defaults:
+
+  Bloom Mint        oklch(0.738 0.131 170)
+                    Identity color, sampled from the KyleHub shield logo.
+
+  Bloom Deep        oklch(0.66 0.135 170)
+                    Pressed / active variant of Bloom. Use sparingly.
+
+  Bark              oklch(0.62 0.07 70)
+                    Muted tan-brown warmth. Never orange, never gold.
+
+  Bark Soft         oklch(0.55 0.065 70)
+                    Softer Bark hover / secondary treatment.
+
+  Stone             oklch(0.15 0.010 170)
+                    Dark page background.
+
+  Stone Raised      oklch(0.20 0.011 170)
+                    Raised dark surface, tile body, legal sheet, code fill.
+
+  Stone Deep        oklch(0.12 0.009 170)
+                    Recessed dark band, usually footer or terminal surface.
+
+  Lichen            oklch(0.93 0.006 170)
+                    Primary text on dark.
+
+  Lichen Muted      oklch(0.74 0.008 170)
+                    Secondary copy, captions, metadata.
+
+  Lichen Faint      oklch(0.55 0.008 170)
+                    Tertiary copy, stamps, disabled or placeholder text.
+
+  Hairline          oklch(0.28 0.009 170)
+                    1px borders and dividers.
+
+  Hairline Strong   oklch(0.36 0.010 170)
+                    Tiny separators only.
+
+Role tokens:
+
+  --accent       Identity chrome.
+  --accent-warm  Warm structural chrome.
+  --surface      Main canvas.
+  --surface-2    Raised surface.
+  --surface-3    Recessed surface.
+  --text         Primary text.
+  --text-muted   Secondary text.
+  --text-faint   Tertiary text.
+  --hairline     1px dividers and borders.
+
+The Mode Inversion Rule:
+
+  Bloom and Bark swap roles between dark and light themes.
+
+  Dark mode, the family's identity mode:
+    --accent = Bloom
+    --accent-warm = Bark
+
+  Light mode:
+    --accent = Bark
+    --accent-warm = Bloom
+
+  All chrome that participates in identity follows --accent: primary buttons,
+  focus rings, active link underlines, italic Fraunces emphasis, the wordmark
+  mark, live pips, and text selection.
+
+  All chrome that carries warmth follows --accent-warm: eyebrow color,
+  plan-list bars, footer column headings, the hairline tick before a feature
+  label, and ghost-button hover.
+
+  Source code should reference --accent and --accent-warm in component rules.
+  Do not hardcode --bloom or --bark in component CSS unless defining the role
+  tokens themselves or documenting a deliberate exception.
+
+  Intent: in dark mode the system reads as cool stone with mossy bloom. In
+  light mode it reads as warm paper with a mint countergrain. The system
+  should never read as "mint on white" healthcare / wellness, and never as
+  "earthy tan on dark" that loses the cool-stone identity.
+
+Color rules:
+- Bloom / --accent should appear in at least one prominent place per page, but
+  usually only 15-25% of a screen. Below that the system goes inert; above
+  that it starts to sell.
+- Bark / --accent-warm is structural warmth, not the main identity voice.
+- Bloom and Bark are the only chromatic brand colors. Do not add a third
+  accent for decoration.
+- No semantic green / red / yellow chrome by default. Communicate state with
+  copy, weight, outline, and the existing role tokens.
+- Data-color exception: small data identity marks may use external hues when
+  the hue is the data, for example a GitHub language dot. Keep it tiny, scoped,
+  and never adjacent to body copy at full chroma. Unknown data falls back to
+  --accent.
+- Bloom is not decoration. Never use it as a glow, blob, gradient stop, or
+  wellness-style mint wash.
 
 
-8. Surface Direction
---------------------
-
-Wordmark (signature, the brand mark itself):
-  "Kyle" set in Fraunces opsz 36 SOFT 30, weight 600, 1.5rem, color Lichen,
-  immediately followed (zero gap) by "Hub" inside a 1px Bloom box,
-  transparent background, Bloom text. The block sits translateY(1px) below
-  baseline at rest - the honest seam. On hover/focus, the box fills Bloom,
-  text becomes Stone, and the block snaps to translateY(0). 220ms ease-out-
-  quart. This is the system's signature easter egg and load-bearing example
-  of "unperfect."
-
-Buttons:
-  Two variants. Primary is a Bloom Mint fill on Stone with Stone text.
-  Secondary is a Hairline outline on Stone with Lichen text and a Bark hover.
-  Corners are square (border-radius: 0). No drop shadow, no gradient, no
-  transform on hover. Focus ring inherits the global rule.
-
-Project rows (projects page):
-  No cards. Full-bleed list with hairline dividers. Mono name (JetBrains Mono
-  1rem weight 600), Atkinson description (max 70ch, Lichen Muted), mono meta
-  row (language dot via Language-Dot Exception, stars, updated time). Arrow
-  positioned absolute top-right; on hover, name + arrow recolor to Bloom and
-  arrow translates (2px, -2px).
-
-Hero project pile (signature, home page):
-  Three tiles on a 2-column grid: live tile spans both columns at 16:10, two
-  locked tiles beneath at 4:3 each. At >=960px each tile is rotated by a
-  fraction of a degree (-0.6deg, +0.8deg, -0.4deg) with subtle Y offsets - an
-  analog "pile of polaroids" intentionally fighting the grid. Below 760px the
-  rotations clear and tiles stack vertically. 1px Hairline border, Stone
-  Raised body, no radius. Locked tiles render a 12px 45° repeating-linear-
-  gradient placeholder; live tiles render an <img>.
-
-Language switcher:
-  Two mono tags inside a hairline tray. Active tag fills with Bark and sets
-  text in Stone. Header on desktop, inline at the top of mobile. Never a
-  dropdown, never a globe icon, never a popover. Two languages, two tags,
-  both visible.
-
-Legal sheet:
-  Stone Raised panel, 1px Hairline border, max-width 720px. Header carries a
-  mono uppercase badge with Bark border + Bark text on Stone (Impressum /
-  Datenschutz / AGB), an h1 in Fraunces opsz 72, and a "last updated" mono
-  stamp. Body sections separated by 1.75rem gaps. German pages set hyphens:
-  auto on h1 so long compounds don't break the column. Legal pages get the
-  same design budget as the hero.
-
-Handoff rule (home -> projects bridge):
-  Grid 1fr auto 1fr with a centered mono label flanked by 1px Hairline
-  horizontal rules. Lowercase, letter-spacing 0.06em. On hover, label and
-  arrow shift to Bloom and the arrow translates +2px Y.
-
-Site footer:
-  Stone Deep band, 1px Hairline top border, 5-column grid collapsing through
-  1180px / 900px / 760px breakpoints. Mono uppercase Bark column headings.
-  Plain-link list (Lichen Muted -> Lichen on hover, Bark icons that flip to
-  Bloom). Placeholder rows render with Lichen Faint text and a 1px Hairline
-  outlined "soon" tag. Meta strip carries copyright + a mono build stamp
-  where the commit hash colors to Bark.
-
-
-9. The Unperfect Rule
+SECTION 4: TYPOGRAPHY
 ---------------------
 
-Allow one or two small wonky details per surface: the wordmark translateY(1px)
-seam, the project-pile fractional rotations, a "last edited" stamp with a
-real date, a footer build stamp showing the actual commit hash. Quiet, never
-the headline.
+Default type roles:
 
-If a detail looks too clean, leave one element slightly off-grid on purpose.
-The "unperfect" is load-bearing. A site that looked machined would be lying
-about who runs it.
+  Display / Serif:
+    Fraunces Variable. Expressive, rare, used for hero titles, section
+    headlines, wordmark moments, and numbered display details.
+
+  Body / Sans:
+    Atkinson Hyperlegible. Human-readable before machine-sleek. Used for
+    paragraphs, legal text, interface copy, and anything that must be read
+    quickly. Do not set body below 1rem.
+
+  Mono / Structure:
+    JetBrains Mono Variable. Used for section markers, eyebrow labels, build
+    stamps, metadata, language tags, small counters, repo names, and labels.
+
+If a project cannot use these exact faces, preserve the roles: one expressive
+serif for rare display, one highly readable sans for body, one mono for
+structure. Do not add a fourth brand type role.
+
+Hierarchy defaults:
+  Display    Fraunces 380, opsz 144 SOFT 40, line-height 1.05
+  Headline   Fraunces 500, opsz 24 SOFT 30, line-height 1.15
+  Title      Atkinson 600, 1.125rem, line-height 1.3
+  Body       Atkinson 400, 1rem, line-height 1.65, max-width 65-72ch
+  Mono       JetBrains Mono 450-500, 0.74-0.92rem, line-height 1.45
+  Eyebrow    JetBrains Mono 500, 0.78rem, uppercase, tracked 0.18em
+
+Numbered Eyebrow Rule:
+
+  Section labels and step labels use:
+
+    <num>/<text>
+
+  The number is a zero-padded two-digit numeral. The separator is a literal
+  slash. The topic is mono uppercase with letter-spacing around 0.18em. Color
+  is current --accent-warm.
+
+  No leading horizontal bar. No em dash. No Roman numerals such as I, II, IV.
+  No lowercase Roman counters such as i, ii, iii. Roman numerals were a
+  one-page experiment; 01/Topic is the canonical form across the family.
+
+  Numbers count from 01 within a single page, never globally. Step lists
+  inside a section restart at 01.
+
+Italic Accent Rule:
+
+  Italic emphasis inside hero titles is the signature flourish. It stays in
+  the serif, uses WONK 1 when Fraunces is available, and appears exactly once
+  per hero. Its color is --accent, not literal Bloom. In dark mode it is mint;
+  in light mode it is bark.
+
+Type rules:
+- One Display per page. One or two Headlines per long page. Let rarity create
+  expression.
+- Uppercase tracked labels are mono, never sans.
+- Body line length lives around 65-72ch. Legal or dense reading surfaces should
+  be especially strict.
+- Inline SVG icons inherit currentColor. Do not use an icon font as a fourth
+  typeface.
 
 
-10. Privacy & Hosting Doctrine
-------------------------------
+SECTION 5: SHAPE, ELEVATION, MOTION, LAYOUT
+-------------------------------------------
 
-- No remote fonts. All faces are self-hosted via @fontsource packages.
-- No analytics, tracking pixels, or third-party embeds unless explicitly
-  disclosed in /datenschutz.
+Shape:
+- Square by default. Border-radius is 0.
+- The only default radius is a 1px focus-ring corner so outlines render crisply.
+- No pills, no 6px cards, no rounded SaaS panels unless a local product brief
+  documents why.
+
+Elevation:
+- Flat by default. No shadows.
+- Depth comes from surface hue, scale, and 1px hairlines.
+- No glassmorphism. No backdrop blur. No translucent panes pretending to be
+  depth.
+
+Motion:
+- State changes only. Color, border, opacity, and small transforms are enough.
+- Easing: cubic-bezier(0.22, 1, 0.36, 1), around 200-280ms.
+- No entrance choreography, scroll reveals, bounce, elastic, hover lift, or
+  parallax by default.
+- Respect prefers-reduced-motion. Every motion rule needs a reduced-motion
+  partner.
+
+Layout:
+- Narrow, centered, readable. Body copy usually caps at 65-72ch.
+- Use varied spacing through clamp() or equivalent responsive constraints.
+- Do not wrap everything in a generic container. Use structure only where it
+  helps scanning.
+- Avoid identical 3-up feature card grids. Cards are not the default answer.
+
+
+SECTION 6: PORTABLE SURFACE PATTERNS
+------------------------------------
+
+Wordmark:
+  "Kyle" in the display serif followed by "Hub" in a 1px --accent box. The
+  block may sit 1px low at rest and settle on hover. This small honest seam is
+  a signature example of "unperfect."
+
+Buttons:
+  Primary actions use --accent. Secondary or ghost actions use hairline borders
+  and warm hover details via --accent-warm. Corners are square. No shadows, no
+  gradients, no hover lift.
+
+Focus:
+  2px solid --accent outline, 2px offset, 1px radius. Never remove focus
+  visibility.
+
+Language switcher:
+  Two mono tags inside a 1px hairline tray. Active tag fills with
+  --accent-warm and sets text in the current surface color. Never a dropdown,
+  never a globe icon, never a popover. Two languages, two tags, both visible.
+  Always present, even in single-language drafts. The inactive tag can point
+  to a stub, 404, or root redirect rather than being hidden. The presence of
+  two tags is part of the brand voice: an operator who runs things in two
+  languages.
+
+Theme switcher:
+  When a theme switcher exists, use a single 30x30 square button matching the
+  language tray's height and hairline. One mono glyph at the center. Rest
+  color is Lichen Muted; hover color is Lichen. Rest border is Hairline; hover
+  border is Lichen Muted. On desktop it sits immediately to the right of the
+  language tray and immediately to the left of the primary CTA if a CTA exists.
+
+  Glyphs:
+    Light active, next dark:  ◐
+    Dark active, next light:  ☼
+
+  Persist the choice in localStorage under <project>-theme. Respect
+  prefers-color-scheme as the unselected default. Never use a sliding macOS
+  toggle, animated sun/moon morph, or gradient background. The theme switcher
+  is the only chrome that should mutate CSS custom properties at runtime; the
+  rest of the surface stays declarative.
+
+Legal / policy surfaces:
+  Treat legal pages as first-class. Use the same typography, spacing, and
+  brand care as the hero. They should read quickly on a phone, support 200%
+  zoom, and avoid horizontal scroll.
+
+Project or repo lists:
+  Prefer lists with hairline dividers over cards. Use mono names, readable
+  descriptions, sparse metadata, and a small directional arrow that shifts on
+  hover.
+
+Footer:
+  Use a recessed surface, 1px top hairline, mono uppercase column headings in
+  --accent-warm, muted links that brighten on hover, and a real build or
+  updated stamp when available.
+
+
+SECTION 7: STRONG BANS
+----------------------
+
+If you are about to use one of these, rewrite the element with different
+structure.
+
+- Gradient text.
+- Decorative blobs, orbs, bokeh, glow fields, or teal/mint gradients.
+- Side-stripe borders thicker than 1px on cards, callouts, alerts, or list
+  items.
+- Glassmorphism as a default surface.
+- Rounded cards, pills, or soft SaaS panels.
+- Hero metric blocks: big number, small label, supporting stats, accent
+  gradient.
+- Identical 3-up icon-heading-text feature grids.
+- Terminal cosplay: fake prompts, ASCII art headers, neon-on-black developer
+  portfolio styling.
+- A fourth typeface.
+- A third chromatic brand accent outside a scoped data-color exception.
+- Pure #000 or #fff in authored brand surfaces.
+- Removing visible keyboard focus.
+
+
+SECTION 8: THE UNPERFECT RULE
+-----------------------------
+
+Allow one or two small wonky details per surface: a wordmark block 1px low
+until hover, fractional tile rotations, a real last-edited stamp, a visible
+build hash, a slightly hand-set alignment.
+
+The detail must be quiet. It should reward a closer look without becoming the
+headline. A surface that looks machined loses the one-operator truth of the
+brand.
+
+
+SECTION 9: PRIVACY AND HOSTING DEFAULTS
+---------------------------------------
+
+For public web surfaces in the family:
+- Prefer self-hosted fonts.
+- No analytics, tracking pixels, or third-party embeds unless disclosed.
 - No non-essential cookies.
-- Build-time data fetching only. No client-side calls to third-party APIs.
+- Prefer build-time data fetching over client-side third-party calls.
+- Static and boring infrastructure is a virtue when it serves the product.
 
-This is not optional styling. It is part of the brand.
 
+SECTION 10: QUICK AGENT CHECKLIST
+---------------------------------
 
----
+Before producing a design or implementation from this file:
 
-Source of truth: DESIGN.md in the repository.
-Mirror: this file (https://kylehub.dev/branding.txt) is hand-curated and
-intentionally terser than DESIGN.md; major palette / typography / named-rule
-/ ban / surface-direction changes in DESIGN.md must be reflected here in the
-same commit.
+1. Identify the local project purpose and audience. If none is provided, use
+   the KyleHub default: quiet one-operator technical surface.
+2. Map colors to role tokens first, then primitives.
+3. Choose typography by role: serif expression, readable sans body, mono
+   structure.
+4. Use numbered mono eyebrows in the 01/Topic pattern.
+5. Keep surfaces flat, square, hairlined, and sparse.
+6. Add one small unperfect detail only if it serves the surface.
+7. Document any departure close to the decision.
 `;
 
 export const GET: APIRoute = () =>
