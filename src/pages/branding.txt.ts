@@ -244,8 +244,25 @@ Type rules:
 - Uppercase tracked labels are mono, never sans.
 - Body line length lives around 65-72ch. Legal or dense reading surfaces should
   be especially strict.
-- Inline SVG icons inherit currentColor. Do not use an icon font as a fourth
-  typeface.
+
+Icon requirement:
+  Iconify is the required icon aggregator. Lucide is the root set for generic
+  UI icons: arrows, mail, lock, globe, status, navigation, and controls.
+  Brand and social marks such as GitHub, Discord, Mastodon, Matrix, and
+  Codeberg also come through Iconify, usually from the matching brand set such
+  as Simple Icons. Do not paste custom SVG paths or hand-draw basic icons.
+  Icons inherit currentColor. Do not use an icon font as a fourth typeface.
+
+  Use the same Iconify names across frameworks:
+    Astro:  astro-icon + @iconify-json/lucide + @iconify-json/simple-icons,
+            <Icon name="lucide:mail" />
+    React:  @iconify/react,  <Icon icon="lucide:mail" />
+    Vue:    @iconify/vue,    <Icon icon="lucide:mail" />
+    Svelte: @iconify/svelte, <Icon icon="lucide:mail" />
+
+  In Astro, whitelist the exact used icons in astro.config.* via
+  astro-icon's include option. Do not bundle entire icon sets when the used
+  icon list is known.
 
 
 SECTION 5: SHAPE, ELEVATION, MOTION, LAYOUT
@@ -357,6 +374,8 @@ structure.
 - Terminal cosplay: fake prompts, ASCII art headers, neon-on-black developer
   portfolio styling.
 - Em dashes in copy.
+- Custom SVG paths or hand-drawn replacements for basic UI, brand, or social
+  icons. Use Iconify, with Lucide as the generic UI root set.
 - A fourth typeface.
 - A third chromatic brand accent outside a scoped data-color exception.
 - Pure #000 or #fff in authored brand surfaces.

@@ -1,5 +1,20 @@
 ---
-type IconName = 'github' | 'codeberg' | 'globe' | 'discord' | 'mail' | 'matrix' | 'mastodon' | 'arrow-up-right' | 'star' | 'fork' | 'issue' | 'pr' | 'lock';
+import { Icon as AstroIcon } from 'astro-icon/components';
+
+type IconName =
+  | 'github'
+  | 'codeberg'
+  | 'globe'
+  | 'discord'
+  | 'mail'
+  | 'matrix'
+  | 'mastodon'
+  | 'arrow-up-right'
+  | 'star'
+  | 'fork'
+  | 'issue'
+  | 'pr'
+  | 'lock';
 
 interface Props {
   name: IconName;
@@ -8,97 +23,31 @@ interface Props {
   ariaLabel?: string;
 }
 
-const { name, size = 14, class: className = '', ariaLabel } = Astro.props;
-const baseProps = {
-  width: size,
-  height: size,
-  viewBox: '0 0 16 16',
-  fill: 'none',
-  stroke: 'currentColor',
-  'stroke-width': 1.4,
-  'stroke-linecap': 'round',
-  'stroke-linejoin': 'round',
-  class: `icon icon--${name} ${className}`.trim(),
-  'aria-hidden': ariaLabel ? 'false' : 'true',
-  ...(ariaLabel ? { role: 'img', 'aria-label': ariaLabel } : {}),
+const iconMap: Record<IconName, string> = {
+  github: 'simple-icons:github',
+  codeberg: 'simple-icons:codeberg',
+  discord: 'simple-icons:discord',
+  matrix: 'simple-icons:matrix',
+  mastodon: 'simple-icons:mastodon',
+  globe: 'lucide:globe',
+  mail: 'lucide:mail',
+  'arrow-up-right': 'lucide:arrow-up-right',
+  star: 'lucide:star',
+  fork: 'lucide:git-fork',
+  issue: 'lucide:circle-dot',
+  pr: 'lucide:git-pull-request',
+  lock: 'lucide:lock',
 };
+
+const { name, size = 14, class: className = '', ariaLabel } = Astro.props;
+const iconName = iconMap[name];
 ---
 
-{name === 'github' && (
-  <svg {...baseProps} viewBox="0 0 16 16" fill="currentColor" stroke="none">
-    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2 .37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-  </svg>
-)}
-{name === 'codeberg' && (
-  <svg {...baseProps}>
-    <path d="M2 13.5 8 2l6 11.5-6-3.5z"/>
-    <path d="M5 8.25 8 6.25l3 2"/>
-  </svg>
-)}
-{name === 'globe' && (
-  <svg {...baseProps}>
-    <circle cx="8" cy="8" r="6.25"/>
-    <path d="M1.75 8h12.5M8 1.75c1.8 2 2.7 4 2.7 6.25S9.8 12.25 8 14.25M8 1.75c-1.8 2-2.7 4-2.7 6.25S6.2 12.25 8 14.25"/>
-  </svg>
-)}
-{name === 'discord' && (
-  <svg {...baseProps} viewBox="0 0 16 16" fill="currentColor" stroke="none">
-    <path d="M13.553 3.005a13.198 13.198 0 0 0-3.286-1.023.05.05 0 0 0-.052.025 9.04 9.04 0 0 0-.412.85 12.158 12.158 0 0 0-3.604 0 8.6 8.6 0 0 0-.418-.85.052.052 0 0 0-.052-.025 13.16 13.16 0 0 0-3.287 1.023.046.046 0 0 0-.022.018C.532 6.187-.32 9.27.099 12.317a.055.055 0 0 0 .021.038 13.272 13.272 0 0 0 4.001 2.045.052.052 0 0 0 .057-.018 9.45 9.45 0 0 0 .815-1.327.05.05 0 0 0-.028-.07 8.745 8.745 0 0 1-1.246-.6.052.052 0 0 1-.005-.087c.084-.063.168-.13.248-.196a.05.05 0 0 1 .052-.007c2.617 1.197 5.45 1.197 8.036 0a.05.05 0 0 1 .053.006c.08.067.164.134.248.197a.052.052 0 0 1-.004.087 8.193 8.193 0 0 1-1.247.6.052.052 0 0 0-.027.07c.239.467.512.91.814 1.327a.052.052 0 0 0 .057.018 13.225 13.225 0 0 0 4.005-2.045.052.052 0 0 0 .021-.037c.5-3.516-.838-6.575-3.547-9.295a.04.04 0 0 0-.021-.018zM5.347 10.466c-.79 0-1.443-.726-1.443-1.617 0-.892.64-1.617 1.443-1.617.81 0 1.456.732 1.443 1.617 0 .892-.64 1.617-1.443 1.617zm5.327 0c-.79 0-1.443-.726-1.443-1.617 0-.892.641-1.617 1.443-1.617.81 0 1.456.732 1.443 1.617 0 .892-.633 1.617-1.443 1.617z"/>
-  </svg>
-)}
-{name === 'mail' && (
-  <svg {...baseProps}>
-    <rect x="1.75" y="3.25" width="12.5" height="9.5" rx="1"/>
-    <path d="m2 4 6 4.25L14 4"/>
-  </svg>
-)}
-{name === 'matrix' && (
-  <svg {...baseProps}>
-    <path d="M2.5 2.25v11.5M13.5 2.25v11.5M2.5 2.25h.75M2.5 13.75h.75M13.5 2.25h-.75M13.5 13.75h-.75"/>
-    <path d="M5 5.5v5M10.75 5.5v5M5 5.5c1.4 0 2.25.7 2.25 2v3M7.25 7.5c0-1.3.85-2 2.25-2 1.4 0 2.25.7 2.25 2v3"/>
-  </svg>
-)}
-{name === 'mastodon' && (
-  <svg {...baseProps} fill="currentColor" stroke="none">
-    <path d="M14.93 4.69c-.23-1.7-1.71-3.05-3.47-3.31C11.16 1.33 9.97 1.2 8 1.2s-3.16.13-3.46.18C2.83 1.62 1.43 2.83 1.1 4.5c-.16.81-.18 1.7-.15 2.51.04 1.16.05 2.32.16 3.47.07.76.18 1.52.34 2.27.3 1.39 1.65 2.55 3 3.02.94.32 1.91.43 2.9.45 2.04.04 3.6-.46 3.6-.46v-.91c-1.17.18-2.36.18-3.53.07-1.81-.16-2.18-1.21-2.21-1.7 0 0 1.66.46 3.79.41 1.4-.03 2.7-.13 4.04-.31C14.92 13 16 11.34 16 9.65c0-3.45-.07-4.55-.18-5.32l-.89.36zm-2.07 5.99h-1.34V6.96c0-.84-.35-1.27-1.05-1.27-.77 0-1.16.5-1.16 1.49v2.16H7.98V7.18c0-.99-.39-1.49-1.16-1.49-.7 0-1.05.43-1.05 1.27v3.72H4.43V6.86c0-.84.21-1.51.64-2 .44-.5 1.02-.75 1.74-.75.84 0 1.47.32 1.88.96L9 5.6l.31-.53c.41-.64 1.04-.96 1.88-.96.72 0 1.3.25 1.74.75.43.49.64 1.16.64 2v3.82h-.71z"/>
-  </svg>
-)}
-{name === 'arrow-up-right' && (
-  <svg {...baseProps}>
-    <path d="M5 11 11 5M5.5 5h5.5v5.5"/>
-  </svg>
-)}
-{name === 'star' && (
-  <svg {...baseProps} fill="currentColor" stroke="none">
-    <path d="M8 .25 9.97 5.7l5.78.27-4.55 3.58 1.55 5.57L8 12.05l-4.75 3.07 1.55-5.57L.25 5.97 6.03 5.7z"/>
-  </svg>
-)}
-{name === 'fork' && (
-  <svg {...baseProps}>
-    <circle cx="4" cy="3" r="1.5"/>
-    <circle cx="12" cy="3" r="1.5"/>
-    <circle cx="8" cy="13" r="1.5"/>
-    <path d="M4 4.5v3a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-3M8 9.5v2"/>
-  </svg>
-)}
-{name === 'issue' && (
-  <svg {...baseProps}>
-    <circle cx="8" cy="8" r="6.25"/>
-    <circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"/>
-  </svg>
-)}
-{name === 'pr' && (
-  <svg {...baseProps}>
-    <circle cx="4" cy="3.25" r="1.5"/>
-    <circle cx="4" cy="12.75" r="1.5"/>
-    <circle cx="12" cy="12.75" r="1.5"/>
-    <path d="M4 4.75v6.5M12 4.75v6.5"/>
-    <path d="M9.5 2.25 12 4.75 9.5 7.25"/>
-  </svg>
-)}
-{name === 'lock' && (
-  <svg {...baseProps}>
-    <rect x="3" y="7" width="10" height="7" rx="1"/>
-    <path d="M5 7V4.75A3 3 0 0 1 8 1.75a3 3 0 0 1 3 3V7"/>
-  </svg>
-)}
+<AstroIcon
+  name={iconName}
+  size={size}
+  class={`icon icon--${name} ${className}`.trim()}
+  aria-hidden={ariaLabel ? 'false' : 'true'}
+  role={ariaLabel ? 'img' : undefined}
+  aria-label={ariaLabel}
+/>
