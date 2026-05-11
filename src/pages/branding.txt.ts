@@ -66,6 +66,9 @@ Voice rules:
 - Direct, not sales-led. No "trusted by", no value-prop hero, no SaaS fog.
 - One operator, not a fake company. Prefer singular human language when the
   product context allows it.
+- German text uses real umlauts. Always write ä, ö, ü and Ä, Ö, Ü directly;
+  never replace them with ae, oe, ue, Ae, Oe, or Ue unless quoting a source
+  that already does so.
 - Avoid em dashes in copy. Use commas, colons, semicolons, periods, or
   parentheses.
 
@@ -418,7 +421,8 @@ Before producing a design or implementation from this file:
 4. Use numbered mono eyebrows in the 01/Topic pattern.
 5. Keep surfaces flat, square, hairlined, and sparse.
 6. Add one small unperfect detail only if it serves the surface.
-7. Document any departure close to the decision.
+7. In German text, use real umlauts: ä, ö, ü, Ä, Ö, Ü.
+8. Document any departure close to the decision.
 `;
 
 export const GET: APIRoute = () =>
