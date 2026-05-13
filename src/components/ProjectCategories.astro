@@ -1,0 +1,123 @@
+---
+import Icon from './Icon.astro';
+import type { ProjectCategory } from '../data/site';
+import { fetchStatsForProjects, type RepoStats } from '../lib/repo-stats';
+
+interface Props {
+  lang?: 'de' | 'en';
+  categories: ProjectCategory[];
+}
+
+const { lang = 'de', categories } = Astro.props;
+const projects = categories.flatMap((category) => category.projects);
+const statsByProject = await fetchStatsForProjects(projects);
+
+const t = lang === 'de'
+  ? {
+      stars: 'Stars',
+      forks: 'Forks',
+      issues: 'Offene Issues',
+      prs: 'Offene Pull Requests',
+      updated: 'aktualisiert',
+      metadataUnavailable: 'Metadaten nicht verfügbar',
+    }
+  : {
+      stars: 'Stars',
+      forks: 'Forks',
+      issues: 'Open issues',
+      prs: 'Open pull requests',
+      updated: 'updated',
+      metadataUnavailable: 'metadata unavailable',
+    };
+
+const fmtRelative = (iso: string | null) => {
+  if (!iso) return null;
+  const days = Math.round((Date.now() - new Date(iso).getTime()) / 86400000);
+  if (lang === 'de') {
+    if (days < 1) return 'heute';
+    if (days < 7) return `vor ${days} Tag${days === 1 ? '' : 'en'}`;
+    if (days < 30) return `vor ${Math.floor(days / 7)} Woche${days < 14 ? '' : 'n'}`;
+    if (days < 365) return `vor ${Math.floor(days / 30)} Monat${days < 60 ? '' : 'en'}`;
+    return `vor ${Math.floor(days / 365)} Jahr${days < 730 ? '' : 'en'}`;
+  }
+
+  if (days < 1) return 'today';
+  if (days < 7) return `${days} day${days === 1 ? '' : 's'} ago`;
+  if (days < 30) return `${Math.floor(days / 7)} week${days < 14 ? '' : 's'} ago`;
+  if (days < 365) return `${Math.floor(days / 30)} month${days < 60 ? '' : 's'} ago`;
+  return `${Math.floor(days / 365)} year${days < 730 ? '' : 's'} ago`;
+};
+
+const hostIcon = (host: RepoStats['host']) => host === 'codeberg' ? 'codeberg' : 'github';
+const repoDescription = (stats: RepoStats | undefined) => {
+  const description = stats?.ok ? stats.description?.trim() : null;
+  return description || null;
+};
+---
+
+<div class="projects-list">
+  {categories.map((category, idx) => (
+    <section class="project-category" aria-labelledby={`cat-${category.slug}`}>
+      <header class="project-category__header">
+        <span class="project-category__index">{String(idx + 1).padStart(2, '0')}</span>
+        <h2 id={`cat-${category.slug}`} class="project-category__title">{category.title[lang]}</h2>
+      </header>
+      <ul class="project-category__list">
+        {category.projects.map((project) => {
+          const stats = statsByProject.get(project.name);
+          const description = repoDescription(stats);
+          const primaryLink = project.links.find((link) => link.primary) ?? project.links[0];
+          const primaryHost = stats?.host ?? primaryLink.host;
+          return (
+            <li class="repo-row">
+              <a class="repo-row__link" href={primaryLink.href} target="_blank" rel="noopener noreferrer">
+                <div class="repo-row__head">
+                  <span class="repo-row__name">
+                    <Icon name={hostIcon(primaryHost)} size={14} />
+                    {project.name}
+                  </span>
+                  {project.badge && <span class="repo-row__chip repo-row__chip--quiet">{project.badge[lang]}</span>}
+                  {stats?.archived && <span class="repo-row__chip">archived</span>}
+                </div>
+                {description && <p class="repo-row__desc">{description}</p>}
+                <div class="repo-row__meta">
+                  {stats?.ok && (
+                    <>
+                      {stats.language && (
+                        <span class="repo-row__lang">
+                          <span class="repo-row__lang-dot" data-lang={stats.language}></span>
+                          {stats.language}
+                        </span>
+                      )}
+                      <span class="repo-row__stat" title={t.stars}>
+                        <Icon name="star" size={12} /> {stats.stars}
+                      </span>
+                      <span class="repo-row__stat" title={t.forks}>
+                        <Icon name="fork" size={12} /> {stats.forks}
+                      </span>
+                      <span class="repo-row__stat" title={t.issues}>
+                        <Icon name="issue" size={12} /> {stats.openIssues}
+                      </span>
+                      <span class="repo-row__stat" title={t.prs}>
+                        <Icon name="pr" size={12} /> {stats.openPRs}
+                      </span>
+                      {stats.pushedAt && (
+                        <span class="repo-row__stat repo-row__stat--time">
+                          {`${t.updated} ${fmtRelative(stats.pushedAt)}`}
+                        </span>
+                      )}
+                    </>
+                  )}
+                  {stats && !stats.ok && (
+                    <span class="repo-row__stat repo-row__stat--quiet">{t.metadataUnavailable}</span>
+                  )}
+                </div>
+                <span class="repo-row__arrow" aria-hidden="true">↗</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  ))}
+</div>

@@ -6,12 +6,10 @@ const SITE = 'https://kylehub.dev';
 
 const routes: Array<{ path: string; priority: number; changefreq: string }> = [
   { path: '/',                       priority: 1.0, changefreq: 'monthly' },
-  { path: '/projects',               priority: 0.8, changefreq: 'weekly'  },
   { path: '/impressum',              priority: 0.4, changefreq: 'yearly'  },
   { path: '/datenschutz',            priority: 0.4, changefreq: 'yearly'  },
   { path: '/agb',                    priority: 0.4, changefreq: 'yearly'  },
   { path: '/en/',                    priority: 0.9, changefreq: 'monthly' },
-  { path: '/en/projects',            priority: 0.8, changefreq: 'weekly'  },
   { path: '/en/impressum',           priority: 0.4, changefreq: 'yearly'  },
   { path: '/en/privacy-policy',      priority: 0.4, changefreq: 'yearly'  },
   { path: '/en/terms',               priority: 0.4, changefreq: 'yearly'  },

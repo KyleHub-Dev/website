@@ -11,13 +11,15 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-# GITHUB_TOKEN is mounted as a build secret. It is consumed once by `pnpm run build`
-# (Astro's static generation calls the GitHub API for /projects metadata) and is
-# never written to any image layer. Build still succeeds without it; metadata
-# falls back to "not currently available" until the next build with a token.
+# Build tokens are consumed once by `pnpm run build` for static project metadata
+# and are never written to any image layer. Build still succeeds without them.
 RUN --mount=type=secret,id=github_token \
+    --mount=type=secret,id=codeberg_token \
     if [ -s /run/secrets/github_token ]; then \
         export GITHUB_TOKEN="$(cat /run/secrets/github_token)"; \
+    fi; \
+    if [ -s /run/secrets/codeberg_token ]; then \
+        export CODEBERG_TOKEN="$(cat /run/secrets/codeberg_token)"; \
     fi; \
     pnpm run build
 

@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HeroProjectPile from '../components/HeroProjectPile.astro';
-import { homeContent, nav } from '../data/site';
+import NetworkMark from '../components/NetworkMark.astro';
+import ProjectCategories from '../components/ProjectCategories.astro';
+import { homeContent, nav, projectCategories } from '../data/site';
 
 const content = homeContent.de;
 ---
@@ -13,31 +14,18 @@ const content = homeContent.de;
   alternatePath="/en/"
   nav={nav.de}
 >
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero__grid">
-      <div class="hero__lede">
-        <p class="eyebrow">
-          <span>01</span><span class="eyebrow__sep">/</span><span>Betrieb</span>
-        </p>
-        <h1 id="hero-title" class="hero__title">
-          {content.titleLead}<br />
-          <em>{content.titleAccent}</em><br />
-          {content.titleTail}
-        </h1>
-        <p class="hero__body">
-          KyleHub ist die zentrale Stelle für meine öffentlichen Dienste auf <code>kylehub.dev</code> und <code>porvi.de</code>. Hier liegen die Rechtstexte, rechts steht eine kleine Auswahl an laufenden Projekten, und unten gibt es ein offenes Ohr für seltsame Ideen.
-        </p>
-      </div>
-
-      <div class="hero__pile-wrap">
-        <HeroProjectPile lang="de" />
-      </div>
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="intro__copy">
+      <h1 id="intro-title" class="intro__statement">{content.body[0]}</h1>
+      <p class="intro__body">{content.body[1]}</p>
     </div>
+    <NetworkMark lang="de" />
   </section>
 
-  <a class="handoff" href="/projects" aria-label="Zu den Projekten">
-    <span class="handoff__label">
-      Projekte <span class="handoff__label-arrow" aria-hidden="true">↓</span>
-    </span>
-  </a>
+  <section id="projects" class="project-section" aria-labelledby="projects-title">
+    <header class="project-section__header">
+      <h2 id="projects-title" class="project-section__title">Projekte</h2>
+    </header>
+    <ProjectCategories lang="de" categories={projectCategories} />
+  </section>
 </Layout>

@@ -1,0 +1,44 @@
+---
+interface Props {
+  lang?: 'de' | 'en';
+}
+
+const { lang = 'de' } = Astro.props;
+const label = lang === 'de'
+  ? 'KyleHub verbindet Server, Websites und Code-Projekte'
+  : 'KyleHub connects servers, websites, and code projects';
+---
+
+<svg class="network-mark" viewBox="0 0 200 200" role="img" aria-label={label}>
+  <path class="network-mark__line" d="M100 100V36" />
+  <path class="network-mark__line" d="M100 100L45 144" />
+  <path class="network-mark__line" d="M100 100L155 144" />
+
+  <path class="network-mark__hub-shape" d="M100 85l13 7.5v15L100 115l-13-7.5v-15z" />
+  <path class="network-mark__hub-line" d="M87 92.5L100 100l13-7.5" />
+  <path class="network-mark__hub-line" d="M100 100v15" />
+
+  <g class="network-mark__node" transform="translate(100 36)">
+    <rect x="-14" y="-13" width="28" height="10" rx="1.5" />
+    <rect x="-14" y="3" width="28" height="10" rx="1.5" />
+    <path d="M-5 -8h10" />
+    <path d="M-5 8h10" />
+    <circle class="network-mark__indicator" cx="-9" cy="-8" r="1.5" />
+    <circle class="network-mark__indicator" cx="-9" cy="8" r="1.5" />
+  </g>
+
+  <g class="network-mark__node" transform="translate(45 144)">
+    <rect x="-16" y="-12" width="32" height="24" rx="2" />
+    <path d="M-16 -3h32" />
+    <circle class="network-mark__indicator" cx="-11" cy="-7.5" r="1" />
+    <circle class="network-mark__indicator" cx="-7" cy="-7.5" r="1" />
+    <circle class="network-mark__indicator" cx="-3" cy="-7.5" r="1" />
+  </g>
+
+  <g class="network-mark__node" transform="translate(155 144)">
+    <circle cx="0" cy="0" r="16" />
+    <path d="M-4 -5l-5 5l5 5" />
+    <path d="M4 -5l5 5l-5 5" />
+    <path d="M2 -6l-4 12" />
+  </g>
+</svg>

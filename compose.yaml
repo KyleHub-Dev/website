@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
       secrets:
         - github_token
+        - codeberg_token
     image: localhost/kylehub-website:latest
     container_name: kylehub-website
     restart: unless-stopped
@@ -42,9 +43,9 @@ networks:
     driver: bridge
 
 secrets:
-  # Build-time only: read from the GITHUB_TOKEN env var (provided via the
-  # host shell or .env loaded by compose). Mounted into the website build
-  # via Dockerfile's `--mount=type=secret,id=github_token` and discarded
-  # after the build step. Never present in the final image or runtime.
+  # Build-time only: read from host/.env variables and discarded after the
+  # build step. Never present in the final image or runtime.
   github_token:
     environment: GITHUB_TOKEN
+  codeberg_token:
+    environment: CODEBERG_TOKEN

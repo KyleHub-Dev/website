@@ -32,11 +32,11 @@ export const siteConfig = {
 export const nav = {
   de: [
     { href: '/', label: 'Start' },
-    { href: '/projects', label: 'Projekte' },
+    { href: '/#projects', label: 'Projekte' },
   ],
   en: [
     { href: '/en/', label: 'Home' },
-    { href: '/en/projects', label: 'Projects' },
+    { href: '/en/#projects', label: 'Projects' },
   ],
 };
 
@@ -44,35 +44,42 @@ export const homeContent = {
   de: {
     title: 'KyleHub',
     description:
-      'KyleHub ist die zentrale Stelle für öffentliche Dienste auf kylehub.dev und porvi.de. Hier liegen die Rechtstexte und eine kleine Auswahl an laufenden Projekten.',
-    eyebrow: '01 / Betrieb',
-    titleLead: 'Eine Person,',
-    titleAccent: 'ein paar Dienste,',
-    titleTail: 'langsam gepflegt.',
-    body: 'KyleHub ist die zentrale Stelle für meine öffentlichen Dienste auf kylehub.dev und porvi.de. Hier liegen die Impressums-, Datenschutz- und AGB-Seiten, eine kleine Auswahl an laufenden Projekten, und ein offenes Ohr für seltsame Ideen.',
-    handoffLabel: 'Projekte',
+      'KyleHub bündelt öffentliche Dienste, Rechtstexte und Open-Source-Projekte von Leander Grau.',
+    body: [
+      'KyleHub ist die Domain, unter der ich kleine Projekte, Experimente und Dienste sammle.',
+      'Wenn du eine kreative Idee hast, die nicht nach 0815-Standardprojekt klingt, kannst du sie mir gerne schicken. Ich baue sowas in meiner Freizeit, wenn es mich reizt.',
+    ],
   },
   en: {
     title: 'KyleHub',
     description:
-      'KyleHub is the central surface for public services on kylehub.dev and porvi.de. The legal pages live here, alongside a small set of running projects.',
-    eyebrow: '01 / Operator',
-    titleLead: 'One person,',
-    titleAccent: 'a handful of services,',
-    titleTail: 'kept slowly.',
-    body: 'KyleHub is the central surface for my public services on kylehub.dev and porvi.de. The legal pages live here, a small set of running projects sits to the right, and there is an open door for odd ideas at the bottom of the page.',
-    handoffLabel: 'projects',
+      'KyleHub collects public services, legal pages, and open-source projects by Leander Grau.',
+    body: [
+      'KyleHub is the domain where I collect small projects, experiments, and services.',
+      'If you have a creative idea that does not feel like a generic standard project, feel free to send it my way. I build things like that in my free time when the idea catches my interest.',
+    ],
   },
 };
 
+export type ProjectHost = 'github' | 'codeberg';
+export type ProjectVisibility = 'public' | 'codeberg-account';
+
+export interface ProjectLink {
+  label: string;
+  href: string;
+  host: ProjectHost;
+  owner?: string;
+  repo?: string;
+  primary?: boolean;
+}
+
 export interface ProjectEntry {
   name: string;
-  owner: string;
-  repo: string;
-  href: string;
+  links: ProjectLink[];
   text: { de: string; en: string };
-  noStats?: boolean;
   badge?: { de: string; en: string };
+  stats?: boolean;
+  visibility?: ProjectVisibility;
 }
 
 export interface ProjectCategory {
@@ -81,8 +88,17 @@ export interface ProjectCategory {
   projects: ProjectEntry[];
 }
 
+const githubRepo = (owner: string, repo: string, label = 'Code'): ProjectLink => ({
+  label,
+  href: `https://github.com/${owner}/${repo}`,
+  host: 'github',
+  owner,
+  repo,
+  primary: true,
+});
+
 const owner = 'KyleDerZweite';
-const ghHref = (repo: string) => `https://github.com/${owner}/${repo}`;
+const gh = (repo: string, label?: string) => githubRepo(owner, repo, label);
 
 export const projectCategories: ProjectCategory[] = [
   {
@@ -91,33 +107,30 @@ export const projectCategories: ProjectCategory[] = [
     projects: [
       {
         name: 'spellbook',
-        owner,
-        repo: 'spellbook',
-        href: ghHref('spellbook'),
+        links: [gh('spellbook')],
         text: {
           de: 'Self-hosted TCG-Sammlungs-Manager mit OCR-Scan, Suche und Sync.',
           en: 'Self-hosted TCG collection manager with OCR scanning, search, and sync.',
         },
+        stats: true,
       },
       {
         name: 'hatchery',
-        owner,
-        repo: 'hatchery',
-        href: ghHref('hatchery'),
+        links: [gh('hatchery')],
         text: {
-          de: 'Automatisiert die Generierung von Minecraft-Modpack-Server-„Eggs“ für Pterodactyl/Pelican.',
-          en: 'Automates Minecraft modpack-to-server “egg” generation for Pterodactyl/Pelican.',
+          de: 'Modpack-to-egg Automation für Pterodactyl und Pelican Panels.',
+          en: 'Modpack-to-egg automation for Pterodactyl and Pelican panels.',
         },
+        stats: true,
       },
       {
         name: 'nashordaq',
-        owner,
-        repo: 'nashordaq',
-        href: ghHref('nashordaq'),
+        links: [gh('nashordaq')],
         text: {
-          de: 'Fantasy-Aktienmarkt-Spiel für League-of-Legends-Freundeskreise.',
-          en: 'Fantasy stock-market game for League of Legends friend groups.',
+          de: 'Fantasy-Stock-Market für eine League-of-Legends-Freundesgruppe.',
+          en: 'Fantasy stock market for a League of Legends friend group.',
         },
+        stats: true,
       },
     ],
   },
@@ -127,23 +140,21 @@ export const projectCategories: ProjectCategory[] = [
     projects: [
       {
         name: 'ppinject',
-        owner,
-        repo: 'ppinject',
-        href: ghHref('ppinject'),
+        links: [gh('ppinject')],
         text: {
-          de: 'XML-Injektor zur Bearbeitung von .pptx-PowerPoint-Dateien.',
-          en: 'XML injector for modifying .pptx PowerPoint files.',
+          de: 'Kleines OOXML-Werkzeug für PowerPoint-Dateien.',
+          en: 'Small OOXML tool for PowerPoint files.',
         },
+        stats: true,
       },
       {
         name: 'xlinject',
-        owner,
-        repo: 'xlinject',
-        href: ghHref('xlinject'),
+        links: [gh('xlinject')],
         text: {
-          de: 'XLSX-Zellen-Injektor, der Workbook-Struktur und Metadaten erhält.',
-          en: 'XLSX cell injection tool that preserves workbook structure and metadata.',
+          de: 'Kleines OOXML-Werkzeug für Excel-Dateien, mit Fokus auf Formeln, Formatierung und Metadaten.',
+          en: 'Small OOXML tool for Excel files, focused on formulas, formatting, and metadata.',
         },
+        stats: true,
       },
     ],
   },
@@ -153,41 +164,21 @@ export const projectCategories: ProjectCategory[] = [
     projects: [
       {
         name: 'basalt',
-        owner,
-        repo: 'basalt',
-        href: ghHref('basalt'),
+        links: [gh('basalt')],
         text: {
-          de: 'OSINT-Werkzeug zum Verknüpfen von Nutzernamen, E-Mails, Domains und digitalen Spuren.',
-          en: 'OSINT tool for mapping usernames, emails, domains, and digital footprint relationships.',
+          de: 'Relationales OSINT-Tool für Usernames, E-Mails, Domains und digitale Spuren.',
+          en: 'Relational OSINT tool for usernames, emails, domains, and digital footprints.',
         },
+        stats: true,
       },
       {
         name: 'p2p-cli',
-        owner,
-        repo: 'p2p-cli',
-        href: ghHref('p2p-cli'),
+        links: [gh('p2p-cli')],
         text: {
-          de: 'Verschlüsselter terminalbasierter Peer-to-Peer-Messenger.',
-          en: 'Encrypted terminal-based peer-to-peer messenger.',
+          de: 'Terminalbasierter Peer-to-Peer-Messenger in Rust.',
+          en: 'Terminal-based peer-to-peer messenger in Rust.',
         },
-      },
-    ],
-  },
-  {
-    slug: 'memberships',
-    title: { de: 'Mitgliedschaften', en: 'Memberships' },
-    projects: [
-      {
-        name: 'VauxlNet',
-        owner: 'VauxlNet',
-        repo: 'VauxlNet',
-        href: 'https://github.com/VauxlNet',
-        noStats: true,
-        badge: { de: 'GitHub Organisation', en: 'GitHub organization' },
-        text: {
-          de: 'Discord-Alternative auf Matrix-Basis: ein Server-Manager, der Matrix-kompatible Server selbst hostet und über eine vertraute Oberfläche bedient.',
-          en: 'Discord alternative built on the Matrix protocol: a server manager that self-hosts Matrix-compatible servers and exposes them through a familiar interface.',
-        },
+        stats: true,
       },
     ],
   },
@@ -197,23 +188,12 @@ export const projectCategories: ProjectCategory[] = [
     projects: [
       {
         name: 'advent-of-code',
-        owner,
-        repo: 'advent-of-code',
-        href: ghHref('advent-of-code'),
+        links: [gh('advent-of-code')],
         text: {
-          de: 'Advent-of-Code-Lösungen in verschiedenen Sprachen und Paradigmen.',
-          en: 'Advent of Code solutions across languages and paradigms.',
+          de: 'Advent-of-Code-Lösungen und Sprach-/Paradigmen-Experimente.',
+          en: 'Advent of Code solutions and language/paradigm experiments.',
         },
-      },
-      {
-        name: 'vnb-atlas',
-        owner,
-        repo: 'vnb-atlas',
-        href: ghHref('vnb-atlas'),
-        text: {
-          de: 'Python-Repo, Uni-Projekt zur Visualisierung von VNB-Map-Coverage.',
-          en: 'Python repo, university project visualising VNB map coverage.',
-        },
+        stats: true,
       },
     ],
   },

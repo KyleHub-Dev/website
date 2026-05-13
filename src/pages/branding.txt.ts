@@ -52,12 +52,11 @@ Name:     KyleHub
 Register: brand, umbrella, legal hub, one-operator infrastructure
 Persona:  clean, technical, unperfect
 
-North star: Mossy Granite.
+North star: Quiet Operator Surface.
 
-A dark stone surface in low light: cool, slightly damp, warmed where wood
-meets it, with moss colonising a crack. The system should feel like a careful
-operator's workspace, not a company campaign. It is quiet, precise, and a
-little hand-set.
+A dark, flat technical surface with a short human introduction and a curated
+set of current work. The system should feel like a careful operator's
+workspace, not a company campaign. It is quiet, precise, and edited down.
 
 Voice rules:
 - Quiet. The surface does not announce itself.
@@ -105,28 +104,28 @@ Primitive palette defaults:
   Bark Soft         oklch(0.55 0.065 70)
                     Softer Bark hover / secondary treatment.
 
-  Stone             oklch(0.15 0.010 170)
-                    Dark page background.
+  Stone             oklch(0.145 0.004 245)
+                    Dark neutral-gray page background.
 
-  Stone Raised      oklch(0.20 0.011 170)
-                    Raised dark surface, tile body, legal sheet, code fill.
+  Stone Raised      oklch(0.205 0.005 245)
+                    Raised dark surface, legal sheet, code fill.
 
-  Stone Deep        oklch(0.12 0.009 170)
+  Stone Deep        oklch(0.115 0.004 245)
                     Recessed dark band, usually footer or terminal surface.
 
-  Lichen            oklch(0.93 0.006 170)
+  Lichen            oklch(0.92 0.004 245)
                     Primary text on dark.
 
-  Lichen Muted      oklch(0.74 0.008 170)
+  Lichen Muted      oklch(0.73 0.005 245)
                     Secondary copy, captions, metadata.
 
-  Lichen Faint      oklch(0.55 0.008 170)
+  Lichen Faint      oklch(0.54 0.005 245)
                     Tertiary copy, stamps, disabled or placeholder text.
 
-  Hairline          oklch(0.28 0.009 170)
+  Hairline          oklch(0.28 0.005 245)
                     1px borders and dividers.
 
-  Hairline Strong   oklch(0.36 0.010 170)
+  Hairline Strong   oklch(0.36 0.006 245)
                     Tiny separators only.
 
 Role tokens:
@@ -153,27 +152,25 @@ The Mode Inversion Rule:
     --accent = Bark
     --accent-warm = Bloom
 
-  All chrome that participates in identity follows --accent: primary buttons,
-  focus rings, active link underlines, italic Fraunces emphasis, the "Hub"
-  wordmark box, live pips, and text selection.
+  All chrome that participates in identity follows --accent: primary actions,
+  focus rings, active link underlines, the "Hub" wordmark box, and text
+  selection.
 
-  All chrome that carries warmth follows --accent-warm: eyebrow color,
-  plan-list bars, footer column headings, the hairline tick before a feature
-  label, and ghost-button hover.
+  All chrome that carries warmth follows --accent-warm: metadata icons, footer
+  column headings, small structural marks, and ghost-button hover.
 
   Source code should reference --accent and --accent-warm in component rules.
   Do not hardcode --bloom or --bark in component CSS unless defining the role
   tokens themselves or documenting a deliberate exception.
 
-  Intent: in dark mode the system reads as cool stone with mossy bloom. In
-  light mode it reads as warm paper with a mint countergrain. The system
-  should never read as "mint on white" healthcare / wellness, and never as
-  "earthy tan on dark" that loses the cool-stone identity.
+  Intent: in dark mode the system reads as cool gray stone with a restrained
+  mossy bloom. In light mode it reads as warm paper with a mint countergrain.
+  The system should never read as "mint on white" healthcare / wellness, and
+  never as "earthy tan on dark" that loses the cool-gray identity.
 
 Color rules:
-- Bloom / --accent should appear in at least one prominent place per page, but
-  usually only 15-25% of a screen. Below that the system goes inert; above
-  that it starts to sell.
+- Bloom / --accent should appear in at least one visible place per page, but
+  mostly as identity chrome. If a page starts to feel mint-green, reduce it.
 - Bark / --accent-warm is structural warmth, not the main identity voice.
 - Bloom and Bark are the only chromatic brand colors. Do not add a third
   accent for decoration.
@@ -193,8 +190,8 @@ SECTION 4: TYPOGRAPHY
 Default type roles:
 
   Display / Serif:
-    Fraunces Variable. Expressive, rare, used for hero titles, section
-    headlines, wordmark moments, and numbered display details.
+    Fraunces Variable. Expressive, rare, used for restrained headings and
+    wordmark moments. It is no longer a default hero voice.
 
   Body / Sans:
     Atkinson Hyperlegible. Human-readable before machine-sleek. Used for
@@ -202,48 +199,29 @@ Default type roles:
     quickly. Do not set body below 1rem.
 
   Mono / Structure:
-    JetBrains Mono Variable. Used for section markers, eyebrow labels, build
-    stamps, metadata, language tags, small counters, repo names, and labels.
+    JetBrains Mono Variable. Used for navigation, build stamps, metadata,
+    language tags, small counters, repo names, and labels.
 
 If a project cannot use these exact faces, preserve the roles: one expressive
 serif for rare display, one highly readable sans for body, one mono for
 structure. Do not add a fourth brand type role.
 
 Hierarchy defaults:
-  Display    Fraunces 380, opsz 144 SOFT 40, line-height 1.05
-  Headline   Fraunces 500, opsz 24 SOFT 30, line-height 1.15
+  Display    Atkinson 700 or restrained Fraunces, only when the surface needs it
+  Headline   Fraunces 500 or Atkinson 700, line-height 1.15
   Title      Atkinson 600, 1.125rem, line-height 1.3
   Body       Atkinson 400, 1rem, line-height 1.65, max-width 65-72ch
   Mono       JetBrains Mono 450-500, 0.74-0.92rem, line-height 1.45
-  Eyebrow    JetBrains Mono 500, 0.78rem, uppercase, tracked 0.18em
+  Label      JetBrains Mono 500, 0.72-0.78rem, tracked only when needed
 
-Numbered Eyebrow Rule:
+Compact Intro Rule:
 
-  Section labels and step labels use:
-
-    <num>/<text>
-
-  The number is a zero-padded two-digit numeral. The separator is a literal
-  slash. The topic is mono uppercase with letter-spacing around 0.18em. Color
-  is current --accent-warm.
-
-  No leading horizontal bar. No em dash. No Roman numerals such as I, II, IV.
-  No lowercase Roman counters such as i, ii, iii. Roman numerals were a
-  one-page experiment; 01/Topic is the canonical form across the family.
-
-  Numbers count from 01 within a single page, never globally. Step lists
-  inside a section restart at 01.
-
-Italic Accent Rule:
-
-  Italic emphasis inside hero titles is the signature flourish. It stays in
-  the serif, uses WONK 1 when Fraunces is available, and appears exactly once
-  per hero. Its color is --accent, not literal Bloom. In dark mode it is mint;
-  in light mode it is bark. Anywhere else, italic stays neutral.
+  Prefer a short title, one concise paragraph, and a small mono metadata line
+  over a multi-line display hero. Avoid numbered eyebrows and mint italic hero
+  emphasis by default.
 
 Type rules:
-- One Display per page. One or two Headlines per long page. Let rarity create
-  expression.
+- Avoid oversized multi-line display copy. Let editing create confidence.
 - Uppercase tracked labels are mono, never sans.
 - Body line length lives around 65-72ch. Legal or dense reading surfaces should
   be especially strict.
@@ -255,6 +233,9 @@ Icon requirement:
   Codeberg also come through Iconify, usually from the matching brand set such
   as Simple Icons. Do not paste custom SVG paths or hand-draw basic icons.
   Icons inherit currentColor. Do not use an icon font as a fourth typeface.
+  Custom SVG is allowed for brand-specific illustration marks that are not
+  available as standard UI icons, such as the KyleHub hub/server/site/code mark.
+  Keep those illustrations simple, semantic, and tied to the surface.
 
   Use the same Iconify names across frameworks:
     Astro:  astro-icon + @iconify-json/lucide + @iconify-json/simple-icons,
@@ -280,8 +261,9 @@ Shape:
 Elevation:
 - Flat by default. No shadows.
 - Depth comes from surface hue, scale, and 1px hairlines.
-- No glassmorphism. No backdrop blur. No translucent panes pretending to be
-  depth.
+- Do not use glassmorphism as a surface style. A sticky navigation bar may use
+  restrained transparency and backdrop blur only to preserve readability while
+  keeping language/navigation available.
 
 Motion:
 - State changes only. Color, border, opacity, and small transforms are enough.
@@ -350,8 +332,10 @@ Legal / policy surfaces:
 
 Project or repo lists:
   Prefer lists with hairline dividers over cards. Use mono names, readable
-  descriptions, sparse metadata, and a small directional arrow that shifts on
-  hover.
+  descriptions from the repository host when available, sparse metadata, and
+  one direct row-level repo link when the whole row is the action.
+  For umbrella surfaces, grouping by topic is preferred over implying that
+  selected repos are finished products.
 
 Footer:
   Use a recessed surface, 1px top hairline, mono uppercase column headings in
@@ -369,7 +353,8 @@ structure.
 - Decorative blobs, orbs, bokeh, glow fields, or teal/mint gradients.
 - Side-stripe borders thicker than 1px on cards, callouts, alerts, or list
   items.
-- Glassmorphism as a default surface.
+- Glassmorphism as a default surface. Restrained sticky-header transparency is
+  the only default exception.
 - Rounded cards, pills, or soft SaaS panels.
 - Hero metric blocks: big number, small label, supporting stats, accent
   gradient.
@@ -378,7 +363,8 @@ structure.
   portfolio styling.
 - Em dashes in copy.
 - Custom SVG paths or hand-drawn replacements for basic UI, brand, or social
-  icons. Use Iconify, with Lucide as the generic UI root set.
+  icons. Use Iconify, with Lucide as the generic UI root set. Brand-specific
+  illustrations are allowed when they communicate something specific.
 - A fourth typeface.
 - A third chromatic brand accent outside a scoped data-color exception.
 - Pure #000 or #fff in authored brand surfaces.
@@ -389,8 +375,8 @@ SECTION 8: THE UNPERFECT RULE
 -----------------------------
 
 Allow one or two small wonky details per surface: a wordmark block 1px low
-until hover, fractional tile rotations, a real last-edited stamp, a visible
-build hash, a slightly hand-set alignment.
+until hover, a real last-edited stamp, a visible build hash, a slightly
+hand-set alignment.
 
 The detail must be quiet. It should reward a closer look without becoming the
 headline. A surface that looks machined loses the one-operator truth of the
@@ -418,7 +404,8 @@ Before producing a design or implementation from this file:
 2. Map colors to role tokens first, then primitives.
 3. Choose typography by role: serif expression, readable sans body, mono
    structure.
-4. Use numbered mono eyebrows in the 01/Topic pattern.
+4. Use compact headings and mono metadata; avoid numbered eyebrow patterns by
+   default.
 5. Keep surfaces flat, square, hairlined, and sparse.
 6. Add one small unperfect detail only if it serves the surface.
 7. In German text, use real umlauts: ä, ö, ü, Ä, Ö, Ü.

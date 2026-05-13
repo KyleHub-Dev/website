@@ -11,12 +11,11 @@ const { lang = 'de' } = Astro.props;
 
 const t = lang === 'de'
   ? {
-      tagline: 'Ein Operator, ein paar laufende Dienste, langsam gepflegt.',
+      tagline: 'Öffentliche Dienste und ausgewählte Projekte.',
       explore: 'Erkunden',
       code: 'Code',
       legal: 'Rechtliches',
       contact: 'Kontakt',
-      projects: 'Projekte',
       porvi: 'porvi.de',
       githubOrg: 'GitHub Organisation',
       githubPersonal: 'GitHub persönlich',
@@ -34,12 +33,11 @@ const t = lang === 'de'
       build: 'build',
     }
   : {
-      tagline: 'One operator, a handful of running services, kept slowly.',
+      tagline: 'Public services and selected projects.',
       explore: 'Explore',
       code: 'Code',
       legal: 'Legal',
       contact: 'Contact',
-      projects: 'Projects',
       porvi: 'porvi.de',
       githubOrg: 'GitHub organization',
       githubPersonal: 'GitHub personal',
@@ -87,11 +85,6 @@ const year = new Date().getFullYear();
     <div>
       <p class="site-footer__heading">{t.explore}</p>
       <ul class="site-footer__list">
-        <li>
-          <a href={lang === 'de' ? '/projects' : '/en/projects'}>
-            <span>{t.projects}</span>
-          </a>
-        </li>
         <li>
           <a href={siteConfig.porviUrl} target="_blank" rel="noopener noreferrer">
             <Icon name="globe" size={14} />

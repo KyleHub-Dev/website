@@ -2,6 +2,8 @@
 
 Public umbrella site for `kylehub.dev` and the central legal surface for public services under `kylehub.dev`, `porvi.de`, and their subdomains.
 
+The homepage is an Astro static page with a compact intro, a sticky transparent header, and categorized project rows. Repository descriptions and metadata are fetched at build time where possible.
+
 ## Local development
 
 ```bash
@@ -14,6 +16,24 @@ pnpm run dev
 ```bash
 pnpm run build
 ```
+
+## Project metadata
+
+Homepage project rows are configured in `src/data/site.ts` and rendered by `src/components/ProjectCategories.astro`.
+
+`src/lib/repo-stats.ts` fetches repository metadata at build time:
+
+- GitHub repo metadata and open PR counts
+- Codeberg/Forgejo repo metadata if a Codeberg repo is configured
+
+Descriptions shown on the site come from the repository host API. If a repo has no upstream description, the description line is omitted instead of using a local translation.
+
+Optional build tokens:
+
+- `GITHUB_TOKEN`: recommended for GitHub metadata to avoid unauthenticated rate limits.
+- `CODEBERG_TOKEN`: supported for Codeberg repo metadata if Codeberg repos are rendered as rows.
+
+Tokens are build-time only. They must not be committed, logged, rendered into HTML, or persisted into container layers.
 
 ## Minimal wildcard legal model
 
@@ -54,6 +74,8 @@ pnpm run legal:validate
 
 The validation checks that the central wildcard domain families, central routes, required privacy categories, and override clauses remain present.
 
+Run this when legal content, legal routes, legal registries, or the validation script changes. It is not necessary for every purely visual or homepage-copy change.
+
 ## Podman Compose deployment
 
 This repository includes a production container stack:
@@ -76,7 +98,10 @@ Fill in:
 - `PANGOLIN_ENDPOINT`
 - `NEWT_ID`
 - `NEWT_SECRET`
-- `GITHUB_TOKEN` (optional, recommended): fine-grained personal access token with read-only access to public repositories. Used by the build to populate the `/projects` page with stars, forks, open issues and last-push timestamps. Without a token the build still succeeds, but the unauthenticated 60 req/hour limit exhausts quickly and the page falls back to "metadata not currently available". The token is passed to the build step as a Buildah/BuildKit secret, mounted ephemerally for `pnpm run build` only and never written into any image layer or runtime environment.
+- `GITHUB_TOKEN` (optional, recommended): fine-grained personal access token with read-only access to public repositories. Used by the build to populate homepage project metadata for GitHub-hosted projects. Without a token the build still succeeds, but the unauthenticated 60 req/hour limit can exhaust quickly.
+- `CODEBERG_TOKEN` (optional): Codeberg token used at build time if Codeberg repositories are configured as rendered project rows. The current homepage project list is GitHub-only.
+
+Build tokens are passed as Buildah/BuildKit secrets, mounted ephemerally for `pnpm run build` only and never written into an image layer or runtime environment.
 
 ### Start
 
