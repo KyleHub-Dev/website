@@ -24,6 +24,9 @@ pnpm run preview
 explains visual decisions. `/branding.txt` provides public brand guidance for
 other projects.
 
+The [kea mascot note](docs/kea-mascot.md) records the direction for future mascot
+and name-lockup exploration.
+
 ## Project metadata
 
 Edit `src/data/site.ts` to select projects. `src/lib/repo-stats.ts` fetches GitHub

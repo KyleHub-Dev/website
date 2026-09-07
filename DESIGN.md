@@ -37,6 +37,10 @@ preferences when adding transitions.
 
 ## Identity and copy
 
+For mascot, logo or personal-name lockup exploration, read the
+[kea mascot direction](docs/kea-mascot.md). Kea is the preferred animal; its visual
+treatment and adoption on the website remain open.
+
 Use short first-person sentences in the introduction. Describe the projects and
 how to reach them. Keep legal wording tied to actual service behavior.
 
