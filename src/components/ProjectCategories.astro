@@ -48,7 +48,6 @@ const fmtRelative = (iso: string | null) => {
   return `${Math.floor(days / 365)} year${days < 730 ? '' : 's'} ago`;
 };
 
-const hostIcon = (host: RepoStats['host']) => host === 'codeberg' ? 'codeberg' : 'github';
 const repoDescription = (stats: RepoStats | undefined) => {
   const description = stats?.ok ? stats.description?.trim() : null;
   return description || null;
@@ -66,14 +65,13 @@ const repoDescription = (stats: RepoStats | undefined) => {
         {category.projects.map((project) => {
           const stats = statsByProject.get(project.name);
           const description = repoDescription(stats);
-          const primaryLink = project.links.find((link) => link.primary) ?? project.links[0];
-          const primaryHost = stats?.host ?? primaryLink.host;
+          const repoUrl = `https://github.com/${project.owner}/${project.repo}`;
           return (
             <li class="repo-row">
-              <a class="repo-row__link" href={primaryLink.href} target="_blank" rel="noopener noreferrer">
+              <a class="repo-row__link" href={repoUrl} target="_blank" rel="noopener noreferrer">
                 <div class="repo-row__head">
                   <span class="repo-row__name">
-                    <Icon name={hostIcon(primaryHost)} size={14} />
+                    <Icon name="github" size={14} />
                     {project.name}
                   </span>
                   {project.badge && <span class="repo-row__chip repo-row__chip--quiet">{project.badge[lang]}</span>}

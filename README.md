@@ -1,126 +1,108 @@
-# KyleHub Website
+# KyleHub website
 
-Public umbrella site for `kylehub.dev` and the central legal surface for public services under `kylehub.dev`, `porvi.de`, and their subdomains.
+Source for [kylehub.dev](https://kylehub.dev), including the project overview and
+German and English legal pages for services under `kylehub.dev` and `porvi.de`.
+The site builds static HTML with Astro.
 
-The homepage is an Astro static page with a compact intro, a sticky transparent header, and categorized project rows. Repository descriptions and metadata are fetched at build time where possible.
+## Development
 
-## Local development
+Use Node.js 22.12 or later and the pnpm version declared in `package.json`.
 
-```bash
-pnpm install
+```sh
+pnpm install --frozen-lockfile
 pnpm run dev
 ```
 
-## Production build
+Build and preview:
 
-```bash
+```sh
 pnpm run build
+pnpm run preview
 ```
+
+[PRODUCT.md](PRODUCT.md) describes the site's purpose. [DESIGN.md](DESIGN.md)
+explains visual decisions. `/branding.txt` provides public brand guidance for
+other projects.
 
 ## Project metadata
 
-Homepage project rows are configured in `src/data/site.ts` and rendered by `src/components/ProjectCategories.astro`.
+Edit `src/data/site.ts` to select projects. `src/lib/repo-stats.ts` fetches GitHub
+descriptions, language, activity and counts at build time. Descriptions are not
+translated locally. Empty descriptions are omitted; failed requests leave the
+repository link available with a metadata-unavailable message.
 
-`src/lib/repo-stats.ts` fetches repository metadata at build time:
+`GITHUB_TOKEN` is optional. Use a fine-grained token with read-only public
+repository access and no extra permissions. It can increase the API rate limit;
+limits depend on the account and token. Builds also work without a token.
 
-- GitHub repo metadata and open PR counts
-- Codeberg/Forgejo repo metadata if a Codeberg repo is configured
+Keep credentials in local environment files or build secret mounts. They must
+stay out of Git, logs and generated pages. The container build excludes local
+environment files and reads its GitHub token from an ephemeral secret mount.
 
-Descriptions shown on the site come from the repository host API. If a repo has no upstream description, the description line is omitted instead of using a local translation.
+## Legal maintenance
 
-Optional build tokens:
+The central pages are `/impressum`, `/datenschutz` and `/agb`, with English
+versions at `/en/impressum`, `/en/privacy-policy` and `/en/terms`. Each also has a
+`.txt` export. Public services in the domain family should link to the central
+pages, with terms linked where relevant to the service.
 
-- `GITHUB_TOKEN`: recommended for GitHub metadata to avoid unauthenticated rate limits.
-- `CODEBERG_TOKEN`: supported for Codeberg repo metadata if Codeberg repos are rendered as rows.
+`src/data/legal.ts` owns the texts. `src/data/legalRegistry.ts` owns the covered
+domain families. `src/data/site.ts` owns the public operator/contact details.
+Services with a different operator or processing arrangement need appropriate
+separate disclosures.
 
-Tokens are build-time only. They must not be committed, logged, rendered into HTML, or persisted into container layers.
+Before changing claims about hosting, accounts, processors or retention, check
+the relevant service's actual deployment and operating records. A repository move
+does not establish that a service's hosting or processing changed. Preserve
+necessary qualifications in both languages.
 
-## Minimal wildcard legal model
+After changing legal content, routes, the registry or validator, run:
 
-The website intentionally uses one central legal set:
-
-- `/impressum`
-- `/datenschutz`
-- `/agb`
-- `/en/impressum`
-- `/en/privacy-policy`
-- `/en/terms`
-
-There are no `/base/...` template routes, no legal JSON API, and no per-service legal routes. Public services under `kylehub.dev`, `porvi.de`, or their subdomains should link to the central pages:
-
-```txt
-Impressum -> https://kylehub.dev/impressum
-Datenschutz -> https://kylehub.dev/datenschutz
-AGB -> https://kylehub.dev/agb
-```
-
-`AGB` only needs to be linked where terms are relevant, for example account-based or product-facing services.
-
-The scope wording is maintained in `src/data/legal.ts`. The domain-family registry is kept in `src/data/legalRegistry.ts` and is used for lightweight validation, not for public route generation.
-
-### Legal assumptions
-
-- `kylehub.dev` and `porvi.de` are controlled by the same operator.
-- Public subdomains under both domains are part of the same ecosystem.
-- Services with a separate operator or materially different legal setup publish their own legal pages.
-- The privacy page describes processing by category, not by individual subdomain.
-- Non-essential cookies, analytics, tracking, remote fonts, and third-party embeds are not used unless explicitly disclosed.
-
-### Legal validation
-
-```bash
+```sh
 pnpm run legal:validate
+pnpm run build
 ```
 
-The validation checks that the central wildcard domain families, central routes, required privacy categories, and override clauses remain present.
+The validator checks selected source markers and registry declarations. It does
+not prove legal completeness, deployed processing behavior, or route availability.
+Open the affected HTML and text routes in both languages after building.
 
-Run this when legal content, legal routes, legal registries, or the validation script changes. It is not necessary for every purely visual or homepage-copy change.
+## Container deployment
 
-## Podman Compose deployment
+The Compose stack serves the built site with nginx. NEWT connects it to Pangolin;
+nginx publishes no host port. The containers share an internal network, and only
+NEWT has an additional network for outbound tunnel access.
 
-This repository includes a production container stack:
-
-- `website` builds the Astro site and serves the generated output with nginx on container port `80`
-- `newt` creates the Pangolin NEWT tunnel and acts as the only ingress path
-- `website-internal` is an internal-only bridge network shared by nginx and NEWT
-- `newt-egress` gives only the NEWT container outbound access to Pangolin
-
-The nginx container does not publish any host ports. It only exposes port `80` inside the Compose network. Public access must go through Pangolin/NEWT.
-
-### Setup
-
-```bash
+```sh
 cp .env.example .env
 ```
 
-Fill in:
+Fill in the Pangolin endpoint and NEWT credentials. Add the optional GitHub token
+if needed. Use a Compose/build implementation that supports environment-backed
+build secrets.
 
-- `PANGOLIN_ENDPOINT`
-- `NEWT_ID`
-- `NEWT_SECRET`
-- `GITHUB_TOKEN` (optional, recommended): fine-grained personal access token with read-only access to public repositories. Used by the build to populate homepage project metadata for GitHub-hosted projects. Without a token the build still succeeds, but the unauthenticated 60 req/hour limit can exhaust quickly.
-- `CODEBERG_TOKEN` (optional): Codeberg token used at build time if Codeberg repositories are configured as rendered project rows. The current homepage project list is GitHub-only.
+Build from the source revision you intend to deploy. These optional arguments
+identify that revision in the footer:
 
-Build tokens are passed as Buildah/BuildKit secrets, mounted ephemerally for `pnpm run build` only and never written into an image layer or runtime environment.
-
-### Start
-
-```bash
-podman-compose up -d
+```sh
+SOURCE_REVISION="$(git rev-parse --short HEAD)" \
+SOURCE_DATE="$(git log -1 --format=%cs)" \
+  podman-compose up -d --build
 ```
 
-### Logs
+The stamp identifies the commit, so commit the intended source before a stamped
+deployment. Without source metadata, the footer omits the stamp.
 
-```bash
-podman-compose logs -f website
-podman-compose logs -f newt
+In Pangolin, route the resource to host `website`, port `80`. Verify public access
+through that resource and inspect startup logs:
+
+```sh
+podman-compose logs -f website newt
 ```
 
-### Pangolin routing
+## Reuse
 
-In Pangolin, create a resource that targets:
-
-- host: `website`
-- port: `80`
-
-The `website` and `newt` containers share the internal `website-internal` bridge, so NEWT can route traffic directly to the nginx container without exposing any host ports. `newt` is also attached to `newt-egress` so it can make the outbound control connection to Pangolin.
+Original website code and developer documentation use the [MIT license](LICENSE).
+KyleHub brand assets and operator-specific legal texts are excluded. See
+[NOTICE.md](NOTICE.md) for the exact scope and third-party font/icon notices.
+The license does not grant trademark rights or imply KyleHub endorsement.

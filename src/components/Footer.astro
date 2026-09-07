@@ -19,16 +19,11 @@ const t = lang === 'de'
       porvi: 'porvi.de',
       githubOrg: 'GitHub Organisation',
       githubPersonal: 'GitHub persönlich',
-      codebergOrg: 'Codeberg Organisation',
-      codebergPersonal: 'Codeberg persönlich',
       impressum: 'Impressum',
       privacy: 'Datenschutz',
       terms: 'AGB',
       mailLabel: 'E-Mail',
       discordLabel: 'Discord',
-      matrixLabel: 'Matrix',
-      mastodonLabel: 'Mastodon',
-      comingSoon: 'folgt',
       lastEdited: 'zuletzt bearbeitet',
       build: 'build',
     }
@@ -41,32 +36,27 @@ const t = lang === 'de'
       porvi: 'porvi.de',
       githubOrg: 'GitHub organization',
       githubPersonal: 'GitHub personal',
-      codebergOrg: 'Codeberg organization',
-      codebergPersonal: 'Codeberg personal',
       impressum: 'Impressum',
       privacy: 'Privacy policy',
       terms: 'Terms',
       mailLabel: 'Email',
       discordLabel: 'Discord',
-      matrixLabel: 'Matrix',
-      mastodonLabel: 'Mastodon',
-      comingSoon: 'soon',
       lastEdited: 'last edited',
       build: 'build',
     };
 
-let lastEdited = new Date().toISOString().slice(0, 10);
-let buildSha = 'dev';
+let lastEdited = process.env.SOURCE_DATE || '';
+let buildSha = process.env.SOURCE_REVISION || '';
 try {
-  buildSha = execSync('git rev-parse --short HEAD', { stdio: ['ignore', 'pipe', 'ignore'] })
+  buildSha ||= execSync('git rev-parse --short HEAD', { stdio: ['ignore', 'pipe', 'ignore'] })
     .toString()
-    .trim() || 'dev';
+    .trim();
   const lastCommitDate = execSync('git log -1 --format=%cs', { stdio: ['ignore', 'pipe', 'ignore'] })
     .toString()
     .trim();
-  if (lastCommitDate) lastEdited = lastCommitDate;
+  lastEdited ||= lastCommitDate;
 } catch {
-  // Ship-time fallbacks already set above.
+  // Source metadata is optional when building without a Git checkout.
 }
 
 const year = new Date().getFullYear();
@@ -109,20 +99,6 @@ const year = new Date().getFullYear();
             <span>{siteConfig.contact.email}</span>
           </a>
         </li>
-        <li>
-          <span class="site-footer__placeholder">
-            <Icon name="matrix" size={14} />
-            <span>{t.matrixLabel}</span>
-            <span class="site-footer__placeholder-tag">{t.comingSoon}</span>
-          </span>
-        </li>
-        <li>
-          <span class="site-footer__placeholder">
-            <Icon name="mastodon" size={14} />
-            <span>{t.mastodonLabel}</span>
-            <span class="site-footer__placeholder-tag">{t.comingSoon}</span>
-          </span>
-        </li>
       </ul>
     </div>
 
@@ -141,18 +117,6 @@ const year = new Date().getFullYear();
             <span>{t.githubPersonal}</span>
           </a>
         </li>
-        <li>
-          <a href={siteConfig.codeHosts.codebergOrg} target="_blank" rel="noopener noreferrer">
-            <Icon name="codeberg" size={14} />
-            <span>{t.codebergOrg}</span>
-          </a>
-        </li>
-        <li>
-          <a href={siteConfig.codeHosts.codebergPersonal} target="_blank" rel="noopener noreferrer">
-            <Icon name="codeberg" size={14} />
-            <span>{t.codebergPersonal}</span>
-          </a>
-        </li>
       </ul>
     </div>
 
@@ -168,8 +132,10 @@ const year = new Date().getFullYear();
 
   <div class="site-footer__meta">
     <span>© {year} KyleHub</span>
-    <span class="site-footer__meta-build">
-      {t.lastEdited} {lastEdited} · {t.build} <code>{buildSha}</code>
-    </span>
+    {(lastEdited || buildSha) && <span class="site-footer__meta-build">
+      {lastEdited && <span>{t.lastEdited} {lastEdited}</span>}
+      {lastEdited && buildSha && ' · '}
+      {buildSha && <span>{t.build} <code>{buildSha}</code></span>}
+    </span>}
   </div>
 </footer>

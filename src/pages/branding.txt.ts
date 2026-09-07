@@ -2,414 +2,173 @@ import type { APIRoute } from 'astro';
 
 export const prerender = true;
 
-const body = `KyleHub - Portable Brand Brief
-=================================
+const body = `KyleHub brand guidance
+======================
 
-Audience: AI assistants and human collaborators building surfaces that live
-on, link into, or borrow from the kylehub.dev / porvi.de family.
+For people and AI assistants working on projects under kylehub.dev and porvi.de.
+Use these defaults when the project has no more specific product or design brief.
+Section numbers remain stable so projects can reference decisions.
 
-Status: public brand guidance. This file is standalone. Use it when a project
-does not have stronger local product, design, or implementation context.
+SECTION 1: USE
+--------------
 
-
-SECTION 1: INSTRUCTIONS FOR USE
--------------------------------
-
-This is a guidance document, not a fixed style sheet. Every named rule is the
-default a project should reach for. Concrete tokens, type choices, hairlines,
-and surface patterns are the defaults a project can ship with unless the local
-brief argues otherwise.
-
-Local context wins when it is specific and intentional. This file wins over
-generic taste, library defaults, trend-following, and "make it prettier"
-requests that do not name a real product need.
-
-If you depart from a default, document the departure as close to the decision
-as the medium allows: source comment, design note, prompt note, issue, or
-component README. Use this form:
+Start with the project's purpose and audience. Local requirements take priority
+over these defaults. Record a material departure near its implementation:
 
   departs from branding.txt section <number>: <reason>
 
-A good departure is:
-  (a) intentional, with a concrete reason,
-  (b) scoped to the surface that needs it,
-  (c) removed when the reason no longer holds.
-
-If you find yourself fighting a rule across multiple surfaces, the rule itself
-is probably wrong for that project. Bring the rule back for revision rather
-than papering over it everywhere.
-
-For code, prefer role tokens over literal color names. Component rules should
-reference --accent, --accent-warm, --surface, --text, and --hairline where
-possible. Primitive tokens such as --bloom and --bark define the palette; role
-tokens define behavior.
-
+Use role tokens in components. Define the palette and role mappings centrally.
+If a default repeatedly causes problems, revise it for that project instead of
+adding exceptions to every component.
 
 SECTION 2: IDENTITY AND VOICE
 -----------------------------
 
-Name:     KyleHub
-Register: brand, umbrella, legal hub, one-operator infrastructure
-Persona:  clean, technical, unperfect
+KyleHub is the name Kyle uses for personal projects and services. Use short,
+concrete descriptions of what a project does. First-person language fits personal
+introductions; use the actual operator and service facts in legal documents.
 
-North star: Quiet Operator Surface.
-
-A dark, flat technical surface with a short human introduction and a curated
-set of current work. The system should feel like a careful operator's
-workspace, not a company campaign. It is quiet, precise, and edited down.
-
-Voice rules:
-- Quiet. The surface does not announce itself.
-- Honest over polished. A real timestamp, a 1px misalignment, or a small
-  hover aside can carry more trust than a perfect marketing block.
-- Direct, not sales-led. No "trusted by", no value-prop hero, no SaaS fog.
-- One operator, not a fake company. Prefer singular human language when the
-  product context allows it.
-- German text uses real umlauts. Always write ä, ö, ü and Ä, Ö, Ü directly;
-  never replace them with ae, oe, ue, Ae, Oe, or Ue unless quoting a source
-  that already does so.
-- Avoid em dashes in copy. Use commas, colons, semicolons, periods, or
-  parentheses.
-
-Anti-references:
-- Generic SaaS landing pages: gradient hero, three-card feature row,
-  "trusted by" logo strip, soft purple-blue buttons.
-- Developer portfolio reflex: terminal-on-black, fake "$ whoami" prompt,
-  ASCII art header, neon monospace everywhere.
-- Corporate consulting: navy and gold, stock-photo handshakes, "we deliver
-  excellence", centered serif headlines over dark photos.
-- Healthcare / wellness app: saturated mint on white, rounded sans, blob
-  decoration, teal gradients.
-- Generic minimalism: off-white background, black Inter, one underlined link,
-  no point of view.
-
+Use real German umlauts. Preserve exact identifiers and quoted source text.
+Separate sentences with periods. Keep promotional claims and decorative copy out
+of navigation, project lists and instructions.
 
 SECTION 3: COLOR
 ----------------
 
-Color space: OKLCH is the canonical source format when the platform supports
-it. Avoid hex for authored brand colors. Never use pure #000 or #fff.
+Default primitives, in OKLCH:
 
-Primitive palette defaults:
+  Bloom          oklch(0.738 0.131 170)
+  Bloom Deep     oklch(0.66 0.135 170)
+  Bark           oklch(0.62 0.07 70)
+  Bark Soft      oklch(0.55 0.065 70)
+  Stone          oklch(0.145 0.004 245)
+  Stone Raised   oklch(0.205 0.005 245)
+  Stone Deep     oklch(0.115 0.004 245)
+  Lichen         oklch(0.92 0.004 245)
+  Lichen Muted   oklch(0.73 0.005 245)
+  Lichen Faint   oklch(0.54 0.005 245)
+  Hairline       oklch(0.28 0.005 245)
+  Hairline Strong oklch(0.36 0.006 245)
 
-  Bloom Mint        oklch(0.738 0.131 170)
-                    Identity color, sampled from the KyleHub shield logo.
+Dark-theme role defaults:
 
-  Bloom Deep        oklch(0.66 0.135 170)
-                    Pressed / active variant of Bloom. Use sparingly.
+  --accent       Bloom, for identity and interaction
+  --accent-warm  Bark, for metadata
+  --surface      Stone
+  --surface-2    Stone Raised
+  --surface-3    Stone Deep
+  --text         Lichen
+  --text-muted   Lichen Muted
+  --text-faint   Lichen Faint
+  --hairline     Hairline
 
-  Bark              oklch(0.62 0.07 70)
-                    Muted tan-brown warmth. Never orange, never gold.
+For light themes, use Bark as --accent and Bloom as --accent-warm. Choose light
+backgrounds and dark text for that theme and verify contrast. The dark palette
+is not a complete light-theme palette.
 
-  Bark Soft         oklch(0.55 0.065 70)
-                    Softer Bark hover / secondary treatment.
+Keep accents small: focus, active links, wordmarks and metadata. Use neutral
+backgrounds for large areas. Data identity marks, such as GitHub language dots,
+may use their source colors. Pair status colors with text or another visible cue.
+Verify text and control contrast; a named brand token does not establish WCAG
+compliance. Faint text must still meet contrast requirements when it conveys
+information.
 
-  Stone             oklch(0.145 0.004 245)
-                    Dark neutral-gray page background.
+SECTION 4: TYPOGRAPHY AND ICONS
+-------------------------------
 
-  Stone Raised      oklch(0.205 0.005 245)
-                    Raised dark surface, legal sheet, code fill.
+Use locally served fonts where possible:
 
-  Stone Deep        oklch(0.115 0.004 245)
-                    Recessed dark band, usually footer or terminal surface.
+- Atkinson Hyperlegible for body text and compact introductions.
+- JetBrains Mono for navigation, labels, repository names and metadata.
+- Fraunces for the wordmark and selected headings.
 
-  Lichen            oklch(0.92 0.004 245)
-                    Primary text on dark.
+If these fonts are unavailable, preserve their roles with suitable alternatives.
+Start body text at 1rem, with a readable line height and about 65-72 characters
+per line. Check dense reading pages at 200% zoom.
 
-  Lichen Muted      oklch(0.73 0.005 245)
-                    Secondary copy, captions, metadata.
+Use Iconify with Lucide for generic UI icons and Simple Icons for brand marks.
+Icons inherit currentColor. In Astro, include only used icons in astro.config.*.
+Custom SVG is appropriate for the KyleHub logo and project-specific illustrations.
 
-  Lichen Faint      oklch(0.54 0.005 245)
-                    Tertiary copy, stamps, disabled or placeholder text.
+SECTION 5: SHAPE, MOTION AND LAYOUT
+----------------------------------
 
-  Hairline          oklch(0.28 0.005 245)
-                    1px borders and dividers.
+Use square, flat components separated by spacing and thin borders. Keep visual
+hierarchy in type size, weight and placement. A sticky navigation bar can use
+restrained transparency if its text stays readable over the page.
 
-  Hairline Strong   oklch(0.36 0.006 245)
-                    Tiny separators only.
+Use short transitions for interaction states. Respect prefers-reduced-motion.
+Keep content available without entrance animations or scroll effects.
 
-Role tokens:
+Choose layout around the task. Project lists work well as rows with dividers;
+legal text needs a reading column. Repeated controls should stay predictable.
 
-  --accent       Identity chrome.
-  --accent-warm  Warm structural chrome.
-  --surface      Main canvas.
-  --surface-2    Raised surface.
-  --surface-3    Recessed surface.
-  --text         Primary text.
-  --text-muted   Secondary text.
-  --text-faint   Tertiary text.
-  --hairline     1px dividers and borders.
-
-The Mode Inversion Rule:
-
-  Bloom and Bark swap roles between dark and light themes.
-
-  Dark mode, the family's identity mode:
-    --accent = Bloom
-    --accent-warm = Bark
-
-  Light mode:
-    --accent = Bark
-    --accent-warm = Bloom
-
-  All chrome that participates in identity follows --accent: primary actions,
-  focus rings, active link underlines, the "Hub" wordmark box, and text
-  selection.
-
-  All chrome that carries warmth follows --accent-warm: metadata icons, footer
-  column headings, small structural marks, and ghost-button hover.
-
-  Source code should reference --accent and --accent-warm in component rules.
-  Do not hardcode --bloom or --bark in component CSS unless defining the role
-  tokens themselves or documenting a deliberate exception.
-
-  Intent: in dark mode the system reads as cool gray stone with a restrained
-  mossy bloom. In light mode it reads as warm paper with a mint countergrain.
-  The system should never read as "mint on white" healthcare / wellness, and
-  never as "earthy tan on dark" that loses the cool-gray identity.
-
-Color rules:
-- Bloom / --accent should appear in at least one visible place per page, but
-  mostly as identity chrome. If a page starts to feel mint-green, reduce it.
-- Bark / --accent-warm is structural warmth, not the main identity voice.
-- Bloom and Bark are the only chromatic brand colors. Do not add a third
-  accent for decoration.
-- No semantic green / red / yellow chrome by default. Communicate state with
-  copy, weight, outline, and the existing role tokens.
-- Data-color exception: small data identity marks may use external hues when
-  the hue is the data, for example a GitHub language dot. Keep it tiny, scoped,
-  and never adjacent to body copy at full chroma. Unknown data falls back to
-  --accent.
-- Bloom is not decoration. Never use it as a glow, blob, gradient stop, or
-  wellness-style mint wash.
-
-
-SECTION 4: TYPOGRAPHY
----------------------
-
-Default type roles:
-
-  Display / Serif:
-    Fraunces Variable. Expressive, rare, used for restrained headings and
-    wordmark moments. It is no longer a default hero voice.
-
-  Body / Sans:
-    Atkinson Hyperlegible. Human-readable before machine-sleek. Used for
-    paragraphs, legal text, interface copy, and anything that must be read
-    quickly. Do not set body below 1rem.
-
-  Mono / Structure:
-    JetBrains Mono Variable. Used for navigation, build stamps, metadata,
-    language tags, small counters, repo names, and labels.
-
-If a project cannot use these exact faces, preserve the roles: one expressive
-serif for rare display, one highly readable sans for body, one mono for
-structure. Do not add a fourth brand type role.
-
-Hierarchy defaults:
-  Display    Atkinson 700 or restrained Fraunces, only when the surface needs it
-  Headline   Fraunces 500 or Atkinson 700, line-height 1.15
-  Title      Atkinson 600, 1.125rem, line-height 1.3
-  Body       Atkinson 400, 1rem, line-height 1.65, max-width 65-72ch
-  Mono       JetBrains Mono 450-500, 0.74-0.92rem, line-height 1.45
-  Label      JetBrains Mono 500, 0.72-0.78rem, tracked only when needed
-
-Compact Intro Rule:
-
-  Prefer a short title, one concise paragraph, and a small mono metadata line
-  over a multi-line display hero. Avoid numbered eyebrows and mint italic hero
-  emphasis by default.
-
-Type rules:
-- Avoid oversized multi-line display copy. Let editing create confidence.
-- Uppercase tracked labels are mono, never sans.
-- Body line length lives around 65-72ch. Legal or dense reading surfaces should
-  be especially strict.
-
-Icon requirement:
-  Iconify is the required icon aggregator. Lucide is the root set for generic
-  UI icons: arrows, mail, lock, globe, status, navigation, and controls.
-  Brand and social marks such as GitHub, Discord, Mastodon, Matrix, and
-  Codeberg also come through Iconify, usually from the matching brand set such
-  as Simple Icons. Do not paste custom SVG paths or hand-draw basic icons.
-  Icons inherit currentColor. Do not use an icon font as a fourth typeface.
-  Custom SVG is allowed for brand-specific illustration marks that are not
-  available as standard UI icons, such as the KyleHub hub/server/site/code mark.
-  Keep those illustrations simple, semantic, and tied to the surface.
-
-  Use the same Iconify names across frameworks:
-    Astro:  astro-icon + @iconify-json/lucide + @iconify-json/simple-icons,
-            <Icon name="lucide:mail" />
-    React:  @iconify/react,  <Icon icon="lucide:mail" />
-    Vue:    @iconify/vue,    <Icon icon="lucide:mail" />
-    Svelte: @iconify/svelte, <Icon icon="lucide:mail" />
-
-  In Astro, whitelist the exact used icons in astro.config.* via
-  astro-icon's include option. Do not bundle entire icon sets when the used
-  icon list is known.
-
-
-SECTION 5: SHAPE, ELEVATION, MOTION, LAYOUT
--------------------------------------------
-
-Shape:
-- Square by default. Border-radius is 0.
-- The only default radius is a 1px focus-ring corner so outlines render crisply.
-- No pills, no 6px cards, no rounded SaaS panels unless a local product brief
-  documents why.
-
-Elevation:
-- Flat by default. No shadows.
-- Depth comes from surface hue, scale, and 1px hairlines.
-- Do not use glassmorphism as a surface style. A sticky navigation bar may use
-  restrained transparency and backdrop blur only to preserve readability while
-  keeping language/navigation available.
-
-Motion:
-- State changes only. Color, border, opacity, and small transforms are enough.
-- Easing: cubic-bezier(0.22, 1, 0.36, 1), around 200-280ms.
-- No entrance choreography, scroll reveals, bounce, elastic, hover lift, or
-  parallax by default.
-- Respect prefers-reduced-motion. Every motion rule needs a reduced-motion
-  partner.
-
-Layout:
-- Narrow, centered, readable. Body copy usually caps at 65-72ch.
-- Use varied spacing through clamp() or equivalent responsive constraints.
-- Do not wrap everything in a generic container. Use structure only where it
-  helps scanning.
-- Avoid identical 3-up feature card grids. Cards are not the default answer.
-
-
-SECTION 6: PORTABLE SURFACE PATTERNS
-------------------------------------
-
-Wordmark:
-  "Kyle" in the display serif followed by "Hub" in a 1px --accent box. The
-  block may sit 1px low at rest and settle on hover. This small honest seam is
-  a signature example of "unperfect." Default cadence is 220ms ease-out-quart
-  with translateY(1px) at rest snapping to translateY(0) on hover.
-
-Buttons:
-  Primary actions use --accent. Secondary or ghost actions use hairline borders
-  and warm hover details via --accent-warm. Corners are square. No shadows, no
-  gradients, no hover lift.
-
-Focus:
-  2px solid --accent outline, 2px offset, 1px radius. Never remove focus
-  visibility.
-
-Language switcher:
-  Two mono tags inside a 1px hairline tray. Active tag fills with
-  --accent-warm and sets text in the current surface color. Never a dropdown,
-  never a globe icon, never a popover. Two languages, two tags, both visible.
-  Always present, even in single-language drafts. The inactive tag can point
-  to a stub, 404, or root redirect rather than being hidden. The presence of
-  two tags is part of the brand voice: an operator who runs things in two
-  languages.
-
-Theme switcher:
-  When a theme switcher exists, use a single 30x30 square button matching the
-  language tray's height and hairline. One mono glyph at the center. Rest
-  color is Lichen Muted; hover color is Lichen. Rest border is Hairline; hover
-  border is Lichen Muted. On desktop it sits immediately to the right of the
-  language tray and immediately to the left of the primary CTA if a CTA exists.
-
-  Glyphs:
-    Light active, next dark:  ◐
-    Dark active, next light:  ☼
-
-  Persist the choice in localStorage under <project>-theme. Respect
-  prefers-color-scheme as the unselected default. Never use a sliding macOS
-  toggle, animated sun/moon morph, or gradient background. The theme switcher
-  is the only chrome that should mutate CSS custom properties at runtime; the
-  rest of the surface stays declarative.
-
-Legal / policy surfaces:
-  Treat legal pages as first-class. Use the same typography, spacing, and
-  brand care as the hero. They should read quickly on a phone, support 200%
-  zoom, and avoid horizontal scroll.
-
-Project or repo lists:
-  Prefer lists with hairline dividers over cards. Use mono names, readable
-  descriptions from the repository host when available, sparse metadata, and
-  one direct row-level repo link when the whole row is the action.
-  For umbrella surfaces, grouping by topic is preferred over implying that
-  selected repos are finished products.
-
-Footer:
-  Use a recessed surface, 1px top hairline, mono uppercase column headings in
-  --accent-warm, muted links that brighten on hover, and a real build or
-  updated stamp when available.
-
-
-SECTION 7: STRONG BANS
-----------------------
-
-If you are about to use one of these, rewrite the element with different
-structure.
-
-- Gradient text.
-- Decorative blobs, orbs, bokeh, glow fields, or teal/mint gradients.
-- Side-stripe borders thicker than 1px on cards, callouts, alerts, or list
-  items.
-- Glassmorphism as a default surface. Restrained sticky-header transparency is
-  the only default exception.
-- Rounded cards, pills, or soft SaaS panels.
-- Hero metric blocks: big number, small label, supporting stats, accent
-  gradient.
-- Identical 3-up icon-heading-text feature grids.
-- Terminal cosplay: fake prompts, ASCII art headers, neon-on-black developer
-  portfolio styling.
-- Em dashes in copy.
-- Custom SVG paths or hand-drawn replacements for basic UI, brand, or social
-  icons. Use Iconify, with Lucide as the generic UI root set. Brand-specific
-  illustrations are allowed when they communicate something specific.
-- A fourth typeface.
-- A third chromatic brand accent outside a scoped data-color exception.
-- Pure #000 or #fff in authored brand surfaces.
-- Removing visible keyboard focus.
-
-
-SECTION 8: THE UNPERFECT RULE
+SECTION 6: COMPONENT DEFAULTS
 -----------------------------
 
-Allow one or two small wonky details per surface: a wordmark block 1px low
-until hover, a real last-edited stamp, a visible build hash, a slightly
-hand-set alignment.
+Wordmark:
+  Fraunces for "Kyle", followed by "Hub" in a thin --accent box.
 
-The detail must be quiet. It should reward a closer look without becoming the
-headline. A surface that looks machined loses the one-operator truth of the
-brand.
+Actions:
+  Distinguish primary and secondary actions with weight, borders and role tokens.
+  Keep controls reachable by keyboard. Use a visible focus outline, normally
+  2px solid --accent with 2px offset, and check its contrast.
 
+Languages:
+  Show DE and EN when both translations exist. Each link must lead to the
+  corresponding available page. If a translation is unavailable, omit its link
+  or explain that state without linking to an error page. Set document lang and
+  link hreflang correctly.
 
-SECTION 9: PRIVACY AND HOSTING DEFAULTS
----------------------------------------
+Themes:
+  If the product offers a theme switcher, give it an accessible name and visible
+  state. Use the system preference until the user chooses a theme. Store an
+  explicit choice under <project>-theme in localStorage.
 
-For public web surfaces in the family:
-- Prefer self-hosted fonts.
-- No analytics, tracking pixels, or third-party embeds unless disclosed.
-- No non-essential cookies.
-- Prefer build-time data fetching over client-side third-party calls.
-- Static and boring infrastructure is a virtue when it serves the product.
+Project lists:
+  Use a direct repository link, readable description and relevant metadata.
+  Fetch external metadata at build time for static sites. Preserve navigation
+  when metadata is unavailable.
 
+Footer:
+  Include working contact and legal links. Show a source revision or update date
+  only when it is known. Keep build dates distinct from source-edit dates.
 
-SECTION 10: QUICK AGENT CHECKLIST
----------------------------------
+SECTION 7: ACCESSIBILITY
+------------------------
 
-Before producing a design or implementation from this file:
+Keep keyboard focus visible, controls named, and navigation usable without a
+mouse. Verify text and control contrast in every supported theme. State must be
+understandable without color alone. Respect reduced-motion preferences.
 
-1. Identify the local project purpose and audience. If none is provided, use
-   the KyleHub default: quiet one-operator technical surface.
-2. Map colors to role tokens first, then primitives.
-3. Choose typography by role: serif expression, readable sans body, mono
-   structure.
-4. Use compact headings and mono metadata; avoid numbered eyebrow patterns by
-   default.
-5. Keep surfaces flat, square, hairlined, and sparse.
-6. Add one small unperfect detail only if it serves the surface.
-7. In German text, use real umlauts: ä, ö, ü, Ä, Ö, Ü.
-8. Document any departure close to the decision.
+Check narrow screens and 200% zoom for clipped text, hidden controls and horizontal
+scrolling. Keep decorative illustrations out of the accessibility tree when nearby
+text already carries their meaning.
+
+SECTION 8: OPTIONAL DETAILS
+---------------------------
+
+The website's wordmark has a small resting offset that changes on hover. This is
+an optional identity detail. Other components can use ordinary aligned layouts.
+Keep any decorative interaction secondary to reading and navigation.
+
+SECTION 9: PRIVACY AND HOSTING
+------------------------------
+
+Prefer local fonts and build-time metadata requests. Disclose any analytics,
+tracking, third-party embeds or non-essential storage before using them.
+
+Describe the actual service's data processing in its legal pages. Use the central
+KyleHub legal pages only when their operator, scope and processing descriptions
+cover the service. Build credentials stay outside source, browser code and output.
+
+SECTION 10: COMPLETION CHECK
+----------------------------
+
+Before finishing, verify the changed page against its purpose. Check working
+links, keyboard navigation, supported languages, contrast, narrow layouts and
+reduced-motion behavior where motion changed. Run the project's build and
+relevant checks. Record any unverified behavior and material design departures.
 `;
 
 export const GET: APIRoute = () =>

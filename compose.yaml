@@ -3,9 +3,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        SOURCE_REVISION: ${SOURCE_REVISION:-}
+        SOURCE_DATE: ${SOURCE_DATE:-}
       secrets:
         - github_token
-        - codeberg_token
     image: localhost/kylehub-website:latest
     container_name: kylehub-website
     restart: unless-stopped
@@ -47,5 +49,3 @@ secrets:
   # build step. Never present in the final image or runtime.
   github_token:
     environment: GITHUB_TOKEN
-  codeberg_token:
-    environment: CODEBERG_TOKEN

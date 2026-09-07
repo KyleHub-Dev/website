@@ -3,12 +3,9 @@ import { Icon as AstroIcon } from 'astro-icon/components';
 
 type IconName =
   | 'github'
-  | 'codeberg'
   | 'globe'
   | 'discord'
   | 'mail'
-  | 'matrix'
-  | 'mastodon'
   | 'arrow-up-right'
   | 'star'
   | 'fork'
@@ -25,10 +22,7 @@ interface Props {
 
 const iconMap: Record<IconName, string> = {
   github: 'simple-icons:github',
-  codeberg: 'simple-icons:codeberg',
   discord: 'simple-icons:discord',
-  matrix: 'simple-icons:matrix',
-  mastodon: 'simple-icons:mastodon',
   globe: 'lucide:globe',
   mail: 'lucide:mail',
   'arrow-up-right': 'lucide:arrow-up-right',

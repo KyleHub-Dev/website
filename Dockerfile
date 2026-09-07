@@ -11,15 +11,14 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
+ARG SOURCE_REVISION
+ARG SOURCE_DATE
+
 # Build tokens are consumed once by `pnpm run build` for static project metadata
 # and are never written to any image layer. Build still succeeds without them.
 RUN --mount=type=secret,id=github_token \
-    --mount=type=secret,id=codeberg_token \
     if [ -s /run/secrets/github_token ]; then \
         export GITHUB_TOKEN="$(cat /run/secrets/github_token)"; \
-    fi; \
-    if [ -s /run/secrets/codeberg_token ]; then \
-        export CODEBERG_TOKEN="$(cat /run/secrets/codeberg_token)"; \
     fi; \
     pnpm run build
 

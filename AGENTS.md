@@ -1,43 +1,17 @@
-# AGENTS.md
+# Working on the website
 
-Current reference documents in this repo:
-
-- `DESIGN.md` - current website design notes, reconciled after implementation.
-- `PRODUCT.md` - strategic context and older product direction.
-
-Read both before visual or product work, but treat the actual implementation in
-`src/` as the source of truth when the documents disagree. In the May 2026
-redesign pass, the code was inspected first and the docs were updated afterward
-so they describe the shipped direction instead of constraining it.
-
-Current implementation notes:
-
-- The homepage is the project overview; `/projects` and `/en/projects` do not
-  exist.
-- The header is sticky, translucent, and has a full-width bottom hairline.
-- Project rows use build-time repo metadata. Descriptions come from the repo
-  host API and are not translated locally.
-- `pnpm run legal:validate` is for legal content/route/registry changes. For
-  visual-only work, `pnpm run build` is usually the relevant validation.
-
-## Note on branding.txt
-
-The site also serves `/branding.txt` (`src/pages/branding.txt.ts`), a portable
-public brand brief for AI assistants and human collaborators working outside
-this repo. It shares identity, tokens, and major rules with the internal design
-system, but it is not a generated mirror and should not be copied blindly from
-`DESIGN.md`.
-
-`DESIGN.md` describes this website's current implementation. `/branding.txt` is
-the external default direction when another project has no stronger local design
-context. Keep the two coherent at the level of identity, palette, typography
-roles, bans, and surface direction, while allowing `branding.txt` to stay softer
-and more general.
-
-## Footer build stamp
-
-`zuletzt bearbeitet <date> · build <sha>` is auto-generated at build time in
-`Footer.astro` from `git log -1 --format=%cs` and `git rev-parse --short HEAD`.
-Advances on rebuild against a new commit; no manual updates. Falls back to
-today + `dev` if `.git` is missing (shallow clone, Dockerfile dropping `.git`).
-Tracks the source commit, not the build moment, so commit before deploy.
+- For product scope or navigation changes, read [PRODUCT.md](PRODUCT.md).
+- For visual changes, read [DESIGN.md](DESIGN.md). `src/styles/global.css` owns
+  token values.
+- For project-list changes, edit `src/data/site.ts`. Metadata loads at build time
+  through `src/lib/repo-stats.ts`.
+- For legal changes, read the legal maintenance section of [README.md](README.md)
+  and update `src/data/legal.ts` or `src/data/legalRegistry.ts`. Confirm operational
+  claims against the relevant service records before changing them.
+- For public brand guidance, edit `src/pages/branding.txt.ts`. Keep shared defaults
+  consistent with `DESIGN.md`. Preserve section IDs referenced by other projects.
+- Keep build credentials in environment variables or secret mounts. Exclude local
+  environment files from Git and the container build context.
+- Finish website changes with `pnpm run build`. For legal changes, also run
+  `pnpm run legal:validate`. Check changed routes and both language destinations.
+  For visual changes, check keyboard access, narrow layouts and text at 200% zoom.

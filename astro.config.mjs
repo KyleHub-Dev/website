@@ -21,11 +21,8 @@ export default defineConfig({
           'star',
         ],
         'simple-icons': [
-          'codeberg',
           'discord',
           'github',
-          'mastodon',
-          'matrix',
         ],
       },
     }),
