@@ -18,14 +18,6 @@ export const legalDomainFamilies: LegalDomainFamily[] = [
     privacyCoveredBy: '/datenschutz',
     termsCoveredBy: '/agb',
   },
-  {
-    domainFamily: 'porvi.de',
-    public: true,
-    operator: siteConfig.operator.name,
-    legalCoveredBy: '/impressum',
-    privacyCoveredBy: '/datenschutz',
-    termsCoveredBy: '/agb',
-  },
 ];
 
 export const publicLegalDomainFamilies = legalDomainFamilies.filter((entry) => entry.public);

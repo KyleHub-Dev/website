@@ -15,8 +15,6 @@ const routes: Array<{ path: string; priority: number; changefreq: string }> = [
   { path: '/en/terms',               priority: 0.4, changefreq: 'yearly'  },
 ];
 
-const today = new Date().toISOString().slice(0, 10);
-
 export const GET: APIRoute = () => {
   const body =
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
@@ -26,7 +24,6 @@ export const GET: APIRoute = () => {
         (r) =>
           `  <url>\n` +
           `    <loc>${SITE}${r.path}</loc>\n` +
-          `    <lastmod>${today}</lastmod>\n` +
           `    <changefreq>${r.changefreq}</changefreq>\n` +
           `    <priority>${r.priority.toFixed(1)}</priority>\n` +
           `  </url>`,

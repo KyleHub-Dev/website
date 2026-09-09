@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NetworkMark from './NetworkMark.astro';
+import ProjectCategories from './ProjectCategories.astro';
+import { homeContent, nav, projectCategories } from '../data/site';
+
+interface Props {
+  lang: 'de' | 'en';
+}
+
+const { lang } = Astro.props;
+const content = homeContent[lang];
+---
+
+<Layout
+  title={content.title}
+  description={content.description}
+  lang={lang}
+  path={lang === 'de' ? '/' : '/en/'}
+  alternatePath={lang === 'de' ? '/en/' : '/'}
+  nav={nav[lang]}
+>
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="intro__copy">
+      <h1 id="intro-title" class="intro__statement">{content.body[0]}</h1>
+      <p class="intro__body">{content.body[1]}</p>
+    </div>
+    <NetworkMark lang={lang} />
+  </section>
+
+  <section id="projects" class="project-section" aria-labelledby="projects-title">
+    <header class="project-section__header">
+      <h2 id="projects-title" class="project-section__title">{content.projectsTitle}</h2>
+    </header>
+    <ProjectCategories lang={lang} categories={projectCategories} />
+  </section>
+</Layout>

@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Footer from '../components/Footer.astro';
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import Wordmark from '../components/Wordmark.astro';
+import { siteConfig } from '../data/site';
 
 interface NavLink {
   href: string;
@@ -27,7 +28,10 @@ const {
   nav = [],
 } = Astro.props;
 
-const siteUrl = 'https://kylehub.dev';
+const t = lang === 'de'
+  ? { skip: 'Zum Inhalt', home: 'KyleHub Startseite', nav: 'Hauptnavigation' }
+  : { skip: 'Skip to content', home: 'KyleHub home', nav: 'Primary navigation' };
+const siteUrl = siteConfig.url;
 const canonical = new URL(path, siteUrl).toString();
 const alternate = alternatePath ? new URL(alternatePath, siteUrl).toString() : null;
 const homeHref = lang === 'de' ? '/' : '/en/';
@@ -46,7 +50,7 @@ const homeHref = lang === 'de' ? '/' : '/en/';
     <link rel="canonical" href={canonical} />
     {alternate && <link rel="alternate" href={alternate} hreflang={lang === 'de' ? 'en' : 'de'} />}
     <link rel="alternate" href={canonical} hreflang={lang} />
-    <link rel="alternate" href={canonical} hreflang="x-default" />
+    <link rel="alternate" href={lang === 'de' ? canonical : alternate ?? canonical} hreflang="x-default" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="KyleHub" />
     <meta property="og:title" content={title} />
@@ -55,15 +59,17 @@ const homeHref = lang === 'de' ? '/' : '/en/';
     <title>{title}</title>
   </head>
   <body>
+    <a class="skip-link" href="#main">{t.skip}</a>
     <div class="page-shell">
       <header class="site-header">
         <div class="site-header__inner">
-          <Wordmark href={homeHref} ariaLabel="KyleHub home" />
-          <nav class="site-nav" aria-label={lang === 'de' ? 'Hauptnavigation' : 'Primary navigation'}>
+          <Wordmark href={homeHref} ariaLabel={t.home} />
+          <nav class="site-nav" aria-label={t.nav}>
             {nav.map((item) => (
               <a
                 href={item.href}
                 class:list={{ 'site-nav__link': true, 'site-nav__link--active': item.href === path }}
+                aria-current={item.href === path ? 'page' : undefined}
               >
                 {item.label}
               </a>
@@ -72,7 +78,7 @@ const homeHref = lang === 'de' ? '/' : '/en/';
           <LanguageSwitcher lang={lang} alternatePath={alternatePath} />
         </div>
       </header>
-      <main class="page-main">
+      <main id="main" class="page-main" tabindex="-1">
         <slot />
       </main>
       <Footer lang={lang} />

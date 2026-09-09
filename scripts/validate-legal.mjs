@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 const registrySource = readFileSync(new URL('../src/data/legalRegistry.ts', import.meta.url), 'utf8');
 const legalSource = readFileSync(new URL('../src/data/legal.ts', import.meta.url), 'utf8');
 
-const requiredDomainFamilies = ['kylehub.dev', 'porvi.de'];
+const requiredDomainFamilies = ['kylehub.dev'];
 const requiredRoutes = ['/impressum', '/datenschutz', '/agb'];
 const requiredPrivacyCategories = [
   'Allgemeine Websites und Landing Pages',

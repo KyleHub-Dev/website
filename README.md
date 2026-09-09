@@ -1,8 +1,8 @@
 # KyleHub website
 
-Source for [kylehub.dev](https://kylehub.dev), including the project overview and
-German and English legal pages for services under `kylehub.dev` and `porvi.de`.
-The site builds static HTML with Astro.
+Source for [kylehub.dev](https://kylehub.dev), with selected projects and German
+and English legal pages for services under `kylehub.dev`. Astro builds the site
+as static HTML.
 
 ## Development
 
@@ -20,88 +20,14 @@ pnpm run build
 pnpm run preview
 ```
 
-[PRODUCT.md](PRODUCT.md) describes the site's purpose. [DESIGN.md](DESIGN.md)
-explains visual decisions. `/branding.txt` provides public brand guidance for
-other projects.
+## Documentation
 
-The [kea mascot note](docs/kea-mascot.md) records the direction for future mascot
-and name-lockup exploration.
-
-## Project metadata
-
-Edit `src/data/site.ts` to select projects. `src/lib/repo-stats.ts` fetches GitHub
-descriptions, language, activity and counts at build time. Descriptions are not
-translated locally. Empty descriptions are omitted; failed requests leave the
-repository link available with a metadata-unavailable message.
-
-`GITHUB_TOKEN` is optional. Use a fine-grained token with read-only public
-repository access and no extra permissions. It can increase the API rate limit;
-limits depend on the account and token. Builds also work without a token.
-
-Keep credentials in local environment files or build secret mounts. They must
-stay out of Git, logs and generated pages. The container build excludes local
-environment files and reads its GitHub token from an ephemeral secret mount.
-
-## Legal maintenance
-
-The central pages are `/impressum`, `/datenschutz` and `/agb`, with English
-versions at `/en/impressum`, `/en/privacy-policy` and `/en/terms`. Each also has a
-`.txt` export. Public services in the domain family should link to the central
-pages, with terms linked where relevant to the service.
-
-`src/data/legal.ts` owns the texts. `src/data/legalRegistry.ts` owns the covered
-domain families. `src/data/site.ts` owns the public operator/contact details.
-Services with a different operator or processing arrangement need appropriate
-separate disclosures.
-
-Before changing claims about hosting, accounts, processors or retention, check
-the relevant service's actual deployment and operating records. A repository move
-does not establish that a service's hosting or processing changed. Preserve
-necessary qualifications in both languages.
-
-After changing legal content, routes, the registry or validator, run:
-
-```sh
-pnpm run legal:validate
-pnpm run build
-```
-
-The validator checks selected source markers and registry declarations. It does
-not prove legal completeness, deployed processing behavior, or route availability.
-Open the affected HTML and text routes in both languages after building.
-
-## Container deployment
-
-The Compose stack serves the built site with nginx. NEWT connects it to Pangolin;
-nginx publishes no host port. The containers share an internal network, and only
-NEWT has an additional network for outbound tunnel access.
-
-```sh
-cp .env.example .env
-```
-
-Fill in the Pangolin endpoint and NEWT credentials. Add the optional GitHub token
-if needed. Use a Compose/build implementation that supports environment-backed
-build secrets.
-
-Build from the source revision you intend to deploy. These optional arguments
-identify that revision in the footer:
-
-```sh
-SOURCE_REVISION="$(git rev-parse --short HEAD)" \
-SOURCE_DATE="$(git log -1 --format=%cs)" \
-  podman-compose up -d --build
-```
-
-The stamp identifies the commit, so commit the intended source before a stamped
-deployment. Without source metadata, the footer omits the stamp.
-
-In Pangolin, route the resource to host `website`, port `80`. Verify public access
-through that resource and inspect startup logs:
-
-```sh
-podman-compose logs -f website newt
-```
+- [Site direction](docs/site.md) covers purpose, project presentation and design.
+- [Maintenance](docs/maintenance.md) covers project selection and legal updates.
+- [Deployment](docs/deployment.md) covers the nginx and Pangolin container stack.
+- [Kea mascot direction](docs/kea-mascot.md) records ideas for future identity work.
+- [Public brand guidance](https://kylehub.dev/branding.txt) provides defaults for
+  other projects. Its source is `src/pages/branding.txt.ts`.
 
 ## Reuse
 

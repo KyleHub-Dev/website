@@ -1,8 +1,6 @@
 export const siteConfig = {
   name: 'KyleHub',
   url: 'https://kylehub.dev',
-  domainFamilies: ['kylehub.dev', 'porvi.de'],
-  porviUrl: 'https://porvi.de',
   codeHosts: {
     githubOrg: 'https://github.com/KyleHub-Dev',
     githubPersonal: 'https://github.com/KyleDerZweite',
@@ -39,74 +37,155 @@ export const nav = {
 export const homeContent = {
   de: {
     title: 'KyleHub',
-    description:
-      'KyleHub bündelt öffentliche Dienste, Rechtstexte und Open-Source-Projekte von Leander Grau.',
+    description: 'Projekte von Kyle: Self-Hosting, Dokumentwerkzeuge und Experimente. Dazu die zentralen KyleHub-Rechtstexte.',
     body: [
-      'KyleHub ist die Domain, unter der ich kleine Projekte, Experimente und Dienste sammle.',
-      'Wenn du eine kreative Idee hast, die nicht nach 0815-Standardprojekt klingt, kannst du sie mir gerne schicken. Ich baue sowas in meiner Freizeit, wenn es mich reizt.',
+      'Ich bin Kyle. Hier sammle ich die Software, die ich in meiner Freizeit baue.',
+      'Von selbst gehosteten Anwendungen bis zu kleinen Werkzeugen: Die Projekte unten führen direkt zum Code auf GitHub.'
     ],
+    projectsTitle: 'Ausgewählte Projekte'
   },
   en: {
     title: 'KyleHub',
-    description:
-      'KyleHub collects public services, legal pages, and open-source projects by Leander Grau.',
+    description: 'Projects by Kyle: self-hosted software, document tools, and experiments. Plus the central KyleHub legal pages.',
     body: [
-      'KyleHub is the domain where I collect small projects, experiments, and services.',
-      'If you have a creative idea that does not feel like a generic standard project, feel free to send it my way. I build things like that in my free time when the idea catches my interest.',
+      "I'm Kyle. This is the software I build in my spare time.",
+      'From self-hosted apps to small tools, the projects below take you straight to the code on GitHub.'
     ],
-  },
+    projectsTitle: 'Selected projects'
+  }
 };
+
+type LocalizedText = { de: string; en: string };
 
 export interface ProjectEntry {
   name: string;
   owner: string;
   repo: string;
-  badge?: { de: string; en: string };
+  description: LocalizedText;
 }
 
 export interface ProjectCategory {
   slug: string;
-  title: { de: string; en: string };
+  title: LocalizedText;
   projects: ProjectEntry[];
 }
-
-const personalRepo = (repo: string): ProjectEntry => ({
-  name: repo,
-  owner: 'KyleDerZweite',
-  repo,
-});
 
 export const projectCategories: ProjectCategory[] = [
   {
     slug: 'self-hosted',
-    title: { de: 'Self-Hosted und Tooling', en: 'Self-Hosted and Tooling' },
     projects: [
-      personalRepo('spellbook'),
-      personalRepo('hatchery'),
-      personalRepo('nashordaq'),
+      {
+        name: 'Nabe',
+        owner: 'KyleHub-Dev',
+        repo: 'nabe',
+        description: {
+          de: 'DNS-Verwaltung für den Haushalt auf einem Raspberry Pi. Noch in Entwicklung.',
+          en: 'Household DNS management for Raspberry Pi appliances. Under development.'
+        }
+      },
+      {
+        name: 'spellbook',
+        owner: 'KyleDerZweite',
+        repo: 'spellbook',
+        description: {
+          de: 'Sammelkarten verwalten, mit mobiler Erfassung und Texterkennung.',
+          en: 'Manage a trading card collection with mobile scanning and text recognition.'
+        }
+      },
+      {
+        name: 'hatchery',
+        owner: 'KyleDerZweite',
+        repo: 'hatchery',
+        description: {
+          de: 'Modpacks in Server-Vorlagen für Pterodactyl und Pelican umwandeln.',
+          en: 'Turn modpacks into server templates for Pterodactyl and Pelican.'
+        }
+      }
     ],
+    title: {
+      de: 'Self-Hosting',
+      en: 'Self-hosting'
+    }
   },
   {
-    slug: 'file-surgery',
-    title: { de: 'File Surgery', en: 'File Surgery' },
+    slug: 'document-tools',
     projects: [
-      personalRepo('ppinject'),
-      personalRepo('xlinject'),
+      {
+        name: 'ppinject',
+        owner: 'KyleDerZweite',
+        repo: 'ppinject',
+        description: {
+          de: 'Gezielte XML-Änderungen in PowerPoint-Dateien.',
+          en: 'Make targeted XML edits in PowerPoint files.'
+        }
+      },
+      {
+        name: 'xlinject',
+        owner: 'KyleDerZweite',
+        repo: 'xlinject',
+        description: {
+          de: 'Excel-Zellen ändern und dabei Formeln, Formatierung und Metadaten erhalten.',
+          en: 'Edit Excel cells while preserving formulas, formatting, and metadata.'
+        }
+      }
     ],
+    title: {
+      de: 'Dokumentwerkzeuge',
+      en: 'Document tools'
+    }
   },
   {
     slug: 'security',
-    title: { de: 'Security, Privacy und Networking', en: 'Security, Privacy, and Networking' },
     projects: [
-      personalRepo('basalt'),
-      personalRepo('p2p-cli'),
+      {
+        name: 'basalt',
+        owner: 'KyleDerZweite',
+        repo: 'basalt',
+        description: {
+          de: 'Öffentliche Spuren von Nutzernamen, E-Mail-Adressen und Domains untersuchen und verknüpfen.',
+          en: 'Explore and connect public traces of usernames, email addresses, and domains.'
+        }
+      },
+      {
+        name: 'p2p-cli',
+        owner: 'KyleDerZweite',
+        repo: 'p2p-cli',
+        description: {
+          de: 'Peer-to-Peer-Nachrichten im Terminal mit verschlüsselter Kommunikation.',
+          en: 'Peer-to-peer messaging in the terminal with encrypted communication.'
+        }
+      }
     ],
+    title: {
+      de: 'Sicherheit und Netzwerke',
+      en: 'Security and networking'
+    }
   },
   {
-    slug: 'learning',
-    title: { de: 'Lernen und Misc', en: 'Learning and Misc' },
+    slug: 'experiments',
     projects: [
-      personalRepo('advent-of-code'),
+      {
+        name: 'nashordaq',
+        owner: 'KyleDerZweite',
+        repo: 'nashordaq',
+        description: {
+          de: 'Eine fiktive Börse für die eigene League-of-Legends-Freundesgruppe.',
+          en: 'A fantasy stock market for your League of Legends friend group.'
+        }
+      },
+      {
+        name: 'advent-of-code',
+        owner: 'KyleDerZweite',
+        repo: 'advent-of-code',
+        description: {
+          de: 'Meine Lösungen zu Advent of Code, zum Lernen und Ausprobieren.',
+          en: 'My Advent of Code solutions, for learning and trying things out.'
+        }
+      }
     ],
-  },
+    title: {
+      de: 'Experimente',
+      en: 'Experiments'
+    }
+  }
 ];

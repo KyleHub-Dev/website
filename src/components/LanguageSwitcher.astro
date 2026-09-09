@@ -5,11 +5,18 @@ interface Props {
 }
 
 const { lang = 'de', alternatePath } = Astro.props;
-const fallback = lang === 'de' ? '/en/' : '/';
-const target = alternatePath ?? fallback;
+const targetLanguage = lang === 'de' ? 'en' : 'de';
 ---
 
-<a href={target} class="lang-switch" hreflang={lang === 'de' ? 'en' : 'de'}>
-  <span class:list={{ 'lang-switch__tag': true, 'lang-switch__tag--active': lang === 'de' }}>DE</span>
-  <span class:list={{ 'lang-switch__tag': true, 'lang-switch__tag--active': lang === 'en' }}>EN</span>
-</a>
+{alternatePath && (
+  <a
+    href={alternatePath}
+    class="lang-switch"
+    hreflang={targetLanguage}
+    lang={targetLanguage}
+    aria-label={lang === 'de' ? 'Read this page in English' : 'Diese Seite auf Deutsch lesen'}
+  >
+    <span class:list={{ 'lang-switch__tag': true, 'lang-switch__tag--active': lang === 'de' }}>DE</span>
+    <span class:list={{ 'lang-switch__tag': true, 'lang-switch__tag--active': lang === 'en' }}>EN</span>
+  </a>
+)}

@@ -35,7 +35,7 @@ than a generic parrot. Check compact marks at favicon size and in one color.
 ## Possible website adoption
 
 Start by trying the mascot beside the existing wordmark or introduction. Follow
-the current [design direction](../DESIGN.md) for typography, spacing and restrained
+the current [site direction](site.md) for typography, spacing and restrained
 color. Keep project navigation and legal pages easy to read.
 
 The first exploration should compare a small supporting mascot with a more

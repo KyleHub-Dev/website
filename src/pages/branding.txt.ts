@@ -5,7 +5,7 @@ export const prerender = true;
 const body = `KyleHub brand guidance
 ======================
 
-For people and AI assistants working on projects under kylehub.dev and porvi.de.
+For people and AI assistants working on projects under kylehub.dev.
 Use these defaults when the project has no more specific product or design brief.
 Section numbers remain stable so projects can reference decisions.
 
@@ -127,8 +127,9 @@ Themes:
 
 Project lists:
   Use a direct repository link, readable description and relevant metadata.
-  Fetch external metadata at build time for static sites. Preserve navigation
-  when metadata is unavailable.
+  Keep descriptions in the page language. For a small curated directory,
+  maintain them with the project list. If external metadata is needed, fetch it
+  at build time and preserve navigation when it is unavailable.
 
 Footer:
   Include working contact and legal links. Show a source revision or update date

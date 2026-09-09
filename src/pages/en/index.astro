@@ -1,32 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import NetworkMark from '../../components/NetworkMark.astro';
-import ProjectCategories from '../../components/ProjectCategories.astro';
-import { homeContent, nav, projectCategories } from '../../data/site';
-
-const content = homeContent.en;
+import HomePage from '../../components/HomePage.astro';
 ---
 
-<Layout
-  title={content.title}
-  description={content.description}
-  lang="en"
-  path="/en/"
-  alternatePath="/"
-  nav={nav.en}
->
-  <section class="intro" aria-labelledby="intro-title">
-    <div class="intro__copy">
-      <h1 id="intro-title" class="intro__statement">{content.body[0]}</h1>
-      <p class="intro__body">{content.body[1]}</p>
-    </div>
-    <NetworkMark lang="en" />
-  </section>
-
-  <section id="projects" class="project-section" aria-labelledby="projects-title">
-    <header class="project-section__header">
-      <h2 id="projects-title" class="project-section__title">Projects</h2>
-    </header>
-    <ProjectCategories lang="en" categories={projectCategories} />
-  </section>
-</Layout>
+<HomePage lang="en" />

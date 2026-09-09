@@ -14,13 +14,7 @@ COPY . .
 ARG SOURCE_REVISION
 ARG SOURCE_DATE
 
-# Build tokens are consumed once by `pnpm run build` for static project metadata
-# and are never written to any image layer. Build still succeeds without them.
-RUN --mount=type=secret,id=github_token \
-    if [ -s /run/secrets/github_token ]; then \
-        export GITHUB_TOKEN="$(cat /run/secrets/github_token)"; \
-    fi; \
-    pnpm run build
+RUN pnpm run build
 
 FROM docker.io/nginx:1.27-alpine
 

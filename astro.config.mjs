@@ -10,16 +10,7 @@ export default defineConfig({
   integrations: [
     icon({
       include: {
-        lucide: [
-          'arrow-up-right',
-          'circle-dot',
-          'git-fork',
-          'git-pull-request',
-          'globe',
-          'lock',
-          'mail',
-          'star',
-        ],
+        lucide: ['mail'],
         'simple-icons': [
           'discord',
           'github',

@@ -6,8 +6,6 @@ services:
       args:
         SOURCE_REVISION: ${SOURCE_REVISION:-}
         SOURCE_DATE: ${SOURCE_DATE:-}
-      secrets:
-        - github_token
     image: localhost/kylehub-website:latest
     container_name: kylehub-website
     restart: unless-stopped
@@ -43,9 +41,3 @@ networks:
     internal: true
   newt-egress:
     driver: bridge
-
-secrets:
-  # Build-time only: read from host/.env variables and discarded after the
-  # build step. Never present in the final image or runtime.
-  github_token:
-    environment: GITHUB_TOKEN

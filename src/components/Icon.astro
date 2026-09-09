@@ -1,17 +1,7 @@
 ---
 import { Icon as AstroIcon } from 'astro-icon/components';
 
-type IconName =
-  | 'github'
-  | 'globe'
-  | 'discord'
-  | 'mail'
-  | 'arrow-up-right'
-  | 'star'
-  | 'fork'
-  | 'issue'
-  | 'pr'
-  | 'lock';
+type IconName = 'github' | 'discord' | 'mail';
 
 interface Props {
   name: IconName;
@@ -23,14 +13,7 @@ interface Props {
 const iconMap: Record<IconName, string> = {
   github: 'simple-icons:github',
   discord: 'simple-icons:discord',
-  globe: 'lucide:globe',
   mail: 'lucide:mail',
-  'arrow-up-right': 'lucide:arrow-up-right',
-  star: 'lucide:star',
-  fork: 'lucide:git-fork',
-  issue: 'lucide:circle-dot',
-  pr: 'lucide:git-pull-request',
-  lock: 'lucide:lock',
 };
 
 const { name, size = 14, class: className = '', ariaLabel } = Astro.props;

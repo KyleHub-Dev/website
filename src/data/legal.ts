@@ -21,8 +21,8 @@ export type Doc = {
   sections: Section[];
 };
 
-const deDate = 'Stand: 6. Mai 2026';
-const enDate = 'Last updated: May 6, 2026';
+const deDate = 'Stand: 9. September 2026';
+const enDate = 'Last updated: September 9, 2026';
 const imprintAddress = `${siteConfig.operator.name}, ${siteConfig.operator.street}, ${siteConfig.operator.city}`;
 const hetznerAddress = 'Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen';
 const authorityDe = 'Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen (LDI NRW)';
@@ -157,7 +157,7 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: 'Allgemeine Websites und Landing Pages stellen Informationen über KyleHub, Porvi, Projekte, Dokumentation oder Kontaktmöglichkeiten bereit.',
+            text: 'Allgemeine Websites und Landing Pages stellen Informationen über KyleHub, Projekte, Dokumentation oder Kontaktmöglichkeiten bereit.',
           },
           {
             type: 'p',
@@ -304,7 +304,7 @@ export const legalDocs: Record<string, Doc> = {
         blocks: [
           {
             type: 'p',
-            text: 'General websites and landing pages provide information about KyleHub, Porvi, projects, documentation, or contact options.',
+            text: 'General websites and landing pages provide information about KyleHub, projects, documentation, or contact options.',
           },
           {
             type: 'p',

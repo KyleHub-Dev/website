@@ -1,0 +1,25 @@
+services:
+  website:
+    image: ${WEBSITE_IMAGE:?Set WEBSITE_IMAGE to the loaded commit image}
+    pull_policy: never
+    restart: unless-stopped
+    networks:
+      gateway:
+        aliases:
+          - kylehub-website-origin
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"
+
+networks:
+  gateway:
+    external: true
+    name: pangolin
